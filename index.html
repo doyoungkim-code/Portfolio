@@ -16,17 +16,13 @@
   <link rel="stylesheet" href="./images/font.css">
 
   <style>
-    <s_if_var_cover-image>#dyoDesktop {
-      background-image: url('[##_var_cover-image_##]');
-      background-size: cover;
-      background-position: center;
-    }
-    </s_if_var_cover-image>
-
     /* 인덱스 페이지: 데스크탑 모드 */
     #tt-body-index #dkWrap { display: none; }
     #tt-body-index #dyoDesktop { display: flex; }
-    #tt-body-index #dyoTaskbar { display: flex; }
+
+    #dyoDesktop {
+      background: #000000;
+    }
   </style>
 
   <!--[if lt IE 9]>
@@ -309,698 +305,896 @@
     <!-- ===== 데스크탑 홈화면 (인덱스 페이지 전용) ===== -->
     <div class="desktop" id="dyoDesktop">
 
-      <!-- 왼쪽: 아이콘 도크 -->
-      <div class="desktop-dock">
-
-        <!-- About Me -->
-        <div class="desktop-icon" data-panel="panelAbout" title="About Me">
-          <div class="desktop-icon__img">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="8" r="4" stroke="white" stroke-width="1.8"/>
-              <path d="M4 20c0-3.3 3.6-6 8-6s8 2.7 8 6" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
+      <!-- 달 (지구 공전 → 클릭 시 왼쪽 상단으로 이동) -->
+      <div class="moon-orbit" id="moonOrbit">
+        <a href="https://dyomyo.tistory.com/" target="_blank" class="moon-btn" id="moonBtn">
+          <div class="moon-btn__icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/600px-FullMoon2010.jpg" alt="달" class="moon-btn__img">
           </div>
-          <span class="desktop-icon__label">About Me</span>
-        </div>
-
-        <!-- 하단 블로그 링크 -->
-        <a href="https://dyomyo.tistory.com/" target="_blank" rel="noopener" class="desktop-icon dock-bottom-link" title="Dev Blog Desktop">
-          <div class="desktop-icon__img" style="background: linear-gradient(135deg, #ff6b35, #e84118);">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="3.5" y="6" width="17" height="3.2" rx="1.6" fill="currentColor"/>
-              <rect x="10.4" y="8.8" width="3.2" height="10.2" rx="1.6" fill="currentColor"/>
-            </svg>
-          </div>
-          <span class="desktop-icon__label">dev blog desktop</span>
+          <span class="moon-btn__label">Dev Blog</span>
         </a>
-
       </div>
 
-      <!-- 오른쪽: 콘텐츠 패널 영역 -->
-      <div class="desktop-stage" id="desktopStage">
+      <div class="mindmap" id="mindmap">
 
-        <!-- 기본 상태: 아무것도 안 열렸을 때 -->
-        <div class="stage-empty" id="stageEmpty">
-          <img src="[##_image_##]" alt="프로필" class="stage-empty__photo">
-          <h2 class="stage-empty__name">[##_title_##]</h2>
-          <p class="stage-empty__desc">[##_blogger_##]</p>
+        <!-- 중앙 프로필 -->
+        <button class="mindmap__center" id="mindmapToggle">
+          <img src="[##_image_##]" alt="프로필" class="mindmap__photo">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Earth_Western_Hemisphere_transparent_background.png/600px-Earth_Western_Hemisphere_transparent_background.png" alt="지구" class="mindmap__earth">
+        </button>
+
+        <!-- 노드들 -->
+        <div class="mindmap__node" data-node="about">
+          <div class="mindmap__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-3.3 3.6-6 8-6s8 2.7 8 6"/></svg>
+          </div>
+          <span class="mindmap__label">About Me</span>
         </div>
 
-        <!-- About Me 패널 (PPT 포트폴리오) -->
-        <div class="panel" id="panelAbout">
-          <button class="panel__close" data-panel="panelAbout" title="닫기">&times;</button>
+        <div class="mindmap__node mindmap__node--tech" data-node="tech">
+          <div class="mindmap__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <span class="mindmap__label">Tech Stack</span>
 
-          <!-- PPT 슬라이드 컨테이너 -->
-          <div class="ppt" id="pptAbout">
-
-            <!-- 프로그레스 바 -->
-            <div class="ppt__progress">
-              <div class="ppt__progress-bar" id="pptProgressBar" style="width: 10%"></div>
-            </div>
-
-            <!-- 풀스크린 버튼 -->
-            <button class="ppt__fullscreen" id="pptFullscreen" title="전체화면">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-            </button>
-
-            <!-- 목차 사이드바 -->
-            <div class="ppt__toc" id="pptToc">
-              <button class="ppt__toc-toggle" id="pptTocToggle" title="목차">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-              </button>
-              <div class="ppt__toc-list" id="pptTocList">
-                <div class="ppt__toc-header">INDEX</div>
-                <button class="ppt__toc-item active" data-goto="0">
-                  <span class="toc-num">01</span> Cover
-                </button>
-                <button class="ppt__toc-item" data-goto="1">
-                  <span class="toc-num">02</span> About Me
-                </button>
-                <button class="ppt__toc-item" data-goto="2">
-                  <span class="toc-num">03</span> Career
-                </button>
-                <button class="ppt__toc-item" data-goto="3">
-                  <span class="toc-num">04</span> Tech Stack
-                </button>
-                <button class="ppt__toc-item" data-goto="4">
-                  <span class="toc-num">05</span> Project 01
-                </button>
-                <button class="ppt__toc-item" data-goto="5">
-                  <span class="toc-num">06</span> Project 02
-                </button>
-                <button class="ppt__toc-item" data-goto="6">
-                  <span class="toc-num">07</span> Project 03
-                </button>
-                <button class="ppt__toc-item" data-goto="7">
-                  <span class="toc-num">08</span> Education
-                </button>
-                <button class="ppt__toc-item" data-goto="8">
-                  <span class="toc-num">09</span> Certifications
-                </button>
-                <button class="ppt__toc-item" data-goto="9">
-                  <span class="toc-num">10</span> Thank You
-                </button>
+          <!-- 테크스택 서브노드 -->
+          <div class="tech-subnodes" id="techSubnodes">
+            <div class="tech-row" data-tech="backend">
+              <span class="tech-row__label">Backend</span>
+              <div class="tech-row__nodes">
+                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java"></div><span class="tech-subnode__name">Java</span></div>
+                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.simpleicons.org/springboot/6DB33F" alt="Spring Boot"></div><span class="tech-subnode__name">Spring</span></div>
+                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="C/C++"></div><span class="tech-subnode__name">C/C++</span></div>
               </div>
             </div>
-
-            <!-- 슬라이드 1: 표지 -->
-            <div class="ppt__slide ppt__slide--active" data-slide="0">
-              <div class="ppt__slide-inner ppt__slide--cover">
-                <div class="cover__badge">PORTFOLIO</div>
-                <img src="[##_image_##]" alt="프로필" class="cover__photo">
-                <h1 class="cover__name">[##_blogger_##]</h1>
-                <p class="cover__role">Frontend Developer</p>
-                <p class="cover__sub">[##_title_##]</p>
+            <div class="tech-row" data-tech="frontend">
+              <span class="tech-row__label">Frontend</span>
+              <div class="tech-row__nodes">
+                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript"></div><span class="tech-subnode__name">JS</span></div>
+                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS"></div><span class="tech-subnode__name">CSS</span></div>
+                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.simpleicons.org/vuedotjs/4FC08D" alt="Vue.js"></div><span class="tech-subnode__name">Vue.js</span></div>
               </div>
             </div>
-
-            <!-- 슬라이드 2: 자기소개 -->
-            <div class="ppt__slide" data-slide="1">
-              <div class="ppt__slide-inner">
-                <h2 class="slide__title">About Me</h2>
-                <div class="slide__two-col">
-                  <div class="slide__col-left">
-                    <img src="[##_image_##]" alt="프로필" class="about-slide__photo">
-                  </div>
-                  <div class="slide__col-right">
-                    <h3 class="about-slide__name">[##_blogger_##]</h3>
-                    <p class="about-slide__role">Frontend Developer</p>
-                    <ul class="about-slide__info">
-                      <li><span class="info-label">Birth</span> 1998.01.01</li>
-                      <li><span class="info-label">Location</span> Seoul, Korea</li>
-                      <li><span class="info-label">Email</span> example@email.com</li>
-                      <li><span class="info-label">GitHub</span> github.com/username</li>
-                    </ul>
-                    <p class="about-slide__desc">
-                      사용자 경험을 최우선으로 생각하는 프론트엔드 개발자입니다.
-                      클린 코드와 효율적인 아키텍처를 추구하며,
-                      새로운 기술을 배우는 것을 즐깁니다.
-                    </p>
-                  </div>
-                </div>
+            <div class="tech-row" data-tech="database">
+              <span class="tech-row__label">Database</span>
+              <div class="tech-row__nodes">
+                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL"></div><span class="tech-subnode__name">MySQL</span></div>
+                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL"></div><span class="tech-subnode__name">PgSQL</span></div>
+                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis"></div><span class="tech-subnode__name">Redis</span></div>
+                <div class="tech-subnode"><div class="tech-subnode__icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none"><ellipse cx="12" cy="5.5" rx="9" ry="3.5" fill="#60a5fa"/><path d="M21 5.5c0 1.93-4.03 3.5-9 3.5S3 7.43 3 5.5v13c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5z" fill="#3b82f6" opacity="0.85"/><path d="M3 8.8c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5" stroke="#fff" stroke-width="0.8" opacity="0.45"/><path d="M3 12.5c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5" stroke="#fff" stroke-width="0.8" opacity="0.35"/></svg></div><span class="tech-subnode__name">JPA</span></div>
               </div>
             </div>
-
-            <!-- 슬라이드 3: 경력 요약 -->
-            <div class="ppt__slide" data-slide="2">
-              <div class="ppt__slide-inner">
-                <h2 class="slide__title">Career Summary</h2>
-                <div class="timeline">
-                  <div class="timeline__item">
-                    <div class="timeline__dot"></div>
-                    <div class="timeline__content">
-                      <span class="timeline__date">2024.01 - Present</span>
-                      <strong class="timeline__company">ABC Tech Company</strong>
-                      <span class="timeline__role">Frontend Developer</span>
-                      <p class="timeline__desc">React 기반 웹 애플리케이션 개발 및 유지보수</p>
-                    </div>
-                  </div>
-                  <div class="timeline__item">
-                    <div class="timeline__dot"></div>
-                    <div class="timeline__content">
-                      <span class="timeline__date">2023.01 - 2023.12</span>
-                      <strong class="timeline__company">XYZ Solutions</strong>
-                      <span class="timeline__role">Junior Developer</span>
-                      <p class="timeline__desc">Vue.js 기반 관리자 대시보드 개발</p>
-                    </div>
-                  </div>
-                  <div class="timeline__item">
-                    <div class="timeline__dot"></div>
-                    <div class="timeline__content">
-                      <span class="timeline__date">2022.07 - 2022.12</span>
-                      <strong class="timeline__company">SSAFY (삼성 청년 SW 아카데미)</strong>
-                      <span class="timeline__role">교육생</span>
-                      <p class="timeline__desc">Web 풀스택 과정 수료</p>
-                    </div>
-                  </div>
-                </div>
+            <div class="tech-row" data-tech="devops">
+              <span class="tech-row__label">DevOps</span>
+              <div class="tech-row__nodes">
+                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.simpleicons.org/git/F05032" alt="Git"></div><span class="tech-subnode__name">Git</span></div>
+                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker"></div><span class="tech-subnode__name">Docker</span></div>
               </div>
             </div>
+          </div>
+        </div>
 
-            <!-- 슬라이드 4: 기술 스택 -->
-            <div class="ppt__slide" data-slide="3">
-              <div class="ppt__slide-inner">
-                <h2 class="slide__title">Tech Stack</h2>
-                <div class="skills-grid">
-                  <div class="skill-group">
-                    <h3 class="skill-group__title">Frontend</h3>
-                    <div class="skill-group__items">
-                      <div class="skill-chip">HTML5</div>
-                      <div class="skill-chip">CSS3</div>
-                      <div class="skill-chip">JavaScript</div>
-                      <div class="skill-chip">TypeScript</div>
-                      <div class="skill-chip">React</div>
-                      <div class="skill-chip">Vue.js</div>
-                    </div>
-                  </div>
-                  <div class="skill-group">
-                    <h3 class="skill-group__title">Backend</h3>
-                    <div class="skill-group__items">
-                      <div class="skill-chip">Java</div>
-                      <div class="skill-chip">Spring Boot</div>
-                      <div class="skill-chip">Node.js</div>
-                      <div class="skill-chip">Python</div>
-                    </div>
-                  </div>
-                  <div class="skill-group">
-                    <h3 class="skill-group__title">Database</h3>
-                    <div class="skill-group__items">
-                      <div class="skill-chip">MySQL</div>
-                      <div class="skill-chip">MongoDB</div>
-                      <div class="skill-chip">Redis</div>
-                    </div>
-                  </div>
-                  <div class="skill-group">
-                    <h3 class="skill-group__title">DevOps & Tools</h3>
-                    <div class="skill-group__items">
-                      <div class="skill-chip">Git</div>
-                      <div class="skill-chip">Docker</div>
-                      <div class="skill-chip">AWS</div>
-                      <div class="skill-chip">Figma</div>
-                    </div>
-                  </div>
-                </div>
+        <div class="mindmap__node mindmap__node--project" data-node="project">
+          <div class="mindmap__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <span class="mindmap__label">Project</span>
+
+          <!-- 프로젝트 서브노드 -->
+          <div class="project-subnodes" id="projectSubnodes">
+            <div class="project-subnode" data-project="ssabree">
+              <div class="project-subnode__icon">
+                <img src="https://blog.kakaocdn.net/dna/c7lTYH/dJMcabpVp8O/AAAAAAAAAAAAAAAAAAAAAL11fJg342O-OPQoqdfkrOp0XnAflkFi1UGYtXt4rg95/img.gif?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1774969199&allow_ip=&allow_referer=&signature=lStSYC%2BGfjO3%2BiGy7G2DBQqqI5c%3D" alt="SSABREE TIME">
               </div>
+              <span class="click-badge">click</span>
+              <span class="project-subnode__label">SSABREE TIME</span>
             </div>
-
-            <!-- 슬라이드 5: 프로젝트 1 -->
-            <div class="ppt__slide" data-slide="4">
-              <div class="ppt__slide-inner">
-                <h2 class="slide__title">Project 01</h2>
-                <div class="project-slide">
-                  <div class="project-slide__preview">
-                    <div class="project-slide__mockup">
-                      <span class="mockup-placeholder">Project Screenshot</span>
-                    </div>
-                  </div>
-                  <div class="project-slide__info">
-                    <h3 class="project-slide__name">E-Commerce Platform</h3>
-                    <p class="project-slide__period">2024.03 - 2024.06 (4명)</p>
-                    <p class="project-slide__desc">
-                      React + Spring Boot 기반 풀스택 이커머스 플랫폼.
-                      실시간 재고 관리, 결제 시스템 연동, 반응형 UI 구현.
-                    </p>
-                    <div class="project-slide__stack">
-                      <span>React</span><span>TypeScript</span><span>Spring Boot</span><span>MySQL</span><span>Redis</span>
-                    </div>
-                    <div class="project-slide__role">
-                      <strong>담당 역할</strong>
-                      <ul>
-                        <li>프론트엔드 전체 아키텍처 설계</li>
-                        <li>상품 검색/필터링 기능 구현</li>
-                        <li>장바구니 및 결제 플로우 개발</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+            <div class="project-subnode" data-project="naeda">
+              <div class="project-subnode__icon">
+                <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FkTp7L%2FdJMcabKerSQ%2FAAAAAAAAAAAAAAAAAAAAALcX4Ak6UqS9UCFXGbE5Wwz8Hj3VjXUp6YeIw8Cmyc8K%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3D0JUs3Tu4b4kNLh5kN6hxxVI%252FGaA%253D" alt="NAEDA">
               </div>
+              <span class="project-subnode__label">NAEDA<br><small>(준비중)</small></span>
             </div>
-
-            <!-- 슬라이드 6: 프로젝트 2 -->
-            <div class="ppt__slide" data-slide="5">
-              <div class="ppt__slide-inner">
-                <h2 class="slide__title">Project 02</h2>
-                <div class="project-slide">
-                  <div class="project-slide__preview">
-                    <div class="project-slide__mockup">
-                      <span class="mockup-placeholder">Project Screenshot</span>
-                    </div>
-                  </div>
-                  <div class="project-slide__info">
-                    <h3 class="project-slide__name">Real-time Chat Application</h3>
-                    <p class="project-slide__period">2023.09 - 2023.11 (3명)</p>
-                    <p class="project-slide__desc">
-                      WebSocket 기반 실시간 채팅 애플리케이션.
-                      1:1 채팅, 그룹 채팅, 파일 전송, 읽음 확인 기능 구현.
-                    </p>
-                    <div class="project-slide__stack">
-                      <span>Vue.js</span><span>Node.js</span><span>Socket.io</span><span>MongoDB</span>
-                    </div>
-                    <div class="project-slide__role">
-                      <strong>담당 역할</strong>
-                      <ul>
-                        <li>채팅 UI/UX 설계 및 구현</li>
-                        <li>WebSocket 통신 모듈 개발</li>
-                        <li>메시지 암호화 적용</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+            <div class="project-subnode" data-project="empty">
+              <div class="project-subnode__icon project-subnode__icon--empty">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M12 5v14m-7-7h14"/></svg>
               </div>
+              <span class="project-subnode__label">Coming Soon</span>
             </div>
+          </div>
+        </div>
 
-            <!-- 슬라이드 7: 프로젝트 3 -->
-            <div class="ppt__slide" data-slide="6">
-              <div class="ppt__slide-inner">
-                <h2 class="slide__title">Project 03</h2>
-                <div class="project-slide">
-                  <div class="project-slide__preview">
-                    <div class="project-slide__mockup">
-                      <span class="mockup-placeholder">Project Screenshot</span>
-                    </div>
-                  </div>
-                  <div class="project-slide__info">
-                    <h3 class="project-slide__name">AI Travel Planner</h3>
-                    <p class="project-slide__period">2024.07 - 2024.09 (5명)</p>
-                    <p class="project-slide__desc">
-                      AI 기반 여행 일정 추천 서비스.
-                      사용자 취향 분석, 최적 경로 제안, 예산 관리 기능.
-                    </p>
-                    <div class="project-slide__stack">
-                      <span>React</span><span>Python</span><span>FastAPI</span><span>OpenAI API</span><span>PostgreSQL</span>
-                    </div>
-                    <div class="project-slide__role">
-                      <strong>담당 역할</strong>
-                      <ul>
-                        <li>여행 일정 시각화 UI 구현</li>
-                        <li>AI 추천 결과 인터랙션 개발</li>
-                        <li>지도 API 연동 및 경로 표시</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+        <div class="mindmap__node" data-node="education">
+          <div class="mindmap__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <span class="mindmap__label">Education</span>
+        </div>
+
+        <div class="mindmap__node mindmap__node--cert" data-node="cert">
+          <div class="mindmap__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          </div>
+          <span class="mindmap__label">Certifications</span>
+
+          <!-- 자격증 서브노드 -->
+          <div class="cert-subnodes" id="certSubnodes">
+            <div class="sub-node">
+              <div class="sub-node__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" width="26" height="26"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg>
               </div>
+              <span class="sub-node__label">SQLD<br><small>2024.04</small></span>
             </div>
+          </div>
+        </div>
 
-            <!-- 슬라이드 8: 교육 -->
-            <div class="ppt__slide" data-slide="7">
-              <div class="ppt__slide-inner">
-                <h2 class="slide__title">Education</h2>
-                <div class="edu-list">
-                  <div class="edu-item">
-                    <div class="edu-item__icon">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-                    </div>
-                    <div class="edu-item__info">
-                      <strong>OO대학교</strong>
-                      <span>컴퓨터공학과 | 2017.03 - 2023.02</span>
-                      <p>학점: 3.8 / 4.5</p>
-                    </div>
-                  </div>
-                  <div class="edu-item">
-                    <div class="edu-item__icon">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                    </div>
-                    <div class="edu-item__info">
-                      <strong>SSAFY (삼성 청년 SW 아카데미)</strong>
-                      <span>Web 풀스택 과정 | 2022.07 - 2023.06</span>
-                      <p>우수 교육생 수료</p>
-                    </div>
-                  </div>
-                </div>
+        <div class="mindmap__node mindmap__node--contact" data-node="contact">
+          <div class="mindmap__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <span class="mindmap__label">Contact</span>
+
+          <!-- 연락처 서브노드 -->
+          <div class="contact-subnodes" id="contactSubnodes">
+            <div class="sub-node sub-node--link sub-node--contact-item" id="emailNode" data-contact="email">
+              <div class="sub-node__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" width="24" height="24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               </div>
+              <span class="sub-node__label">Email</span>
+              <span class="contact-popup" id="popupEmail">
+                <span class="contact-popup__text">ehehkwat1@naver.com</span>
+                <span class="contact-popup__hint">클릭하여 복사</span>
+              </span>
             </div>
-
-            <!-- 슬라이드 9: 자격증/수상 -->
-            <div class="ppt__slide" data-slide="8">
-              <div class="ppt__slide-inner">
-                <h2 class="slide__title">Certifications & Awards</h2>
-                <div class="cert-grid">
-                  <div class="cert-card">
-                    <div class="cert-card__icon">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-                    </div>
-                    <strong>정보처리기사</strong>
-                    <span>2023.06 취득</span>
-                  </div>
-                  <div class="cert-card">
-                    <div class="cert-card__icon">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-                    </div>
-                    <strong>SQLD</strong>
-                    <span>2023.04 취득</span>
-                  </div>
-                  <div class="cert-card">
-                    <div class="cert-card__icon">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    </div>
-                    <strong>SSAFY 프로젝트 우수상</strong>
-                    <span>2023.05</span>
-                  </div>
-                  <div class="cert-card">
-                    <div class="cert-card__icon">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    </div>
-                    <strong>해커톤 대상</strong>
-                    <span>2024.02</span>
-                  </div>
-                  <div class="cert-card">
-                    <div class="cert-card__icon">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-                    </div>
-                    <strong>TOEIC 900+</strong>
-                    <span>2022.12 취득</span>
-                  </div>
-                  <div class="cert-card">
-                    <div class="cert-card__icon">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-                    </div>
-                    <strong>AWS Cloud Practitioner</strong>
-                    <span>2024.01 취득</span>
-                  </div>
-                </div>
+            <div class="sub-node sub-node--link sub-node--contact-item" id="githubNode" data-contact="github">
+              <div class="sub-node__icon">
+                <svg viewBox="0 0 24 24" fill="#3b82f6" width="24" height="24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
               </div>
+              <span class="sub-node__label">GitHub</span>
+              <span class="contact-popup" id="popupGithub">
+                <span class="contact-popup__text">github.com/doyoungkim-code</span>
+                <span class="contact-popup__hint">클릭하여 이동 ↗</span>
+              </span>
             </div>
-
-            <!-- 슬라이드 10: 감사 / Contact -->
-            <div class="ppt__slide" data-slide="9">
-              <div class="ppt__slide-inner ppt__slide--cover">
-                <div class="cover__badge">THANK YOU</div>
-                <h1 class="cover__name">감사합니다</h1>
-                <p class="cover__role">함께 일하고 싶습니다</p>
-                <div class="thankyou__links">
-                  <a href="[##_guestbook_link_##]" class="thankyou__link">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                    Guestbook
-                  </a>
-                  <a href="/category" class="thankyou__link">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                    Blog
-                  </a>
-                  <a href="[##_rss_url_##]" class="thankyou__link">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
-                    RSS
-                  </a>
-                </div>
+            <div class="sub-node sub-node--link sub-node--contact-item" id="blogNode" data-contact="blog">
+              <div class="sub-node__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" width="24" height="24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
               </div>
+              <span class="sub-node__label">Blog</span>
+              <span class="contact-popup" id="popupBlog">
+                <span class="contact-popup__text">dyomyo.tistory.com</span>
+                <span class="contact-popup__hint">클릭하여 이동 ↗</span>
+              </span>
             </div>
-
-            <!-- PPT 네비게이션 -->
-            <div class="ppt__nav">
-              <button class="ppt__nav-btn ppt__nav-prev" id="pptPrev" title="이전">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-              </button>
-              <div class="ppt__indicator" id="pptIndicator"></div>
-              <button class="ppt__nav-btn ppt__nav-next" id="pptNext" title="다음">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-              </button>
-            </div>
-            <div class="ppt__page" id="pptPage">1 / 10</div>
-
           </div>
         </div>
 
       </div>
-    </div>
 
-    <!-- ===== 태스크바 ===== -->
-    <div class="taskbar" id="dyoTaskbar">
-      <div class="taskbar__left">
-        <span class="taskbar__title">[##_title_##]</span>
-      </div>
-      <div class="taskbar__right">
-        <div class="taskbar__clock" id="taskbarClock">
-          <span id="clockTime">00:00</span>
-          <span id="clockDate">----/--/--</span>
+      <!-- ── 슬라이드 패널: About Me ── -->
+      <div class="bar-panel bar-panel--top" id="panelAbout">
+        <div class="bar-panel__inner">
+          <button class="bar-panel__close">&times;</button>
+          <div class="about-bar">
+            <div class="about-bar__photo">
+              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FyJ8nh%2FdJMcaaExlf6%2FAAAAAAAAAAAAAAAAAAAAADx9Ieu49xl_q3JXZvePhyidrWkEF9vxsC8V4jF6EutV%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DngVdJnZ5b0ZzZsYin%252BxWuydwSNQ%253D" alt="김도영">
+            </div>
+            <div class="about-bar__info">
+              <p class="about-bar__name">김도영</p>
+              <p class="about-bar__role">Backend Developer</p>
+            </div>
+            <div class="about-bar__divider"></div>
+            <p class="about-bar__bio">기술 블로그를 가꾸고 기록하는 것을 즐기며, 새로운 인사이트를 도출해낼 수 있는 창의적인 예비 백엔드 개발자입니다.</p>
+            <div class="about-bar__divider"></div>
+            <div class="about-bar__meta">
+              <span>1999.09.29</span>
+              <span>Daegu, Korea</span>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- ── 슬라이드 패널: Tech Stack ── -->
+      <div class="slide-panel" id="panelTech">
+        <div class="slide-panel__inner">
+          <button class="slide-panel__close">&times;</button>
+          <h3 class="slide-panel__label">Tech Stack</h3>
+
+          <div class="tech-category" data-category="backend">
+            <div class="tech-category__header">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              <h4>Backend</h4>
+            </div>
+            <div class="tech-grid">
+              <div class="tech-item">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" width="32" height="32">
+                <span>Java</span>
+              </div>
+              <div class="tech-item">
+                <img src="https://cdn.simpleicons.org/springboot/6DB33F" alt="Spring Boot" width="32" height="32">
+                <span>Spring Boot</span>
+              </div>
+              <div class="tech-item">
+                <img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="C/C++" width="32" height="32">
+                <span>C/C++</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tech-category" data-category="frontend">
+            <div class="tech-category__header">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+              <h4>Frontend</h4>
+            </div>
+            <div class="tech-grid">
+              <div class="tech-item">
+                <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" width="32" height="32">
+                <span>JavaScript</span>
+              </div>
+              <div class="tech-item">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" width="32" height="32">
+                <span>CSS</span>
+              </div>
+              <div class="tech-item">
+                <img src="https://cdn.simpleicons.org/vuedotjs/4FC08D" alt="Vue.js" width="32" height="32">
+                <span>Vue.js</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tech-category" data-category="database">
+            <div class="tech-category__header">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+              <h4>Database</h4>
+            </div>
+            <div class="tech-grid">
+              <div class="tech-item">
+                <img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL" width="32" height="32">
+                <span>MySQL</span>
+              </div>
+              <div class="tech-item">
+                <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" width="32" height="32">
+                <span>PostgreSQL</span>
+              </div>
+              <div class="tech-item">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis" width="32" height="32">
+                <span>Redis</span>
+              </div>
+              <div class="tech-item">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="none"><ellipse cx="12" cy="5.5" rx="9" ry="3.5" fill="#60a5fa"/><path d="M21 5.5c0 1.93-4.03 3.5-9 3.5S3 7.43 3 5.5v13c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5z" fill="#3b82f6" opacity="0.85"/><path d="M3 8.8c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5" stroke="#fff" stroke-width="0.8" opacity="0.45"/><path d="M3 12.5c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5" stroke="#fff" stroke-width="0.8" opacity="0.35"/></svg>
+                <span>JPA</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tech-category" data-category="devops">
+            <div class="tech-category__header">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              <h4>DevOps &amp; Tools</h4>
+            </div>
+            <div class="tech-grid">
+              <div class="tech-item">
+                <img src="https://cdn.simpleicons.org/git/F05032" alt="Git" width="32" height="32">
+                <span>Git</span>
+              </div>
+              <div class="tech-item">
+                <img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker" width="32" height="32">
+                <span>Docker</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 슬라이드 패널: Project (3/4 화면) ── -->
+      <div class="slide-panel slide-panel--wide" id="panelProject">
+        <div class="slide-panel__inner">
+          <button class="slide-panel__close">&times;</button>
+          <h3 class="slide-panel__label">Project</h3>
+
+            <div class="project-header">
+              <div class="project-header__logo">
+                <img src="https://blog.kakaocdn.net/dna/c7lTYH/dJMcabpVp8O/AAAAAAAAAAAAAAAAAAAAAL11fJg342O-OPQoqdfkrOp0XnAflkFi1UGYtXt4rg95/img.gif?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1774969199&allow_ip=&allow_referer=&signature=lStSYC%2BGfjO3%2BiGy7G2DBQqqI5c%3D" alt="SSABREE TIME 로고">
+              </div>
+              <div class="project-header__text">
+                <h4 class="slide-panel__project-name">SSABREE TIME</h4>
+                <p class="slide-panel__period">2026.01.06 ~ 2026.02.09 (약 6주) · 6명</p>
+                <p class="slide-panel__subtitle">SSAFY 교육생을 위한 익명 커뮤니티, 팀/스터디 매칭, 포트폴리오 관리, 실시간 채팅을 제공하는 크로스 플랫폼 서비스</p>
+              </div>
+              <div class="project-stats">
+                <div class="project-stat">
+                  <span class="project-stat__num">761</span>
+                  <span class="project-stat__label">Commits</span>
+                </div>
+                <div class="project-stat">
+                  <span class="project-stat__num">100+</span>
+                  <span class="project-stat__label">Branches</span>
+                </div>
+                <div class="project-stat">
+                  <span class="project-stat__num">~158</span>
+                  <span class="project-stat__label">My Commits</span>
+                </div>
+              </div>
+            </div>
+
+            <p class="slide-panel__desc">에브리타임을 벤치마킹하여 SSAFY 교육생만을 위한 폐쇄형 커뮤니티 플랫폼을 기획·개발했습니다. 안드로이드 원스토어 및 애플 앱스토어에 실제 출시하여 약 100여명의 유저를 확보하고, 현재도 꾸준한 유지보수와 운영을 이어가고 있습니다.</p>
+
+            <div class="project-section">
+              <h5 class="project-section__title">기술 스택</h5>
+              <div class="project-tech-icons">
+                <div class="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" width="32" height="32">
+                  <span>Java</span>
+                </div>
+                <div class="tech-item">
+                  <img src="https://cdn.simpleicons.org/springboot/6DB33F" alt="Spring Boot" width="32" height="32">
+                  <span>Spring Boot</span>
+                </div>
+                <div class="tech-item">
+                  <svg viewBox="0 0 24 24" width="32" height="32" fill="none"><ellipse cx="12" cy="5.5" rx="9" ry="3.5" fill="#60a5fa"/><path d="M21 5.5c0 1.93-4.03 3.5-9 3.5S3 7.43 3 5.5v13c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5z" fill="#3b82f6" opacity="0.85"/><path d="M3 8.8c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5" stroke="#fff" stroke-width="0.8" opacity="0.45"/><path d="M3 12.5c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5" stroke="#fff" stroke-width="0.8" opacity="0.35"/></svg>
+                  <span>JPA</span>
+                </div>
+                <div class="tech-item">
+                  <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" width="32" height="32">
+                  <span>PostgreSQL</span>
+                </div>
+                <div class="tech-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis" width="32" height="32">
+                  <span>Redis</span>
+                </div>
+                <div class="tech-item">
+                  <img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker" width="32" height="32">
+                  <span>Docker</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-section">
+              <h5 class="project-section__title">핵심 기능</h5>
+              <div class="feature-carousel" id="featureCarousel">
+                <button class="feature-carousel__btn feature-carousel__btn--prev" id="featurePrev">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <div class="feature-carousel__track">
+
+                  <div class="feature-card is-visible" data-index="0">
+                    <div class="feature-card__img-slot" data-label="인증 화면">
+                      <!-- <img src="..." alt="인증 시스템"> -->
+                    </div>
+                    <div class="feature-card__body">
+                      <h6 class="feature-card__name">인증 시스템</h6>
+                      <p class="feature-card__desc">Mattermost 연동 SSAFY 교육생 본인 인증. JWT Access Token(30분) + Refresh Token(1년) 이중 토큰 구조로 안전한 인증/인가 처리.</p>
+                      <div class="feature-card__tags">
+                        <span>Spring Security</span><span>JWT</span><span>Mattermost API</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="feature-card" data-index="1">
+                    <div class="feature-card__img-slot" data-label="게시판 화면">
+                      <!-- <img src="..." alt="익명 게시판"> -->
+                    </div>
+                    <div class="feature-card__body">
+                      <h6 class="feature-card__name">익명 게시판</h6>
+                      <p class="feature-card__desc">커서 기반 무한 스크롤, 좋아요/스크랩, 대댓글, 투표(Poll) 기능. HOT 게시판은 Redis 3분 캐시로 성능 최적화. Gemini AI 연동 콘텐츠 자동 검열.</p>
+                      <div class="feature-card__tags">
+                        <span>Cursor Pagination</span><span>Redis Cache</span><span>Gemini AI</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="feature-card" data-index="2">
+                    <div class="feature-card__img-slot" data-label="팀매칭 화면">
+                      <!-- <img src="..." alt="팀/스터디 매칭"> -->
+                    </div>
+                    <div class="feature-card__body">
+                      <h6 class="feature-card__name">팀/스터디 매칭</h6>
+                      <p class="feature-card__desc">싸피 프로젝트·공모전·알고리즘 등 유형별 그룹 생성. 지원/수락 시스템, TODO/IN_PROGRESS/DONE Task 관리, 캠퍼스별 필터링.</p>
+                      <div class="feature-card__tags">
+                        <span>CRUD</span><span>상태 관리</span><span>필터링</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="feature-card" data-index="3">
+                    <div class="feature-card__img-slot" data-label="채팅 화면">
+                      <!-- <img src="..." alt="실시간 채팅"> -->
+                    </div>
+                    <div class="feature-card__body">
+                      <h6 class="feature-card__name">실시간 채팅</h6>
+                      <p class="feature-card__desc">STOMP over WebSocket 기반 실시간 메시징. 게시글 연동 1:1 채팅방 자동 생성, 읽음 확인, 온라인 프레즌스 추적, STOMP 핸들러 레벨 JWT 인증.</p>
+                      <div class="feature-card__tags">
+                        <span>WebSocket</span><span>STOMP</span><span>Presence</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="feature-card" data-index="4">
+                    <div class="feature-card__img-slot" data-label="알림 화면">
+                      <!-- <img src="..." alt="FCM 푸시 알림"> -->
+                    </div>
+                    <div class="feature-card__body">
+                      <h6 class="feature-card__name">FCM 푸시 알림</h6>
+                      <p class="feature-card__desc">댓글·대댓글·쪽지·팀 지원 등 이벤트별 푸시 발송. 토픽 기반 구독, 유형별 알림 설정, Redis 캐싱, @Async 비동기 전송으로 성능 최적화.</p>
+                      <div class="feature-card__tags">
+                        <span>Firebase FCM</span><span>@Async</span><span>Redis</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="feature-card" data-index="5">
+                    <div class="feature-card__img-slot" data-label="포트폴리오 화면">
+                      <!-- <img src="..." alt="포트폴리오"> -->
+                    </div>
+                    <div class="feature-card__body">
+                      <h6 class="feature-card__name">포트폴리오</h6>
+                      <p class="feature-card__desc">기술 스택 HIGH/MID/LOW 숙련도 분류, solved.ac API 연동 백준 티어 자동 표시, 프로젝트별 쇼케이스 및 공개/비공개 설정.</p>
+                      <div class="feature-card__tags">
+                        <span>solved.ac API</span><span>CRUD</span><span>이미지 관리</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="feature-card" data-index="6">
+                    <div class="feature-card__img-slot" data-label="홈 화면">
+                      <!-- <img src="..." alt="홈 & 캠퍼스"> -->
+                    </div>
+                    <div class="feature-card__body">
+                      <h6 class="feature-card__name">홈 &amp; 캠퍼스</h6>
+                      <p class="feature-card__desc">개인 D-Day 카운트다운, 캠퍼스별 식단 조회, 최신 게시글 미리보기, 모집 중인 팀/스터디 현황을 홈 화면에서 한눈에 확인.</p>
+                      <div class="feature-card__tags">
+                        <span>D-Day</span><span>식단 API</span><span>대시보드</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <button class="feature-carousel__btn feature-carousel__btn--next" id="featureNext">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+                <div class="feature-carousel__dots" id="featureDots"></div>
+              </div>
+            </div>
+
+            <div class="project-section">
+              <h5 class="project-section__title">담당 역할</h5>
+              <div class="role-grid">
+                <div class="role-card">
+                  <div class="role-card__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" width="22" height="22"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                  </div>
+                  <h6>인증/인가</h6>
+                  <p>JWT 이중 토큰 + Mattermost 연동 교육생 인증 시스템 설계 및 구현</p>
+                </div>
+                <div class="role-card">
+                  <div class="role-card__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" width="22" height="22"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                  </div>
+                  <h6>게시판/채팅</h6>
+                  <p>게시판 CRUD, 커서 페이지네이션, WebSocket STOMP 실시간 채팅 서버</p>
+                </div>
+                <div class="role-card">
+                  <div class="role-card__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" width="22" height="22"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                  </div>
+                  <h6>팀/스터디 매칭</h6>
+                  <p>생성 → 모집 → 운영 → 종료 전체 생명주기 API 설계 및 구현</p>
+                </div>
+                <div class="role-card">
+                  <div class="role-card__icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" width="22" height="22"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+                  </div>
+                  <h6>알림/캐시</h6>
+                  <p>FCM 푸시 알림 시스템, Redis 캐시 전략 (HOT 게시판, 목록, FCM 설정)</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-section">
+              <h5 class="project-section__title">트러블슈팅</h5>
+              <div class="trouble-list">
+                <div class="trouble-item">
+                  <div class="trouble-item__header">
+                    <span class="trouble-item__badge">Redis</span>
+                    <strong>Jackson 3 + Redis 직렬화 연쇄 장애</strong>
+                  </div>
+                  <div class="trouble-item__row">
+                    <span class="trouble-item__label">문제</span>
+                    <p>Spring Boot 4.0의 Jackson 3 전환으로 Redis 캐시 직렬화 연쇄 실패</p>
+                  </div>
+                  <div class="trouble-item__row">
+                    <span class="trouble-item__label">해결</span>
+                    <p>GenericJackson3JsonRedisSerializer 적용으로 직렬화 호환성 확보</p>
+                  </div>
+                </div>
+                <div class="trouble-item">
+                  <div class="trouble-item__header">
+                    <span class="trouble-item__badge">JPA</span>
+                    <strong>회원탈퇴 Side Effect (4일간 추적)</strong>
+                  </div>
+                  <div class="trouble-item__row">
+                    <span class="trouble-item__label">문제</span>
+                    <p>Hard Delete 후 리더 null 참조, 게시물 cascade, 팀 소속 검증 연쇄 오류</p>
+                  </div>
+                  <div class="trouble-item__row">
+                    <span class="trouble-item__label">해결</span>
+                    <p>Soft Delete(deletedAt) 전략 도입, 엔티티별 삭제 정책 재설계</p>
+                  </div>
+                </div>
+                <div class="trouble-item">
+                  <div class="trouble-item__header">
+                    <span class="trouble-item__badge">JPA</span>
+                    <strong>LazyInitializationException</strong>
+                  </div>
+                  <div class="trouble-item__row">
+                    <span class="trouble-item__label">문제</span>
+                    <p>팀/스터디 조회 시 세션 밖에서 Lazy 엔티티 접근</p>
+                  </div>
+                  <div class="trouble-item__row">
+                    <span class="trouble-item__label">해결</span>
+                    <p>@Transactional 범위 조정 및 Fetch Join 적용</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-footer">
+              <a href="https://dyomyo.tistory.com/118" target="_blank" class="slide-panel__link">회고 블로그 보기 →</a>
+            </div>
+
+        </div>
+      </div>
+
+      <!-- ── 바 패널: Education (하단에서 올라옴) ── -->
+      <div class="bar-panel bar-panel--bottom" id="panelEducation">
+        <div class="bar-panel__inner">
+          <button class="bar-panel__close">&times;</button>
+          <div class="h-timeline">
+            <div class="h-timeline__item">
+              <span class="h-timeline__date">2018.03 ~ 2024.02</span>
+              <div class="h-timeline__dot"></div>
+              <h4 class="h-timeline__title">영남대학교</h4>
+              <p class="h-timeline__desc">정보통신공학과</p>
+            </div>
+            <div class="h-timeline__connector"></div>
+            <div class="h-timeline__item">
+              <span class="h-timeline__date">2024.02 ~ 2025.06</span>
+              <div class="h-timeline__dot"></div>
+              <h4 class="h-timeline__title">42경산</h4>
+              <p class="h-timeline__desc">1기 본과정</p>
+            </div>
+            <div class="h-timeline__connector"></div>
+            <div class="h-timeline__item h-timeline__item--current">
+              <span class="h-timeline__date">2025.07 ~ 2026.06</span>
+              <div class="h-timeline__dot"></div>
+              <h4 class="h-timeline__title">SSAFY 14기</h4>
+              <p class="h-timeline__desc">전공 Java 과정</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 슬라이드 패널: Certifications ── -->
+
     </div>
 
   </s_t3>
 
   <script>
   (function() {
-    /* ── 시계 ── */
-    function updateClock() {
-      var now = new Date();
-      var h = String(now.getHours()).padStart(2, '0');
-      var m = String(now.getMinutes()).padStart(2, '0');
-      var Y = now.getFullYear();
-      var M = String(now.getMonth() + 1).padStart(2, '0');
-      var D = String(now.getDate()).padStart(2, '0');
-      var timeEl = document.getElementById('clockTime');
-      var dateEl = document.getElementById('clockDate');
-      if (timeEl) timeEl.textContent = h + ':' + m;
-      if (dateEl) dateEl.textContent = Y + '/' + M + '/' + D;
-    }
-    updateClock();
-    setInterval(updateClock, 10000);
+    var toggle = document.getElementById('mindmapToggle');
+    var mindmap = document.getElementById('mindmap');
+    var desktop = document.getElementById('dyoDesktop');
+    if (!toggle || !mindmap) return;
 
-    /* ── 패널 열기/닫기 (애니메이션 포함) ── */
-    function openPanel(panelId) {
-      document.querySelectorAll('.panel').forEach(function(p) {
-        p.classList.remove('open');
-        p.classList.remove('closing');
-      });
-      document.querySelectorAll('.desktop-icon').forEach(function(i) { i.classList.remove('active'); });
-      var panel = document.getElementById(panelId);
-      var empty = document.getElementById('stageEmpty');
-      if (panel) {
-        panel.classList.add('open');
-        if (empty) empty.style.display = 'none';
-        var icon = document.querySelector('.desktop-icon[data-panel="' + panelId + '"]');
-        if (icon) icon.classList.add('active');
-      }
-    }
+    var isOpen = false;
 
-    function closePanel(panelId) {
-      var panel = document.getElementById(panelId);
-      if (!panel) return;
+    var moonOrbit = document.getElementById('moonOrbit');
+    var moonBtn = document.getElementById('moonBtn');
 
-      // 닫힘 애니메이션
-      panel.classList.remove('open');
-      panel.classList.add('closing');
-      panel.addEventListener('animationend', function handler() {
-        panel.classList.remove('closing');
-        panel.removeEventListener('animationend', handler);
-        // 모든 패널 닫혔으면 빈 화면 복원
-        var anyOpen = document.querySelector('.panel.open');
-        var empty = document.getElementById('stageEmpty');
-        if (!anyOpen && empty) empty.style.display = '';
-      });
+    toggle.addEventListener('click', function() {
+      isOpen = !isOpen;
+      mindmap.classList.toggle('mindmap--open', isOpen);
 
-      var icon = document.querySelector('.desktop-icon[data-panel="' + panelId + '"]');
-      if (icon) icon.classList.remove('active');
-    }
-
-    document.querySelectorAll('.desktop-icon[data-panel]').forEach(function(icon) {
-      icon.addEventListener('click', function() {
-        var panelId = icon.getAttribute('data-panel');
-        var panel = document.getElementById(panelId);
-        if (panel && panel.classList.contains('open')) {
-          closePanel(panelId);
+      if (moonOrbit) {
+        if (isOpen) {
+          /* 현재 달 위치 캡처 후 고정 → 코너로 날리기 */
+          var rect = moonBtn.getBoundingClientRect();
+          moonOrbit.classList.add('is-freezing');
+          moonOrbit.style.left = rect.left + rect.width / 2 + 'px';
+          moonOrbit.style.top = rect.top + rect.height / 2 + 'px';
+          /* 다음 프레임에서 코너로 트랜지션 */
+          requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+              moonOrbit.classList.remove('is-freezing');
+              moonOrbit.classList.add('is-landed');
+            });
+          });
         } else {
-          openPanel(panelId);
+          moonOrbit.classList.remove('is-landed');
+          moonOrbit.style.left = '';
+          moonOrbit.style.top = '';
         }
-      });
+      }
+
+      if (!isOpen) closeActive();
     });
 
-    document.querySelectorAll('.panel__close').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        closePanel(btn.getAttribute('data-panel'));
-      });
-    });
+    /* ── 노드 → 패널 매핑 ── */
+    var nodeMap = {
+      about:     'panelAbout',
+      tech:      'panelTech',
+      project:   'panelProject',
+      education: 'panelEducation'
+    };
 
-    /* ── ESC 키로 패널 닫기 ── */
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        var openPanel = document.querySelector('.panel.open');
-        if (openPanel) {
-          // 먼저 열린 TOC 닫기
-          var openToc = openPanel.querySelector('.ppt__toc-list.open');
-          if (openToc) {
-            openToc.classList.remove('open');
-            var toggle = openPanel.querySelector('.ppt__toc-toggle');
-            if (toggle) toggle.classList.remove('active');
+    var activePanel = null;
+
+    // 프로젝트 서브노드
+    var projectSubnodes = document.getElementById('projectSubnodes');
+    var projectSubOpen = false;
+
+    function toggleProjectSubs() {
+      projectSubOpen = !projectSubOpen;
+      if (projectSubnodes) projectSubnodes.classList.toggle('is-open', projectSubOpen);
+    }
+    function closeProjectSubs() {
+      projectSubOpen = false;
+      if (projectSubnodes) projectSubnodes.classList.remove('is-open');
+    }
+
+    // 테크스택 서브노드
+    var techSubnodes = document.getElementById('techSubnodes');
+    var techSubOpen = false;
+
+    function toggleTechSubs() {
+      techSubOpen = !techSubOpen;
+      if (techSubnodes) techSubnodes.classList.toggle('is-open', techSubOpen);
+    }
+    function closeTechSubs() {
+      techSubOpen = false;
+      if (techSubnodes) techSubnodes.classList.remove('is-open');
+    }
+
+    // 자격증 서브노드
+    var certSubnodes = document.getElementById('certSubnodes');
+    var certSubOpen = false;
+    function toggleCertSubs() {
+      certSubOpen = !certSubOpen;
+      if (certSubnodes) certSubnodes.classList.toggle('is-open', certSubOpen);
+    }
+    function closeCertSubs() {
+      certSubOpen = false;
+      if (certSubnodes) certSubnodes.classList.remove('is-open');
+    }
+
+    // 연락처 서브노드
+    var contactSubnodes = document.getElementById('contactSubnodes');
+    var contactSubOpen = false;
+    function toggleContactSubs() {
+      contactSubOpen = !contactSubOpen;
+      if (contactSubnodes) contactSubnodes.classList.toggle('is-open', contactSubOpen);
+    }
+    function closeContactSubs() {
+      contactSubOpen = false;
+      if (contactSubnodes) contactSubnodes.classList.remove('is-open');
+      // 열린 팝업도 닫기
+      var openPopups = document.querySelectorAll('.sub-node--contact-item.is-popup-open');
+      for (var j = 0; j < openPopups.length; j++) openPopups[j].classList.remove('is-popup-open');
+    }
+
+    function closeAllSubs() {
+      closeProjectSubs();
+      closeTechSubs();
+      closeCertSubs();
+      closeContactSubs();
+    }
+
+    function closeActive() {
+      if (activePanel) {
+        activePanel.classList.remove('is-active');
+        if (desktop) desktop.classList.remove('desktop--shifted');
+        activePanel = null;
+      }
+      closeAllSubs();
+    }
+
+    function openPanel(key) {
+      var id = nodeMap[key];
+      if (!id) return;
+      var el = document.getElementById(id);
+      if (!el) return;
+
+      if (activePanel === el) {
+        closeActive();
+        return;
+      }
+
+      closeActive();
+      el.classList.add('is-active');
+      // bar-panel은 마인드맵 시프트 안함
+      if (desktop && !el.classList.contains('bar-panel')) desktop.classList.add('desktop--shifted');
+      activePanel = el;
+    }
+
+    // 프로젝트 서브노드 클릭 → 슬라이드 패널
+    var subNodes = document.querySelectorAll('.project-subnode');
+    for (var i = 0; i < subNodes.length; i++) {
+      (function(sn) {
+        sn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var proj = sn.getAttribute('data-project');
+          if (proj === 'ssabree') {
+            closeProjectSubs();
+            openPanel('project');
+          }
+        });
+      })(subNodes[i]);
+    }
+
+    // 서브노드 내부 클릭 — 이벤트 전파만 차단
+    var stopPropEls = document.querySelectorAll('.tech-row, .sub-node');
+    for (var i = 0; i < stopPropEls.length; i++) {
+      stopPropEls[i].addEventListener('click', function(e) { e.stopPropagation(); });
+    }
+
+    // 연락처 노드 클릭 → 팝업 토글
+    var contactItems = document.querySelectorAll('.sub-node--contact-item');
+    var activeContactNode = null;
+    for (var i = 0; i < contactItems.length; i++) {
+      (function(node) {
+        node.addEventListener('click', function(e) {
+          e.stopPropagation();
+          // 다른 열린 팝업 닫기
+          if (activeContactNode && activeContactNode !== node) {
+            activeContactNode.classList.remove('is-popup-open');
+          }
+          node.classList.toggle('is-popup-open');
+          activeContactNode = node.classList.contains('is-popup-open') ? node : null;
+        });
+      })(contactItems[i]);
+    }
+
+    // 팝업 박스 클릭 → 이메일 복사 / GitHub·Blog 새탭 이동
+    var popups = document.querySelectorAll('.contact-popup');
+    for (var i = 0; i < popups.length; i++) {
+      (function(popup) {
+        popup.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var parentNode = popup.closest('.sub-node--contact-item');
+          var type = parentNode ? parentNode.getAttribute('data-contact') : '';
+          if (type === 'email') {
+            navigator.clipboard.writeText('ehehkwat1@naver.com').then(function() {
+              var toast = document.getElementById('copyToast');
+              if (toast) {
+                toast.classList.add('is-visible');
+                setTimeout(function() { toast.classList.remove('is-visible'); }, 2000);
+              }
+            });
+          } else if (type === 'github') {
+            window.open('https://github.com/doyoungkim-code', '_blank');
+          } else if (type === 'blog') {
+            window.open('https://dyomyo.tistory.com', '_blank');
+          }
+        });
+      })(popups[i]);
+    }
+
+    // 노드 클릭
+    var nodes = mindmap.querySelectorAll('.mindmap__node');
+    for (var i = 0; i < nodes.length; i++) {
+      (function(node) {
+        node.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var key = node.getAttribute('data-node');
+          // 서브노드 토글 노드들
+          var subToggleMap = {
+            project: { toggle: toggleProjectSubs, close: closeProjectSubs },
+            tech:    { toggle: toggleTechSubs,    close: closeTechSubs },
+            cert:    { toggle: toggleCertSubs,    close: closeCertSubs },
+            contact: { toggle: toggleContactSubs, close: closeContactSubs }
+          };
+          if (subToggleMap[key]) {
+            var saved = subToggleMap[key];
+            // 다른 서브노드 모두 닫기
+            for (var k in subToggleMap) {
+              if (k !== key) subToggleMap[k].close();
+            }
+            if (activePanel) { closeActive(); }
+            saved.toggle();
             return;
           }
-          closePanel(openPanel.id);
-        }
-      }
+          closeAllSubs();
+          openPanel(key);
+        });
+      })(nodes[i]);
+    }
+
+    // 닫기 버튼
+    var closeBtns = document.querySelectorAll('.slide-panel__close, .bar-panel__close');
+    for (var i = 0; i < closeBtns.length; i++) {
+      closeBtns[i].addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeActive();
+      });
+    }
+
+    // ESC 키
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeActive();
     });
 
-    /* ── PPT 슬라이드 네비게이션 ── */
-    document.querySelectorAll('.ppt').forEach(function(ppt) {
-      var slides = ppt.querySelectorAll('.ppt__slide');
-      var total = slides.length;
-      var current = 0;
-      var indicator = ppt.querySelector('.ppt__indicator');
-      var pageEl = ppt.querySelector('.ppt__page');
-      var prevBtn = ppt.querySelector('.ppt__nav-prev');
-      var nextBtn = ppt.querySelector('.ppt__nav-next');
-      var progressBar = ppt.querySelector('.ppt__progress-bar');
+    /* ── 핵심 기능 캐러셀 ── */
+    var cards = document.querySelectorAll('#featureCarousel .feature-card');
+    var dotsWrap = document.getElementById('featureDots');
+    var currentIdx = 0;
 
-      function buildIndicator() {
-        if (!indicator) return;
-        indicator.innerHTML = '';
-        for (var i = 0; i < total; i++) {
-          var dot = document.createElement('button');
-          dot.className = 'ppt__dot' + (i === current ? ' active' : '');
-          dot.setAttribute('data-idx', i);
-          dot.addEventListener('click', function() {
-            goTo(parseInt(this.getAttribute('data-idx')));
-          });
-          indicator.appendChild(dot);
-        }
+    // 도트 생성
+    if (dotsWrap && cards.length) {
+      for (var i = 0; i < cards.length; i++) {
+        var dot = document.createElement('button');
+        dot.className = 'feature-carousel__dot' + (i === 0 ? ' is-active' : '');
+        dot.setAttribute('data-idx', i);
+        dot.addEventListener('click', function() { goTo(+this.getAttribute('data-idx')); });
+        dotsWrap.appendChild(dot);
       }
+    }
 
-      // 목차 아이템들
-      var tocItems = ppt.querySelectorAll('.ppt__toc-item');
-      var tocToggle = ppt.querySelector('.ppt__toc-toggle');
-      var tocList = ppt.querySelector('.ppt__toc-list');
+    function goTo(idx) {
+      if (idx < 0) idx = cards.length - 1;
+      if (idx >= cards.length) idx = 0;
+      cards[currentIdx].classList.remove('is-visible');
+      cards[idx].classList.add('is-visible');
+      var dots = dotsWrap ? dotsWrap.children : [];
+      if (dots[currentIdx]) dots[currentIdx].classList.remove('is-active');
+      if (dots[idx]) dots[idx].classList.add('is-active');
+      currentIdx = idx;
+    }
 
-      function updateToc() {
-        tocItems.forEach(function(item) {
-          item.classList.toggle('active', parseInt(item.getAttribute('data-goto')) === current);
-        });
-      }
+    var prevBtn = document.getElementById('featurePrev');
+    var nextBtn = document.getElementById('featureNext');
+    if (prevBtn) prevBtn.addEventListener('click', function() { goTo(currentIdx - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { goTo(currentIdx + 1); });
+  })();
 
-      function updateProgress() {
-        if (!progressBar) return;
-        var pct = ((current + 1) / total) * 100;
-        progressBar.style.width = pct + '%';
-      }
+  /* ── 달 클릭 → 착지 확대 → 링크 이동 ── */
+  (function() {
+    var moonBtn = document.getElementById('moonBtn');
+    var moonOrbit = document.getElementById('moonOrbit');
+    if (!moonBtn || !moonOrbit) return;
 
-      function goTo(idx, direction) {
-        if (idx < 0 || idx >= total) return;
-        // 방향 결정
-        if (typeof direction === 'undefined') {
-          direction = idx > current ? 'next' : 'prev';
-        }
-        slides[current].classList.remove('ppt__slide--active');
-        slides[current].classList.remove('slide-dir-prev');
-        current = idx;
-        slides[current].classList.remove('slide-dir-prev');
-        if (direction === 'prev') {
-          slides[current].classList.add('slide-dir-prev');
-        }
-        slides[current].classList.add('ppt__slide--active');
-        if (pageEl) pageEl.textContent = (current + 1) + ' / ' + total;
-        buildIndicator();
-        updateToc();
-        updateProgress();
-        if (prevBtn) prevBtn.classList.toggle('disabled', current === 0);
-        if (nextBtn) nextBtn.classList.toggle('disabled', current === total - 1);
-      }
-
-      if (prevBtn) prevBtn.addEventListener('click', function() { goTo(current - 1, 'prev'); });
-      if (nextBtn) nextBtn.addEventListener('click', function() { goTo(current + 1, 'next'); });
-
-      // 목차 클릭 → 슬라이드 이동 + 목차 닫기
-      tocItems.forEach(function(item) {
-        item.addEventListener('click', function() {
-          goTo(parseInt(item.getAttribute('data-goto')));
-          // 목차 닫기
-          if (tocList) tocList.classList.remove('open');
-          if (tocToggle) tocToggle.classList.remove('active');
-        });
-      });
-
-      // 목차 토글
-      if (tocToggle && tocList) {
-        tocToggle.addEventListener('click', function(e) {
-          e.stopPropagation();
-          var isOpen = tocList.classList.toggle('open');
-          tocToggle.classList.toggle('active', isOpen);
-        });
-
-        // TOC 내부 클릭 시 전파 방지
-        tocList.addEventListener('click', function(e) {
-          e.stopPropagation();
-        });
-      }
-
-      // 바깥 클릭 시 TOC 닫기
-      document.addEventListener('click', function() {
-        if (tocList && tocList.classList.contains('open')) {
-          tocList.classList.remove('open');
-          if (tocToggle) tocToggle.classList.remove('active');
-        }
-      });
-
-      // 키보드 좌우 화살표
-      document.addEventListener('keydown', function(e) {
-        var panel = ppt.closest('.panel');
-        if (!panel || !panel.classList.contains('open')) return;
-        if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1, 'prev'); }
-        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1, 'next'); }
-      });
-
-      /* ── 터치 스와이프 ── */
-      var touchStartX = 0;
-      var touchStartY = 0;
-      var isSwiping = false;
-
-      ppt.addEventListener('touchstart', function(e) {
-        touchStartX = e.changedTouches[0].clientX;
-        touchStartY = e.changedTouches[0].clientY;
-        isSwiping = true;
-      }, { passive: true });
-
-      ppt.addEventListener('touchend', function(e) {
-        if (!isSwiping) return;
-        isSwiping = false;
-        var dx = e.changedTouches[0].clientX - touchStartX;
-        var dy = e.changedTouches[0].clientY - touchStartY;
-        // 수평 스와이프만 (수직보다 클 때)
-        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-          if (dx < 0) {
-            goTo(current + 1, 'next'); // 왼쪽 스와이프 = 다음
-          } else {
-            goTo(current - 1, 'prev'); // 오른쪽 스와이프 = 이전
-          }
-        }
-      }, { passive: true });
-
-      /* ── 풀스크린 ── */
-      var fullscreenBtn = ppt.querySelector('.ppt__fullscreen') || document.getElementById('pptFullscreen');
-      if (fullscreenBtn) {
-        fullscreenBtn.addEventListener('click', function() {
-          var desktop = document.getElementById('dyoDesktop');
-          if (!desktop) return;
-          if (document.fullscreenElement) {
-            document.exitFullscreen();
-          } else {
-            desktop.requestFullscreen().catch(function() {});
-          }
-        });
-      }
-
-      buildIndicator();
-      goTo(0, 'next');
+    moonBtn.addEventListener('click', function(e) {
+      if (!moonOrbit.classList.contains('is-landed')) return;
+      e.preventDefault();
+      moonOrbit.classList.add('is-zooming');
+      setTimeout(function() {
+        window.open('https://dyomyo.tistory.com/', '_blank');
+      }, 1000);
+      setTimeout(function() {
+        moonOrbit.classList.remove('is-zooming');
+      }, 2000);
     });
   })();
+
+  /* ── 별 반짝이 이펙트 생성 ── */
+  (function() {
+    var desktop = document.getElementById('dyoDesktop');
+    if (!desktop) return;
+    var STAR_COUNT = 120;
+    for (var i = 0; i < STAR_COUNT; i++) {
+      var star = document.createElement('div');
+      star.className = 'star' + (Math.random() < 0.15 ? ' star--large' : '');
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
+      star.style.setProperty('--delay', (Math.random() * 5) + 's');
+      desktop.appendChild(star);
+    }
+  })();
   </script>
+  <!-- 토스트 알림 -->
+  <div class="copy-toast" id="copyToast">이메일이 복사되었습니다!</div>
 </body>
 
 </html>
