@@ -10,19 +10,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./images/font.css">
 
   <style>
-    /* 인덱스 페이지: 데스크탑 모드 */
     #tt-body-index #dkWrap { display: none; }
-    #tt-body-index #dyoDesktop { display: flex; }
-
-    #dyoDesktop {
-      background: #000000;
-    }
+    #tt-body-index #dyoPortfolio { display: flex; }
   </style>
 
   <!--[if lt IE 9]>
@@ -41,7 +36,7 @@
       <a href="#dkBody">본문 바로가기</a>
     </div>
 
-    <!-- ===== 일반 페이지 레이아웃 (글 상세, 카테고리 등) ===== -->
+    <!-- ===== 일반 페이지 레이아웃 ===== -->
     <div id="dkWrap" class="wrap_skin">
 
       <header id="dkHead" role="banner" class="site-header">
@@ -302,580 +297,271 @@
     </div>
 
 
-    <!-- ===== 데스크탑 홈화면 (인덱스 페이지 전용) ===== -->
-    <div class="desktop" id="dyoDesktop">
+    <!-- ===== 슬라이드 포트폴리오 (인덱스 전용) ===== -->
+    <div id="dyoPortfolio" class="portfolio">
 
-      <!-- 달 (지구 공전 → 클릭 시 왼쪽 상단으로 이동) -->
-      <div class="moon-orbit" id="moonOrbit">
-        <a href="https://dyomyo.tistory.com/" target="_blank" class="moon-btn" id="moonBtn">
-          <div class="moon-btn__icon">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/600px-FullMoon2010.jpg" alt="달" class="moon-btn__img">
-          </div>
-          <span class="moon-btn__label">Dev Blog</span>
-        </a>
+      <!-- Loading Screen -->
+      <div class="pf-loader" id="pfLoader">
+        <div class="pf-loader__bar"></div>
+        <span class="pf-loader__text">Loading</span>
       </div>
 
-      <div class="mindmap" id="mindmap">
+      <!-- Custom Cursor -->
+      <div class="pf-cursor" id="pfCursor"></div>
+      <div class="pf-cursor-dot" id="pfCursorDot"></div>
 
-        <!-- 중앙 프로필 -->
-        <button class="mindmap__center" id="mindmapToggle">
-          <img src="[##_image_##]" alt="프로필" class="mindmap__photo">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Earth_Western_Hemisphere_transparent_background.png/600px-Earth_Western_Hemisphere_transparent_background.png" alt="지구" class="mindmap__earth">
-        </button>
+      <!-- Canvas Particle Background -->
+      <canvas class="pf-canvas" id="pfCanvas"></canvas>
 
-        <!-- 노드들 -->
-        <div class="mindmap__node" data-node="about">
-          <div class="mindmap__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-3.3 3.6-6 8-6s8 2.7 8 6"/></svg>
-          </div>
-          <span class="mindmap__label">About Me</span>
-        </div>
+      <!-- Gradient Mesh Background -->
+      <div class="pf-mesh">
+        <div class="pf-mesh__orb pf-mesh__orb--1"></div>
+        <div class="pf-mesh__orb pf-mesh__orb--2"></div>
+        <div class="pf-mesh__orb pf-mesh__orb--3"></div>
+      </div>
 
-        <div class="mindmap__node mindmap__node--tech" data-node="tech">
-          <div class="mindmap__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          </div>
-          <span class="mindmap__label">Tech Stack</span>
+      <!-- Slide Progress Bar -->
+      <div class="pf-progress" id="pfProgress">
+        <div class="pf-progress__fill" id="pfProgressFill"></div>
+      </div>
 
-          <!-- 테크스택 서브노드 -->
-          <div class="tech-subnodes" id="techSubnodes">
-            <div class="tech-row" data-tech="backend">
-              <span class="tech-row__label">Backend</span>
-              <div class="tech-row__nodes">
-                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java"></div><span class="tech-subnode__name">Java</span></div>
-                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.simpleicons.org/springboot/6DB33F" alt="Spring Boot"></div><span class="tech-subnode__name">Spring</span></div>
-                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="C/C++"></div><span class="tech-subnode__name">C/C++</span></div>
-              </div>
-            </div>
-            <div class="tech-row" data-tech="frontend">
-              <span class="tech-row__label">Frontend</span>
-              <div class="tech-row__nodes">
-                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript"></div><span class="tech-subnode__name">JS</span></div>
-                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS"></div><span class="tech-subnode__name">CSS</span></div>
-                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.simpleicons.org/vuedotjs/4FC08D" alt="Vue.js"></div><span class="tech-subnode__name">Vue.js</span></div>
-              </div>
-            </div>
-            <div class="tech-row" data-tech="database">
-              <span class="tech-row__label">Database</span>
-              <div class="tech-row__nodes">
-                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL"></div><span class="tech-subnode__name">MySQL</span></div>
-                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL"></div><span class="tech-subnode__name">PgSQL</span></div>
-                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis"></div><span class="tech-subnode__name">Redis</span></div>
-                <div class="tech-subnode"><div class="tech-subnode__icon"><svg viewBox="0 0 24 24" width="28" height="28" fill="none"><ellipse cx="12" cy="5.5" rx="9" ry="3.5" fill="#60a5fa"/><path d="M21 5.5c0 1.93-4.03 3.5-9 3.5S3 7.43 3 5.5v13c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5z" fill="#3b82f6" opacity="0.85"/><path d="M3 8.8c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5" stroke="#fff" stroke-width="0.8" opacity="0.45"/><path d="M3 12.5c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5" stroke="#fff" stroke-width="0.8" opacity="0.35"/></svg></div><span class="tech-subnode__name">JPA</span></div>
-              </div>
-            </div>
-            <div class="tech-row" data-tech="devops">
-              <span class="tech-row__label">DevOps</span>
-              <div class="tech-row__nodes">
-                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.simpleicons.org/git/F05032" alt="Git"></div><span class="tech-subnode__name">Git</span></div>
-                <div class="tech-subnode"><div class="tech-subnode__icon"><img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker"></div><span class="tech-subnode__name">Docker</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- 슬라이드 컨테이너 -->
+      <div class="pf-slides" id="pfSlides">
 
-        <div class="mindmap__node mindmap__node--project" data-node="project">
-          <div class="mindmap__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-          </div>
-          <span class="mindmap__label">Project</span>
-
-          <!-- 프로젝트 서브노드 -->
-          <div class="project-subnodes" id="projectSubnodes">
-            <div class="project-subnode" data-project="ssabree">
-              <div class="project-subnode__icon">
-                <img src="https://blog.kakaocdn.net/dna/c7lTYH/dJMcabpVp8O/AAAAAAAAAAAAAAAAAAAAAL11fJg342O-OPQoqdfkrOp0XnAflkFi1UGYtXt4rg95/img.gif?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1774969199&allow_ip=&allow_referer=&signature=lStSYC%2BGfjO3%2BiGy7G2DBQqqI5c%3D" alt="SSABREE TIME">
+        <!-- Slide 1: Profile -->
+        <section class="pf-slide" data-slide="0">
+          <div class="pf-slide__inner">
+            <div class="pf-profile" id="pfProfile">
+              <div class="pf-profile__photo-wrap" data-parallax="0.03">
+                <div class="pf-profile__photo-glow"></div>
+                <div class="pf-profile__photo-border">
+                  <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FyJ8nh%2FdJMcaaExlf6%2FAAAAAAAAAAAAAAAAAAAAADx9Ieu49xl_q3JXZvePhyidrWkEF9vxsC8V4jF6EutV%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DngVdJnZ5b0ZzZsYin%252BxWuydwSNQ%253D" alt="김도영" class="pf-profile__photo">
+                </div>
+                <div class="pf-profile__status">
+                  <span class="pf-profile__status-dot"></span>
+                  SSAFY 14기 교육중
+                </div>
               </div>
-              <span class="click-badge">click</span>
-              <span class="project-subnode__label">SSABREE TIME</span>
-            </div>
-            <div class="project-subnode" data-project="naeda">
-              <div class="project-subnode__icon">
-                <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FkTp7L%2FdJMcabKerSQ%2FAAAAAAAAAAAAAAAAAAAAALcX4Ak6UqS9UCFXGbE5Wwz8Hj3VjXUp6YeIw8Cmyc8K%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3D0JUs3Tu4b4kNLh5kN6hxxVI%252FGaA%253D" alt="NAEDA">
+              <div class="pf-profile__info" data-parallax="0.015">
+                <div class="pf-reveal"><p class="pf-profile__greeting" id="pfTyping"></p></div>
+                <div class="pf-reveal"><h1 class="pf-profile__name">김도영</h1></div>
+                <div class="pf-reveal"><p class="pf-profile__role">Backend Developer</p></div>
+                <div class="pf-reveal"><p class="pf-profile__bio">기술 블로그를 가꾸고 기록하는 것을 즐기며,<br>새로운 인사이트를 도출해낼 수 있는 창의적인 예비 백엔드 개발자입니다.<br>Java와 Spring Boot를 주력으로 사용하며, 실제 서비스를 출시하고 운영한 경험이 있습니다.</p></div>
+                <div class="pf-reveal">
+                  <div class="pf-profile__meta">
+                    <span>1999.09.29</span>
+                    <span class="pf-profile__meta-sep">&middot;</span>
+                    <span>Daegu, Korea</span>
+                  </div>
+                </div>
+                <div class="pf-reveal">
+                  <div class="pf-profile__links">
+                    <a href="https://github.com/doyoungkim-code" target="_blank" class="pf-profile__link pf-magnetic">
+                      <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                      <span>GitHub</span>
+                    </a>
+                    <a href="https://dyomyo.tistory.com/" target="_blank" class="pf-profile__link pf-magnetic">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                      <span>Blog</span>
+                    </a>
+                    <a href="mailto:ehehkwat1@naver.com" class="pf-profile__link pf-magnetic">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                      <span>Email</span>
+                    </a>
+                  </div>
+                </div>
               </div>
-              <span class="project-subnode__label">NAEDA<br><small>(준비중)</small></span>
-            </div>
-            <div class="project-subnode" data-project="empty">
-              <div class="project-subnode__icon project-subnode__icon--empty">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path d="M12 5v14m-7-7h14"/></svg>
-              </div>
-              <span class="project-subnode__label">Coming Soon</span>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div class="mindmap__node" data-node="education">
-          <div class="mindmap__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-          </div>
-          <span class="mindmap__label">Education</span>
-        </div>
-
-        <div class="mindmap__node mindmap__node--cert" data-node="cert">
-          <div class="mindmap__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-          </div>
-          <span class="mindmap__label">Certifications</span>
-
-          <!-- 자격증 서브노드 -->
-          <div class="cert-subnodes" id="certSubnodes">
-            <div class="sub-node">
-              <div class="sub-node__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" width="26" height="26"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg>
+        <!-- Slide 2: Skills & Education -->
+        <section class="pf-slide" data-slide="1">
+          <div class="pf-slide__inner">
+            <div class="pf-reveal"><h2 class="pf-section-label">Skills &amp; Background</h2></div>
+            <div class="pf-split">
+              <div class="pf-split__main">
+                <div class="pf-tech">
+                  <div class="pf-tech__group pf-tilt pf-reveal">
+                    <div class="pf-tech__group-glow"></div>
+                    <h3 class="pf-tech__label">Backend</h3>
+                    <div class="pf-tech__items">
+                      <div class="pf-tech__item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" width="38" height="38"><span>Java</span></div>
+                      <div class="pf-tech__item"><img src="https://cdn.simpleicons.org/springboot/6DB33F" alt="Spring Boot" width="38" height="38"><span>Spring Boot</span></div>
+                      <div class="pf-tech__item"><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="C/C++" width="38" height="38"><span>C/C++</span></div>
+                    </div>
+                  </div>
+                  <div class="pf-tech__group pf-tilt pf-reveal">
+                    <div class="pf-tech__group-glow"></div>
+                    <h3 class="pf-tech__label">Frontend</h3>
+                    <div class="pf-tech__items">
+                      <div class="pf-tech__item"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" width="38" height="38"><span>JavaScript</span></div>
+                      <div class="pf-tech__item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" width="38" height="38"><span>CSS</span></div>
+                      <div class="pf-tech__item"><img src="https://cdn.simpleicons.org/vuedotjs/4FC08D" alt="Vue.js" width="38" height="38"><span>Vue.js</span></div>
+                    </div>
+                  </div>
+                  <div class="pf-tech__group pf-tilt pf-reveal">
+                    <div class="pf-tech__group-glow"></div>
+                    <h3 class="pf-tech__label">Database</h3>
+                    <div class="pf-tech__items">
+                      <div class="pf-tech__item"><img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL" width="38" height="38"><span>MySQL</span></div>
+                      <div class="pf-tech__item"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" width="38" height="38"><span>PostgreSQL</span></div>
+                      <div class="pf-tech__item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis" width="38" height="38"><span>Redis</span></div>
+                      <div class="pf-tech__item"><svg viewBox="0 0 24 24" width="38" height="38" fill="none"><ellipse cx="12" cy="5.5" rx="9" ry="3.5" fill="#60a5fa"/><path d="M21 5.5c0 1.93-4.03 3.5-9 3.5S3 7.43 3 5.5v13c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5z" fill="#3b82f6" opacity="0.85"/></svg><span>JPA</span></div>
+                    </div>
+                  </div>
+                  <div class="pf-tech__group pf-tilt pf-reveal">
+                    <div class="pf-tech__group-glow"></div>
+                    <h3 class="pf-tech__label">DevOps</h3>
+                    <div class="pf-tech__items">
+                      <div class="pf-tech__item"><img src="https://cdn.simpleicons.org/git/F05032" alt="Git" width="38" height="38"><span>Git</span></div>
+                      <div class="pf-tech__item"><img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker" width="38" height="38"><span>Docker</span></div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <span class="sub-node__label">SQLD<br><small>2024.04</small></span>
+              <div class="pf-split__side">
+                <div class="pf-reveal"><h3 class="pf-side-label">Education</h3></div>
+                <div class="pf-timeline">
+                  <div class="pf-timeline__item pf-reveal"><div class="pf-timeline__dot"></div><div class="pf-timeline__content"><span class="pf-timeline__date">2018.03 ~ 2024.02</span><h3>영남대학교</h3><p>정보통신공학과</p></div></div>
+                  <div class="pf-timeline__item pf-reveal"><div class="pf-timeline__dot"></div><div class="pf-timeline__content"><span class="pf-timeline__date">2024.02 ~ 2025.06</span><h3>42경산</h3><p>1기 본과정</p></div></div>
+                  <div class="pf-timeline__item pf-timeline__item--current pf-reveal"><div class="pf-timeline__dot"></div><div class="pf-timeline__content"><span class="pf-timeline__date">2025.07 ~ 2026.06</span><h3>SSAFY 14기</h3><p>전공 Java 과정</p></div></div>
+                </div>
+                <div class="pf-cert pf-reveal">
+                  <h3 class="pf-side-label">Certifications</h3>
+                  <div class="pf-cert__item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg>
+                    <div><strong>SQLD</strong><span>2024.04</span></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div class="mindmap__node mindmap__node--contact" data-node="contact">
-          <div class="mindmap__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </div>
-          <span class="mindmap__label">Contact</span>
-
-          <!-- 연락처 서브노드 -->
-          <div class="contact-subnodes" id="contactSubnodes">
-            <div class="sub-node sub-node--link sub-node--contact-item" id="emailNode" data-contact="email">
-              <div class="sub-node__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" width="24" height="24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <!-- Slide 3: Project Overview -->
+        <section class="pf-slide" data-slide="2">
+          <div class="pf-slide__inner">
+            <div class="pf-reveal"><h2 class="pf-section-label">Project</h2></div>
+            <div class="pf-project pf-reveal">
+              <div class="pf-project__header">
+                <div class="pf-project__logo">
+                  <img src="https://blog.kakaocdn.net/dna/c7lTYH/dJMcabpVp8O/AAAAAAAAAAAAAAAAAAAAAL11fJg342O-OPQoqdfkrOp0XnAflkFi1UGYtXt4rg95/img.gif?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1774969199&allow_ip=&allow_referer=&signature=lStSYC%2BGfjO3%2BiGy7G2DBQqqI5c%3D" alt="SSABREE TIME">
+                </div>
+                <div class="pf-project__info">
+                  <h3 class="pf-project__name">SSABREE TIME</h3>
+                  <p class="pf-project__period">2026.01.06 ~ 2026.02.09 (약 6주) &middot; 6명</p>
+                  <p class="pf-project__subtitle">SSAFY 교육생을 위한 익명 커뮤니티, 팀/스터디 매칭, 포트폴리오 관리, 실시간 채팅을 제공하는 크로스 플랫폼 서비스</p>
+                </div>
+                <div class="pf-project__stats">
+                  <div class="pf-project__stat"><span class="pf-project__stat-num pf-countup" data-target="761">0</span><span class="pf-project__stat-label">Commits</span></div>
+                  <div class="pf-project__stat"><span class="pf-project__stat-num pf-countup" data-target="100">0</span><span class="pf-project__stat-label">Branches</span></div>
+                  <div class="pf-project__stat"><span class="pf-project__stat-num pf-countup" data-target="158">0</span><span class="pf-project__stat-label">My Commits</span></div>
+                </div>
               </div>
-              <span class="sub-node__label">Email</span>
-              <span class="contact-popup" id="popupEmail">
-                <span class="contact-popup__text">ehehkwat1@naver.com</span>
-                <span class="contact-popup__hint">클릭하여 복사</span>
-              </span>
-            </div>
-            <div class="sub-node sub-node--link sub-node--contact-item" id="githubNode" data-contact="github">
-              <div class="sub-node__icon">
-                <svg viewBox="0 0 24 24" fill="#3b82f6" width="24" height="24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              <p class="pf-project__desc">에브리타임을 벤치마킹하여 SSAFY 교육생만을 위한 폐쇄형 커뮤니티 플랫폼을 기획&middot;개발했습니다. 안드로이드 원스토어 및 애플 앱스토어에 실제 출시하여 약 100여명의 유저를 확보하고, 현재도 꾸준한 유지보수와 운영을 이어가고 있습니다.</p>
+              <div class="pf-project__tech-row">
+                <span class="pf-project__tech-label">Tech</span>
+                <div class="pf-project__tech-tags"><span>Java</span><span>Spring Boot</span><span>JPA</span><span>PostgreSQL</span><span>Redis</span><span>Docker</span></div>
               </div>
-              <span class="sub-node__label">GitHub</span>
-              <span class="contact-popup" id="popupGithub">
-                <span class="contact-popup__text">github.com/doyoungkim-code</span>
-                <span class="contact-popup__hint">클릭하여 이동 ↗</span>
-              </span>
-            </div>
-            <div class="sub-node sub-node--link sub-node--contact-item" id="blogNode" data-contact="blog">
-              <div class="sub-node__icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" width="24" height="24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+              <div class="pf-project__section">
+                <h4>담당 역할</h4>
+                <div class="pf-roles">
+                  <div class="pf-role pf-tilt"><div class="pf-role__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="24" height="24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><h5>인증/인가</h5><p>JWT 이중 토큰 + Mattermost 연동 교육생 인증 시스템 설계 및 구현</p></div>
+                  <div class="pf-role pf-tilt"><div class="pf-role__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="24" height="24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><h5>게시판/채팅</h5><p>게시판 CRUD, 커서 페이지네이션, WebSocket STOMP 실시간 채팅 서버</p></div>
+                  <div class="pf-role pf-tilt"><div class="pf-role__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="24" height="24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><h5>팀/스터디 매칭</h5><p>생성 &rarr; 모집 &rarr; 운영 &rarr; 종료 전체 생명주기 API 설계 및 구현</p></div>
+                  <div class="pf-role pf-tilt"><div class="pf-role__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="24" height="24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div><h5>알림/캐시</h5><p>FCM 푸시 알림 시스템, Redis 캐시 전략 (HOT 게시판, 목록, FCM 설정)</p></div>
+                </div>
               </div>
-              <span class="sub-node__label">Blog</span>
-              <span class="contact-popup" id="popupBlog">
-                <span class="contact-popup__text">dyomyo.tistory.com</span>
-                <span class="contact-popup__hint">클릭하여 이동 ↗</span>
-              </span>
             </div>
           </div>
-        </div>
+        </section>
+
+        <!-- Slide 4: Features & Troubleshooting -->
+        <section class="pf-slide" data-slide="3">
+          <div class="pf-slide__inner">
+            <div class="pf-reveal"><h2 class="pf-section-label">SSABREE TIME &mdash; Details</h2></div>
+            <div class="pf-slide__two-col">
+              <div class="pf-slide__col">
+                <div class="pf-reveal"><h3 class="pf-side-label">핵심 기능</h3></div>
+                <div class="pf-feat-grid">
+                  <div class="pf-feat-card pf-tilt pf-reveal"><div class="pf-feat-card__shine"></div><h5>인증 시스템</h5><p>Mattermost 연동 본인 인증, JWT 이중 토큰</p><div class="pf-feature__tags"><span>Spring Security</span><span>JWT</span></div></div>
+                  <div class="pf-feat-card pf-tilt pf-reveal"><div class="pf-feat-card__shine"></div><h5>익명 게시판</h5><p>커서 페이지네이션, Redis 캐시, Gemini AI 검열</p><div class="pf-feature__tags"><span>Redis Cache</span><span>Gemini AI</span></div></div>
+                  <div class="pf-feat-card pf-tilt pf-reveal"><div class="pf-feat-card__shine"></div><h5>팀/스터디 매칭</h5><p>유형별 그룹, 지원/수락, Task 관리</p><div class="pf-feature__tags"><span>CRUD</span><span>필터링</span></div></div>
+                  <div class="pf-feat-card pf-tilt pf-reveal"><div class="pf-feat-card__shine"></div><h5>실시간 채팅</h5><p>WebSocket STOMP, 읽음 확인, Presence</p><div class="pf-feature__tags"><span>WebSocket</span><span>STOMP</span></div></div>
+                  <div class="pf-feat-card pf-tilt pf-reveal"><div class="pf-feat-card__shine"></div><h5>FCM 푸시 알림</h5><p>이벤트별 푸시, 토픽 구독, @Async 전송</p><div class="pf-feature__tags"><span>Firebase FCM</span><span>@Async</span></div></div>
+                  <div class="pf-feat-card pf-tilt pf-reveal"><div class="pf-feat-card__shine"></div><h5>포트폴리오 &amp; 홈</h5><p>기술 스택 숙련도, solved.ac 연동, D-Day</p><div class="pf-feature__tags"><span>solved.ac</span><span>대시보드</span></div></div>
+                </div>
+              </div>
+              <div class="pf-slide__col">
+                <div class="pf-reveal"><h3 class="pf-side-label">트러블슈팅</h3></div>
+                <div class="pf-troubles">
+                  <div class="pf-trouble pf-reveal"><div class="pf-trouble__head"><span class="pf-trouble__badge">Redis</span><strong>Jackson 3 + Redis 직렬화 연쇄 장애</strong></div><div class="pf-trouble__row"><span class="pf-trouble__tag pf-trouble__tag--problem">문제</span><p>Spring Boot 4.0의 Jackson 3 전환으로 Redis 캐시 직렬화 연쇄 실패</p></div><div class="pf-trouble__row"><span class="pf-trouble__tag pf-trouble__tag--solution">해결</span><p>GenericJackson3JsonRedisSerializer 적용으로 직렬화 호환성 확보</p></div></div>
+                  <div class="pf-trouble pf-reveal"><div class="pf-trouble__head"><span class="pf-trouble__badge">JPA</span><strong>회원탈퇴 Side Effect (4일간 추적)</strong></div><div class="pf-trouble__row"><span class="pf-trouble__tag pf-trouble__tag--problem">문제</span><p>Hard Delete 후 리더 null 참조, 게시물 cascade 연쇄 오류</p></div><div class="pf-trouble__row"><span class="pf-trouble__tag pf-trouble__tag--solution">해결</span><p>Soft Delete(deletedAt) 전략 도입, 엔티티별 삭제 정책 재설계</p></div></div>
+                  <div class="pf-trouble pf-reveal"><div class="pf-trouble__head"><span class="pf-trouble__badge">JPA</span><strong>LazyInitializationException</strong></div><div class="pf-trouble__row"><span class="pf-trouble__tag pf-trouble__tag--problem">문제</span><p>팀/스터디 조회 시 세션 밖에서 Lazy 엔티티 접근</p></div><div class="pf-trouble__row"><span class="pf-trouble__tag pf-trouble__tag--solution">해결</span><p>@Transactional 범위 조정 및 Fetch Join 적용</p></div></div>
+                </div>
+                <div class="pf-reveal" style="margin-top:20px">
+                  <a href="https://dyomyo.tistory.com/118" target="_blank" class="pf-btn pf-magnetic">회고 블로그 보기 &rarr;</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 5: Contact -->
+        <section class="pf-slide" data-slide="4">
+          <div class="pf-slide__inner pf-slide__inner--center">
+            <div class="pf-reveal"><h2 class="pf-section-label" style="justify-content:center;">Contact</h2></div>
+            <div class="pf-reveal"><p class="pf-contact__msg">함께 일하고 싶으시다면 편하게 연락 주세요.</p></div>
+            <div class="pf-contact__cards pf-reveal">
+              <a href="mailto:ehehkwat1@naver.com" class="pf-contact__card pf-tilt">
+                <div class="pf-contact__card-glow"></div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="32" height="32"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <strong>Email</strong>
+                <span>ehehkwat1@naver.com</span>
+              </a>
+              <a href="https://github.com/doyoungkim-code" target="_blank" class="pf-contact__card pf-tilt">
+                <div class="pf-contact__card-glow"></div>
+                <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                <strong>GitHub</strong>
+                <span>doyoungkim-code</span>
+              </a>
+              <a href="https://dyomyo.tistory.com/" target="_blank" class="pf-contact__card pf-tilt">
+                <div class="pf-contact__card-glow"></div>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="32" height="32"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                <strong>Blog</strong>
+                <span>dyomyo.tistory.com</span>
+              </a>
+            </div>
+            <div class="pf-reveal"><p class="pf-contact__copy">&copy; 2026 김도영. Built with passion.</p></div>
+          </div>
+        </section>
 
       </div>
 
-      <!-- ── 슬라이드 패널: About Me ── -->
-      <div class="bar-panel bar-panel--top" id="panelAbout">
-        <div class="bar-panel__inner">
-          <button class="bar-panel__close">&times;</button>
-          <div class="about-bar">
-            <div class="about-bar__photo">
-              <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FyJ8nh%2FdJMcaaExlf6%2FAAAAAAAAAAAAAAAAAAAAADx9Ieu49xl_q3JXZvePhyidrWkEF9vxsC8V4jF6EutV%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DngVdJnZ5b0ZzZsYin%252BxWuydwSNQ%253D" alt="김도영">
-            </div>
-            <div class="about-bar__info">
-              <p class="about-bar__name">김도영</p>
-              <p class="about-bar__role">Backend Developer</p>
-            </div>
-            <div class="about-bar__divider"></div>
-            <p class="about-bar__bio">기술 블로그를 가꾸고 기록하는 것을 즐기며, 새로운 인사이트를 도출해낼 수 있는 창의적인 예비 백엔드 개발자입니다.</p>
-            <div class="about-bar__divider"></div>
-            <div class="about-bar__meta">
-              <span>1999.09.29</span>
-              <span>Daegu, Korea</span>
-            </div>
-          </div>
-        </div>
+      <!-- 슬라이드 네비게이션 -->
+      <button class="pf-nav pf-nav--prev pf-magnetic" id="pfSlidePrev" aria-label="이전 슬라이드">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="pf-nav pf-nav--next pf-magnetic" id="pfSlideNext" aria-label="다음 슬라이드">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+
+      <!-- 사이드 네비게이션 -->
+      <nav class="pf-sidenav" id="pfSideNav">
+        <button class="pf-sidenav__item is-active" data-slide="0"><span class="pf-sidenav__line"></span><span class="pf-sidenav__label">Profile</span></button>
+        <button class="pf-sidenav__item" data-slide="1"><span class="pf-sidenav__line"></span><span class="pf-sidenav__label">Skills</span></button>
+        <button class="pf-sidenav__item" data-slide="2"><span class="pf-sidenav__line"></span><span class="pf-sidenav__label">Project</span></button>
+        <button class="pf-sidenav__item" data-slide="3"><span class="pf-sidenav__line"></span><span class="pf-sidenav__label">Details</span></button>
+        <button class="pf-sidenav__item" data-slide="4"><span class="pf-sidenav__line"></span><span class="pf-sidenav__label">Contact</span></button>
+      </nav>
+
+      <!-- 슬라이드 카운터 -->
+      <div class="pf-counter" id="pfSlideCounter">
+        <span class="pf-counter__cur" id="pfCounterCur">01</span>
+        <div class="pf-counter__divider"></div>
+        <span class="pf-counter__total">05</span>
       </div>
-
-      <!-- ── 슬라이드 패널: Tech Stack ── -->
-      <div class="slide-panel" id="panelTech">
-        <div class="slide-panel__inner">
-          <button class="slide-panel__close">&times;</button>
-          <h3 class="slide-panel__label">Tech Stack</h3>
-
-          <div class="tech-category" data-category="backend">
-            <div class="tech-category__header">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              <h4>Backend</h4>
-            </div>
-            <div class="tech-grid">
-              <div class="tech-item">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" width="32" height="32">
-                <span>Java</span>
-              </div>
-              <div class="tech-item">
-                <img src="https://cdn.simpleicons.org/springboot/6DB33F" alt="Spring Boot" width="32" height="32">
-                <span>Spring Boot</span>
-              </div>
-              <div class="tech-item">
-                <img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="C/C++" width="32" height="32">
-                <span>C/C++</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="tech-category" data-category="frontend">
-            <div class="tech-category__header">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
-              <h4>Frontend</h4>
-            </div>
-            <div class="tech-grid">
-              <div class="tech-item">
-                <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" width="32" height="32">
-                <span>JavaScript</span>
-              </div>
-              <div class="tech-item">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" width="32" height="32">
-                <span>CSS</span>
-              </div>
-              <div class="tech-item">
-                <img src="https://cdn.simpleicons.org/vuedotjs/4FC08D" alt="Vue.js" width="32" height="32">
-                <span>Vue.js</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="tech-category" data-category="database">
-            <div class="tech-category__header">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-              <h4>Database</h4>
-            </div>
-            <div class="tech-grid">
-              <div class="tech-item">
-                <img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL" width="32" height="32">
-                <span>MySQL</span>
-              </div>
-              <div class="tech-item">
-                <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" width="32" height="32">
-                <span>PostgreSQL</span>
-              </div>
-              <div class="tech-item">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis" width="32" height="32">
-                <span>Redis</span>
-              </div>
-              <div class="tech-item">
-                <svg viewBox="0 0 24 24" width="32" height="32" fill="none"><ellipse cx="12" cy="5.5" rx="9" ry="3.5" fill="#60a5fa"/><path d="M21 5.5c0 1.93-4.03 3.5-9 3.5S3 7.43 3 5.5v13c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5z" fill="#3b82f6" opacity="0.85"/><path d="M3 8.8c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5" stroke="#fff" stroke-width="0.8" opacity="0.45"/><path d="M3 12.5c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5" stroke="#fff" stroke-width="0.8" opacity="0.35"/></svg>
-                <span>JPA</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="tech-category" data-category="devops">
-            <div class="tech-category__header">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-              <h4>DevOps &amp; Tools</h4>
-            </div>
-            <div class="tech-grid">
-              <div class="tech-item">
-                <img src="https://cdn.simpleicons.org/git/F05032" alt="Git" width="32" height="32">
-                <span>Git</span>
-              </div>
-              <div class="tech-item">
-                <img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker" width="32" height="32">
-                <span>Docker</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── 슬라이드 패널: Project (3/4 화면) ── -->
-      <div class="slide-panel slide-panel--wide" id="panelProject">
-        <div class="slide-panel__inner">
-          <button class="slide-panel__close">&times;</button>
-          <h3 class="slide-panel__label">Project</h3>
-
-            <div class="project-header">
-              <div class="project-header__logo">
-                <img src="https://blog.kakaocdn.net/dna/c7lTYH/dJMcabpVp8O/AAAAAAAAAAAAAAAAAAAAAL11fJg342O-OPQoqdfkrOp0XnAflkFi1UGYtXt4rg95/img.gif?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1774969199&allow_ip=&allow_referer=&signature=lStSYC%2BGfjO3%2BiGy7G2DBQqqI5c%3D" alt="SSABREE TIME 로고">
-              </div>
-              <div class="project-header__text">
-                <h4 class="slide-panel__project-name">SSABREE TIME</h4>
-                <p class="slide-panel__period">2026.01.06 ~ 2026.02.09 (약 6주) · 6명</p>
-                <p class="slide-panel__subtitle">SSAFY 교육생을 위한 익명 커뮤니티, 팀/스터디 매칭, 포트폴리오 관리, 실시간 채팅을 제공하는 크로스 플랫폼 서비스</p>
-              </div>
-              <div class="project-stats">
-                <div class="project-stat">
-                  <span class="project-stat__num">761</span>
-                  <span class="project-stat__label">Commits</span>
-                </div>
-                <div class="project-stat">
-                  <span class="project-stat__num">100+</span>
-                  <span class="project-stat__label">Branches</span>
-                </div>
-                <div class="project-stat">
-                  <span class="project-stat__num">~158</span>
-                  <span class="project-stat__label">My Commits</span>
-                </div>
-              </div>
-            </div>
-
-            <p class="slide-panel__desc">에브리타임을 벤치마킹하여 SSAFY 교육생만을 위한 폐쇄형 커뮤니티 플랫폼을 기획·개발했습니다. 안드로이드 원스토어 및 애플 앱스토어에 실제 출시하여 약 100여명의 유저를 확보하고, 현재도 꾸준한 유지보수와 운영을 이어가고 있습니다.</p>
-
-            <div class="project-section">
-              <h5 class="project-section__title">기술 스택</h5>
-              <div class="project-tech-icons">
-                <div class="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" width="32" height="32">
-                  <span>Java</span>
-                </div>
-                <div class="tech-item">
-                  <img src="https://cdn.simpleicons.org/springboot/6DB33F" alt="Spring Boot" width="32" height="32">
-                  <span>Spring Boot</span>
-                </div>
-                <div class="tech-item">
-                  <svg viewBox="0 0 24 24" width="32" height="32" fill="none"><ellipse cx="12" cy="5.5" rx="9" ry="3.5" fill="#60a5fa"/><path d="M21 5.5c0 1.93-4.03 3.5-9 3.5S3 7.43 3 5.5v13c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5z" fill="#3b82f6" opacity="0.85"/><path d="M3 8.8c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5" stroke="#fff" stroke-width="0.8" opacity="0.45"/><path d="M3 12.5c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5" stroke="#fff" stroke-width="0.8" opacity="0.35"/></svg>
-                  <span>JPA</span>
-                </div>
-                <div class="tech-item">
-                  <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" width="32" height="32">
-                  <span>PostgreSQL</span>
-                </div>
-                <div class="tech-item">
-                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis" width="32" height="32">
-                  <span>Redis</span>
-                </div>
-                <div class="tech-item">
-                  <img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker" width="32" height="32">
-                  <span>Docker</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="project-section">
-              <h5 class="project-section__title">핵심 기능</h5>
-              <div class="feature-carousel" id="featureCarousel">
-                <button class="feature-carousel__btn feature-carousel__btn--prev" id="featurePrev">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20"><path d="M15 18l-6-6 6-6"/></svg>
-                </button>
-                <div class="feature-carousel__track">
-
-                  <div class="feature-card is-visible" data-index="0">
-                    <div class="feature-card__img-slot" data-label="인증 화면">
-                      <!-- <img src="..." alt="인증 시스템"> -->
-                    </div>
-                    <div class="feature-card__body">
-                      <h6 class="feature-card__name">인증 시스템</h6>
-                      <p class="feature-card__desc">Mattermost 연동 SSAFY 교육생 본인 인증. JWT Access Token(30분) + Refresh Token(1년) 이중 토큰 구조로 안전한 인증/인가 처리.</p>
-                      <div class="feature-card__tags">
-                        <span>Spring Security</span><span>JWT</span><span>Mattermost API</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="feature-card" data-index="1">
-                    <div class="feature-card__img-slot" data-label="게시판 화면">
-                      <!-- <img src="..." alt="익명 게시판"> -->
-                    </div>
-                    <div class="feature-card__body">
-                      <h6 class="feature-card__name">익명 게시판</h6>
-                      <p class="feature-card__desc">커서 기반 무한 스크롤, 좋아요/스크랩, 대댓글, 투표(Poll) 기능. HOT 게시판은 Redis 3분 캐시로 성능 최적화. Gemini AI 연동 콘텐츠 자동 검열.</p>
-                      <div class="feature-card__tags">
-                        <span>Cursor Pagination</span><span>Redis Cache</span><span>Gemini AI</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="feature-card" data-index="2">
-                    <div class="feature-card__img-slot" data-label="팀매칭 화면">
-                      <!-- <img src="..." alt="팀/스터디 매칭"> -->
-                    </div>
-                    <div class="feature-card__body">
-                      <h6 class="feature-card__name">팀/스터디 매칭</h6>
-                      <p class="feature-card__desc">싸피 프로젝트·공모전·알고리즘 등 유형별 그룹 생성. 지원/수락 시스템, TODO/IN_PROGRESS/DONE Task 관리, 캠퍼스별 필터링.</p>
-                      <div class="feature-card__tags">
-                        <span>CRUD</span><span>상태 관리</span><span>필터링</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="feature-card" data-index="3">
-                    <div class="feature-card__img-slot" data-label="채팅 화면">
-                      <!-- <img src="..." alt="실시간 채팅"> -->
-                    </div>
-                    <div class="feature-card__body">
-                      <h6 class="feature-card__name">실시간 채팅</h6>
-                      <p class="feature-card__desc">STOMP over WebSocket 기반 실시간 메시징. 게시글 연동 1:1 채팅방 자동 생성, 읽음 확인, 온라인 프레즌스 추적, STOMP 핸들러 레벨 JWT 인증.</p>
-                      <div class="feature-card__tags">
-                        <span>WebSocket</span><span>STOMP</span><span>Presence</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="feature-card" data-index="4">
-                    <div class="feature-card__img-slot" data-label="알림 화면">
-                      <!-- <img src="..." alt="FCM 푸시 알림"> -->
-                    </div>
-                    <div class="feature-card__body">
-                      <h6 class="feature-card__name">FCM 푸시 알림</h6>
-                      <p class="feature-card__desc">댓글·대댓글·쪽지·팀 지원 등 이벤트별 푸시 발송. 토픽 기반 구독, 유형별 알림 설정, Redis 캐싱, @Async 비동기 전송으로 성능 최적화.</p>
-                      <div class="feature-card__tags">
-                        <span>Firebase FCM</span><span>@Async</span><span>Redis</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="feature-card" data-index="5">
-                    <div class="feature-card__img-slot" data-label="포트폴리오 화면">
-                      <!-- <img src="..." alt="포트폴리오"> -->
-                    </div>
-                    <div class="feature-card__body">
-                      <h6 class="feature-card__name">포트폴리오</h6>
-                      <p class="feature-card__desc">기술 스택 HIGH/MID/LOW 숙련도 분류, solved.ac API 연동 백준 티어 자동 표시, 프로젝트별 쇼케이스 및 공개/비공개 설정.</p>
-                      <div class="feature-card__tags">
-                        <span>solved.ac API</span><span>CRUD</span><span>이미지 관리</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="feature-card" data-index="6">
-                    <div class="feature-card__img-slot" data-label="홈 화면">
-                      <!-- <img src="..." alt="홈 & 캠퍼스"> -->
-                    </div>
-                    <div class="feature-card__body">
-                      <h6 class="feature-card__name">홈 &amp; 캠퍼스</h6>
-                      <p class="feature-card__desc">개인 D-Day 카운트다운, 캠퍼스별 식단 조회, 최신 게시글 미리보기, 모집 중인 팀/스터디 현황을 홈 화면에서 한눈에 확인.</p>
-                      <div class="feature-card__tags">
-                        <span>D-Day</span><span>식단 API</span><span>대시보드</span>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-                <button class="feature-carousel__btn feature-carousel__btn--next" id="featureNext">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20"><path d="M9 18l6-6-6-6"/></svg>
-                </button>
-                <div class="feature-carousel__dots" id="featureDots"></div>
-              </div>
-            </div>
-
-            <div class="project-section">
-              <h5 class="project-section__title">담당 역할</h5>
-              <div class="role-grid">
-                <div class="role-card">
-                  <div class="role-card__icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" width="22" height="22"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                  </div>
-                  <h6>인증/인가</h6>
-                  <p>JWT 이중 토큰 + Mattermost 연동 교육생 인증 시스템 설계 및 구현</p>
-                </div>
-                <div class="role-card">
-                  <div class="role-card__icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" width="22" height="22"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                  </div>
-                  <h6>게시판/채팅</h6>
-                  <p>게시판 CRUD, 커서 페이지네이션, WebSocket STOMP 실시간 채팅 서버</p>
-                </div>
-                <div class="role-card">
-                  <div class="role-card__icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" width="22" height="22"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-                  </div>
-                  <h6>팀/스터디 매칭</h6>
-                  <p>생성 → 모집 → 운영 → 종료 전체 생명주기 API 설계 및 구현</p>
-                </div>
-                <div class="role-card">
-                  <div class="role-card__icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" width="22" height="22"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
-                  </div>
-                  <h6>알림/캐시</h6>
-                  <p>FCM 푸시 알림 시스템, Redis 캐시 전략 (HOT 게시판, 목록, FCM 설정)</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="project-section">
-              <h5 class="project-section__title">트러블슈팅</h5>
-              <div class="trouble-list">
-                <div class="trouble-item">
-                  <div class="trouble-item__header">
-                    <span class="trouble-item__badge">Redis</span>
-                    <strong>Jackson 3 + Redis 직렬화 연쇄 장애</strong>
-                  </div>
-                  <div class="trouble-item__row">
-                    <span class="trouble-item__label">문제</span>
-                    <p>Spring Boot 4.0의 Jackson 3 전환으로 Redis 캐시 직렬화 연쇄 실패</p>
-                  </div>
-                  <div class="trouble-item__row">
-                    <span class="trouble-item__label">해결</span>
-                    <p>GenericJackson3JsonRedisSerializer 적용으로 직렬화 호환성 확보</p>
-                  </div>
-                </div>
-                <div class="trouble-item">
-                  <div class="trouble-item__header">
-                    <span class="trouble-item__badge">JPA</span>
-                    <strong>회원탈퇴 Side Effect (4일간 추적)</strong>
-                  </div>
-                  <div class="trouble-item__row">
-                    <span class="trouble-item__label">문제</span>
-                    <p>Hard Delete 후 리더 null 참조, 게시물 cascade, 팀 소속 검증 연쇄 오류</p>
-                  </div>
-                  <div class="trouble-item__row">
-                    <span class="trouble-item__label">해결</span>
-                    <p>Soft Delete(deletedAt) 전략 도입, 엔티티별 삭제 정책 재설계</p>
-                  </div>
-                </div>
-                <div class="trouble-item">
-                  <div class="trouble-item__header">
-                    <span class="trouble-item__badge">JPA</span>
-                    <strong>LazyInitializationException</strong>
-                  </div>
-                  <div class="trouble-item__row">
-                    <span class="trouble-item__label">문제</span>
-                    <p>팀/스터디 조회 시 세션 밖에서 Lazy 엔티티 접근</p>
-                  </div>
-                  <div class="trouble-item__row">
-                    <span class="trouble-item__label">해결</span>
-                    <p>@Transactional 범위 조정 및 Fetch Join 적용</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="project-footer">
-              <a href="https://dyomyo.tistory.com/118" target="_blank" class="slide-panel__link">회고 블로그 보기 →</a>
-            </div>
-
-        </div>
-      </div>
-
-      <!-- ── 바 패널: Education (하단에서 올라옴) ── -->
-      <div class="bar-panel bar-panel--bottom" id="panelEducation">
-        <div class="bar-panel__inner">
-          <button class="bar-panel__close">&times;</button>
-          <div class="h-timeline">
-            <div class="h-timeline__item">
-              <span class="h-timeline__date">2018.03 ~ 2024.02</span>
-              <div class="h-timeline__dot"></div>
-              <h4 class="h-timeline__title">영남대학교</h4>
-              <p class="h-timeline__desc">정보통신공학과</p>
-            </div>
-            <div class="h-timeline__connector"></div>
-            <div class="h-timeline__item">
-              <span class="h-timeline__date">2024.02 ~ 2025.06</span>
-              <div class="h-timeline__dot"></div>
-              <h4 class="h-timeline__title">42경산</h4>
-              <p class="h-timeline__desc">1기 본과정</p>
-            </div>
-            <div class="h-timeline__connector"></div>
-            <div class="h-timeline__item h-timeline__item--current">
-              <span class="h-timeline__date">2025.07 ~ 2026.06</span>
-              <div class="h-timeline__dot"></div>
-              <h4 class="h-timeline__title">SSAFY 14기</h4>
-              <p class="h-timeline__desc">전공 Java 과정</p>
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── 슬라이드 패널: Certifications ── -->
 
     </div>
 
@@ -883,318 +569,305 @@
 
   <script>
   (function() {
-    var toggle = document.getElementById('mindmapToggle');
-    var mindmap = document.getElementById('mindmap');
-    var desktop = document.getElementById('dyoDesktop');
-    if (!toggle || !mindmap) return;
+    var pf = document.getElementById('dyoPortfolio');
+    if (!pf) return;
 
-    var isOpen = false;
-
-    var moonOrbit = document.getElementById('moonOrbit');
-    var moonBtn = document.getElementById('moonBtn');
-
-    toggle.addEventListener('click', function() {
-      isOpen = !isOpen;
-      mindmap.classList.toggle('mindmap--open', isOpen);
-
-      if (moonOrbit) {
-        if (isOpen) {
-          /* 현재 달 위치 캡처 후 고정 → 코너로 날리기 */
-          var rect = moonBtn.getBoundingClientRect();
-          moonOrbit.classList.add('is-freezing');
-          moonOrbit.style.left = rect.left + rect.width / 2 + 'px';
-          moonOrbit.style.top = rect.top + rect.height / 2 + 'px';
-          /* 다음 프레임에서 코너로 트랜지션 */
-          requestAnimationFrame(function() {
-            requestAnimationFrame(function() {
-              moonOrbit.classList.remove('is-freezing');
-              moonOrbit.classList.add('is-landed');
-            });
-          });
-        } else {
-          moonOrbit.classList.remove('is-landed');
-          moonOrbit.style.left = '';
-          moonOrbit.style.top = '';
-        }
-      }
-
-      if (!isOpen) closeActive();
+    /* ═══════════ LOADING SCREEN ═══════════ */
+    var loader = document.getElementById('pfLoader');
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        loader.classList.add('is-done');
+        triggerReveal(slides[0]);
+        startTyping();
+      }, 600);
     });
 
-    /* ── 노드 → 패널 매핑 ── */
-    var nodeMap = {
-      about:     'panelAbout',
-      tech:      'panelTech',
-      project:   'panelProject',
-      education: 'panelEducation'
-    };
+    /* ═══════════ CUSTOM CURSOR ═══════════ */
+    var cursor = document.getElementById('pfCursor');
+    var cursorDot = document.getElementById('pfCursorDot');
+    var mouseX = 0, mouseY = 0, curX = 0, curY = 0;
+    var isMobile = 'ontouchstart' in window;
 
-    var activePanel = null;
+    if (!isMobile) {
+      document.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursorDot.style.transform = 'translate(' + e.clientX + 'px,' + e.clientY + 'px)';
+      });
 
-    // 프로젝트 서브노드
-    var projectSubnodes = document.getElementById('projectSubnodes');
-    var projectSubOpen = false;
+      (function cursorLoop() {
+        curX += (mouseX - curX) * 0.12;
+        curY += (mouseY - curY) * 0.12;
+        cursor.style.transform = 'translate(' + curX + 'px,' + curY + 'px)';
+        requestAnimationFrame(cursorLoop);
+      })();
 
-    function toggleProjectSubs() {
-      projectSubOpen = !projectSubOpen;
-      if (projectSubnodes) projectSubnodes.classList.toggle('is-open', projectSubOpen);
-    }
-    function closeProjectSubs() {
-      projectSubOpen = false;
-      if (projectSubnodes) projectSubnodes.classList.remove('is-open');
-    }
-
-    // 테크스택 서브노드
-    var techSubnodes = document.getElementById('techSubnodes');
-    var techSubOpen = false;
-
-    function toggleTechSubs() {
-      techSubOpen = !techSubOpen;
-      if (techSubnodes) techSubnodes.classList.toggle('is-open', techSubOpen);
-    }
-    function closeTechSubs() {
-      techSubOpen = false;
-      if (techSubnodes) techSubnodes.classList.remove('is-open');
+      /* cursor hover enlarge */
+      var hoverEls = 'a, button, .pf-tilt, .pf-magnetic';
+      document.addEventListener('mouseover', function(e) {
+        if (e.target.closest(hoverEls)) cursor.classList.add('is-hover');
+      });
+      document.addEventListener('mouseout', function(e) {
+        if (e.target.closest(hoverEls)) cursor.classList.remove('is-hover');
+      });
+    } else {
+      cursor.style.display = 'none';
+      cursorDot.style.display = 'none';
     }
 
-    // 자격증 서브노드
-    var certSubnodes = document.getElementById('certSubnodes');
-    var certSubOpen = false;
-    function toggleCertSubs() {
-      certSubOpen = !certSubOpen;
-      if (certSubnodes) certSubnodes.classList.toggle('is-open', certSubOpen);
+    /* ═══════════ CANVAS PARTICLES ═══════════ */
+    var canvas = document.getElementById('pfCanvas');
+    var ctx = canvas.getContext('2d');
+    var particles = [];
+    var PARTICLE_COUNT = 60;
+    var CONNECTION_DIST = 140;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
-    function closeCertSubs() {
-      certSubOpen = false;
-      if (certSubnodes) certSubnodes.classList.remove('is-open');
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    function Particle() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.vx = (Math.random() - 0.5) * 0.4;
+      this.vy = (Math.random() - 0.5) * 0.4;
+      this.r = Math.random() * 1.5 + 0.5;
     }
 
-    // 연락처 서브노드
-    var contactSubnodes = document.getElementById('contactSubnodes');
-    var contactSubOpen = false;
-    function toggleContactSubs() {
-      contactSubOpen = !contactSubOpen;
-      if (contactSubnodes) contactSubnodes.classList.toggle('is-open', contactSubOpen);
-    }
-    function closeContactSubs() {
-      contactSubOpen = false;
-      if (contactSubnodes) contactSubnodes.classList.remove('is-open');
-      // 열린 팝업도 닫기
-      var openPopups = document.querySelectorAll('.sub-node--contact-item.is-popup-open');
-      for (var j = 0; j < openPopups.length; j++) openPopups[j].classList.remove('is-popup-open');
-    }
+    for (var i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
 
-    function closeAllSubs() {
-      closeProjectSubs();
-      closeTechSubs();
-      closeCertSubs();
-      closeContactSubs();
-    }
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
 
-    function closeActive() {
-      if (activePanel) {
-        activePanel.classList.remove('is-active');
-        if (desktop) desktop.classList.remove('desktop--shifted');
-        activePanel = null;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(107,138,253,0.4)';
+        ctx.fill();
+
+        /* mouse attraction */
+        var dxm = mouseX - p.x, dym = mouseY - p.y;
+        var distM = Math.sqrt(dxm * dxm + dym * dym);
+        if (distM < 200) {
+          p.x += dxm * 0.003;
+          p.y += dym * 0.003;
+        }
+
+        for (var j = i + 1; j < particles.length; j++) {
+          var p2 = particles[j];
+          var dx = p.x - p2.x, dy = p.y - p2.y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < CONNECTION_DIST) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = 'rgba(107,138,253,' + (0.12 * (1 - dist / CONNECTION_DIST)) + ')';
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
       }
-      closeAllSubs();
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+
+    /* ═══════════ SLIDE SYSTEM ═══════════ */
+    var slides = document.querySelectorAll('.pf-slide');
+    var sideNavItems = document.querySelectorAll('.pf-sidenav__item');
+    var prevBtn = document.getElementById('pfSlidePrev');
+    var nextBtn = document.getElementById('pfSlideNext');
+    var counterCur = document.getElementById('pfCounterCur');
+    var progressFill = document.getElementById('pfProgressFill');
+    var curSlide = 0;
+    var totalSlides = slides.length;
+    var isAnimating = false;
+
+    function updateProgress() {
+      var pct = ((curSlide) / (totalSlides - 1)) * 100;
+      progressFill.style.width = pct + '%';
     }
 
-    function openPanel(key) {
-      var id = nodeMap[key];
-      if (!id) return;
-      var el = document.getElementById(id);
-      if (!el) return;
-
-      if (activePanel === el) {
-        closeActive();
-        return;
-      }
-
-      closeActive();
-      el.classList.add('is-active');
-      // bar-panel은 마인드맵 시프트 안함
-      if (desktop && !el.classList.contains('bar-panel')) desktop.classList.add('desktop--shifted');
-      activePanel = el;
-    }
-
-    // 프로젝트 서브노드 클릭 → 슬라이드 패널
-    var subNodes = document.querySelectorAll('.project-subnode');
-    for (var i = 0; i < subNodes.length; i++) {
-      (function(sn) {
-        sn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          var proj = sn.getAttribute('data-project');
-          if (proj === 'ssabree') {
-            closeProjectSubs();
-            openPanel('project');
-          }
-        });
-      })(subNodes[i]);
-    }
-
-    // 서브노드 내부 클릭 — 이벤트 전파만 차단
-    var stopPropEls = document.querySelectorAll('.tech-row, .sub-node');
-    for (var i = 0; i < stopPropEls.length; i++) {
-      stopPropEls[i].addEventListener('click', function(e) { e.stopPropagation(); });
-    }
-
-    // 연락처 노드 클릭 → 팝업 토글
-    var contactItems = document.querySelectorAll('.sub-node--contact-item');
-    var activeContactNode = null;
-    for (var i = 0; i < contactItems.length; i++) {
-      (function(node) {
-        node.addEventListener('click', function(e) {
-          e.stopPropagation();
-          // 다른 열린 팝업 닫기
-          if (activeContactNode && activeContactNode !== node) {
-            activeContactNode.classList.remove('is-popup-open');
-          }
-          node.classList.toggle('is-popup-open');
-          activeContactNode = node.classList.contains('is-popup-open') ? node : null;
-        });
-      })(contactItems[i]);
-    }
-
-    // 팝업 박스 클릭 → 이메일 복사 / GitHub·Blog 새탭 이동
-    var popups = document.querySelectorAll('.contact-popup');
-    for (var i = 0; i < popups.length; i++) {
-      (function(popup) {
-        popup.addEventListener('click', function(e) {
-          e.stopPropagation();
-          var parentNode = popup.closest('.sub-node--contact-item');
-          var type = parentNode ? parentNode.getAttribute('data-contact') : '';
-          if (type === 'email') {
-            navigator.clipboard.writeText('ehehkwat1@naver.com').then(function() {
-              var toast = document.getElementById('copyToast');
-              if (toast) {
-                toast.classList.add('is-visible');
-                setTimeout(function() { toast.classList.remove('is-visible'); }, 2000);
-              }
-            });
-          } else if (type === 'github') {
-            window.open('https://github.com/doyoungkim-code', '_blank');
-          } else if (type === 'blog') {
-            window.open('https://dyomyo.tistory.com', '_blank');
-          }
-        });
-      })(popups[i]);
-    }
-
-    // 노드 클릭
-    var nodes = mindmap.querySelectorAll('.mindmap__node');
-    for (var i = 0; i < nodes.length; i++) {
-      (function(node) {
-        node.addEventListener('click', function(e) {
-          e.stopPropagation();
-          var key = node.getAttribute('data-node');
-          // 서브노드 토글 노드들
-          var subToggleMap = {
-            project: { toggle: toggleProjectSubs, close: closeProjectSubs },
-            tech:    { toggle: toggleTechSubs,    close: closeTechSubs },
-            cert:    { toggle: toggleCertSubs,    close: closeCertSubs },
-            contact: { toggle: toggleContactSubs, close: closeContactSubs }
-          };
-          if (subToggleMap[key]) {
-            var saved = subToggleMap[key];
-            // 다른 서브노드 모두 닫기
-            for (var k in subToggleMap) {
-              if (k !== key) subToggleMap[k].close();
-            }
-            if (activePanel) { closeActive(); }
-            saved.toggle();
-            return;
-          }
-          closeAllSubs();
-          openPanel(key);
-        });
-      })(nodes[i]);
-    }
-
-    // 닫기 버튼
-    var closeBtns = document.querySelectorAll('.slide-panel__close, .bar-panel__close');
-    for (var i = 0; i < closeBtns.length; i++) {
-      closeBtns[i].addEventListener('click', function(e) {
-        e.stopPropagation();
-        closeActive();
+    function triggerReveal(slide) {
+      var items = slide.querySelectorAll('.pf-reveal');
+      items.forEach(function(el, i) {
+        el.classList.remove('is-visible');
+        void el.offsetHeight;
+        setTimeout(function() { el.classList.add('is-visible'); }, 80 * i);
       });
     }
 
-    // ESC 키
+    function triggerCountUp(slide) {
+      var nums = slide.querySelectorAll('.pf-countup');
+      nums.forEach(function(el) {
+        var target = +el.getAttribute('data-target');
+        var start = 0;
+        var duration = 1200;
+        var startTime = null;
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          var progress = Math.min((ts - startTime) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.floor(eased * target);
+          if (progress < 1) requestAnimationFrame(step);
+          else el.textContent = target === 100 ? '100+' : (target === 158 ? '~158' : target);
+        }
+        requestAnimationFrame(step);
+      });
+    }
+
+    function goToSlide(idx) {
+      if (isAnimating || idx === curSlide || idx < 0 || idx >= totalSlides) return;
+      isAnimating = true;
+
+      var dir = idx > curSlide ? 1 : -1;
+      slides[curSlide].classList.remove('is-active');
+      slides[curSlide].classList.add(dir > 0 ? 'is-exit-left' : 'is-exit-right');
+      slides[idx].classList.add('is-active', dir > 0 ? 'is-enter-right' : 'is-enter-left');
+
+      sideNavItems[curSlide].classList.remove('is-active');
+      sideNavItems[idx].classList.add('is-active');
+
+      counterCur.textContent = String(idx + 1).padStart(2, '0');
+
+      prevBtn.style.opacity = idx === 0 ? '0.15' : '1';
+      prevBtn.style.pointerEvents = idx === 0 ? 'none' : 'auto';
+      nextBtn.style.opacity = idx === totalSlides - 1 ? '0.15' : '1';
+      nextBtn.style.pointerEvents = idx === totalSlides - 1 ? 'none' : 'auto';
+
+      var oldSlide = curSlide;
+      curSlide = idx;
+      updateProgress();
+      triggerReveal(slides[idx]);
+      triggerCountUp(slides[idx]);
+
+      setTimeout(function() {
+        slides[oldSlide].classList.remove('is-exit-left', 'is-exit-right');
+        slides[curSlide].classList.remove('is-enter-left', 'is-enter-right');
+        isAnimating = false;
+      }, 700);
+    }
+
+    /* init */
+    if (slides.length) {
+      slides[0].classList.add('is-active');
+      prevBtn.style.opacity = '0.15';
+      prevBtn.style.pointerEvents = 'none';
+      updateProgress();
+    }
+
+    prevBtn.addEventListener('click', function() { goToSlide(curSlide - 1); });
+    nextBtn.addEventListener('click', function() { goToSlide(curSlide + 1); });
+    sideNavItems.forEach(function(item) {
+      item.addEventListener('click', function() { goToSlide(+this.getAttribute('data-slide')); });
+    });
+
+    /* keyboard */
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeActive();
+      if (pf.style.display === 'none') return;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); goToSlide(curSlide + 1); }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goToSlide(curSlide - 1); }
     });
 
-    /* ── 핵심 기능 캐러셀 ── */
-    var cards = document.querySelectorAll('#featureCarousel .feature-card');
-    var dotsWrap = document.getElementById('featureDots');
-    var currentIdx = 0;
+    /* wheel */
+    var wheelLock = null;
+    document.addEventListener('wheel', function(e) {
+      if (pf.style.display === 'none') return;
+      if (wheelLock) return;
+      wheelLock = setTimeout(function() { wheelLock = null; }, 900);
+      if (e.deltaY > 30) goToSlide(curSlide + 1);
+      else if (e.deltaY < -30) goToSlide(curSlide - 1);
+    }, { passive: true });
 
-    // 도트 생성
-    if (dotsWrap && cards.length) {
-      for (var i = 0; i < cards.length; i++) {
-        var dot = document.createElement('button');
-        dot.className = 'feature-carousel__dot' + (i === 0 ? ' is-active' : '');
-        dot.setAttribute('data-idx', i);
-        dot.addEventListener('click', function() { goTo(+this.getAttribute('data-idx')); });
-        dotsWrap.appendChild(dot);
+    /* touch */
+    var tx = 0;
+    document.addEventListener('touchstart', function(e) { tx = e.touches[0].clientX; }, { passive: true });
+    document.addEventListener('touchend', function(e) {
+      var d = tx - e.changedTouches[0].clientX;
+      if (Math.abs(d) > 60) goToSlide(d > 0 ? curSlide + 1 : curSlide - 1);
+    }, { passive: true });
+
+    /* ═══════════ TYPING EFFECT ═══════════ */
+    var typingEl = document.getElementById('pfTyping');
+    var typingText = '> Hello, World!';
+    var typingIdx = 0;
+    function startTyping() {
+      if (!typingEl) return;
+      typingEl.textContent = '';
+      typingIdx = 0;
+      function type() {
+        if (typingIdx < typingText.length) {
+          typingEl.textContent += typingText[typingIdx];
+          typingIdx++;
+          setTimeout(type, 60 + Math.random() * 40);
+        }
       }
+      setTimeout(type, 400);
     }
 
-    function goTo(idx) {
-      if (idx < 0) idx = cards.length - 1;
-      if (idx >= cards.length) idx = 0;
-      cards[currentIdx].classList.remove('is-visible');
-      cards[idx].classList.add('is-visible');
-      var dots = dotsWrap ? dotsWrap.children : [];
-      if (dots[currentIdx]) dots[currentIdx].classList.remove('is-active');
-      if (dots[idx]) dots[idx].classList.add('is-active');
-      currentIdx = idx;
+    /* ═══════════ MOUSE PARALLAX (Profile) ═══════════ */
+    if (!isMobile) {
+      document.addEventListener('mousemove', function(e) {
+        if (curSlide !== 0) return;
+        var cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+        var dx = (e.clientX - cx), dy = (e.clientY - cy);
+        var els = document.querySelectorAll('[data-parallax]');
+        els.forEach(function(el) {
+          var factor = +el.getAttribute('data-parallax');
+          el.style.transform = 'translate(' + (dx * factor) + 'px,' + (dy * factor) + 'px)';
+        });
+      });
     }
 
-    var prevBtn = document.getElementById('featurePrev');
-    var nextBtn = document.getElementById('featureNext');
-    if (prevBtn) prevBtn.addEventListener('click', function() { goTo(currentIdx - 1); });
-    if (nextBtn) nextBtn.addEventListener('click', function() { goTo(currentIdx + 1); });
-  })();
-
-  /* ── 달 클릭 → 착지 확대 → 링크 이동 ── */
-  (function() {
-    var moonBtn = document.getElementById('moonBtn');
-    var moonOrbit = document.getElementById('moonOrbit');
-    if (!moonBtn || !moonOrbit) return;
-
-    moonBtn.addEventListener('click', function(e) {
-      if (!moonOrbit.classList.contains('is-landed')) return;
-      e.preventDefault();
-      moonOrbit.classList.add('is-zooming');
-      setTimeout(function() {
-        window.open('https://dyomyo.tistory.com/', '_blank');
-      }, 1000);
-      setTimeout(function() {
-        moonOrbit.classList.remove('is-zooming');
-      }, 2000);
-    });
-  })();
-
-  /* ── 별 반짝이 이펙트 생성 ── */
-  (function() {
-    var desktop = document.getElementById('dyoDesktop');
-    if (!desktop) return;
-    var STAR_COUNT = 120;
-    for (var i = 0; i < STAR_COUNT; i++) {
-      var star = document.createElement('div');
-      star.className = 'star' + (Math.random() < 0.15 ? ' star--large' : '');
-      star.style.left = Math.random() * 100 + '%';
-      star.style.top = Math.random() * 100 + '%';
-      star.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
-      star.style.setProperty('--delay', (Math.random() * 5) + 's');
-      desktop.appendChild(star);
+    /* ═══════════ 3D TILT CARDS ═══════════ */
+    if (!isMobile) {
+      document.querySelectorAll('.pf-tilt').forEach(function(card) {
+        card.addEventListener('mousemove', function(e) {
+          var rect = card.getBoundingClientRect();
+          var x = e.clientX - rect.left, y = e.clientY - rect.top;
+          var cx = rect.width / 2, cy = rect.height / 2;
+          var rotateX = ((y - cy) / cy) * -6;
+          var rotateY = ((x - cx) / cx) * 6;
+          card.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale(1.02)';
+          /* shine effect */
+          var shine = card.querySelector('.pf-feat-card__shine, .pf-tech__group-glow, .pf-contact__card-glow');
+          if (shine) {
+            shine.style.background = 'radial-gradient(circle at ' + x + 'px ' + y + 'px, rgba(255,255,255,0.06), transparent 60%)';
+          }
+        });
+        card.addEventListener('mouseleave', function() {
+          card.style.transform = '';
+          var shine = card.querySelector('.pf-feat-card__shine, .pf-tech__group-glow, .pf-contact__card-glow');
+          if (shine) shine.style.background = '';
+        });
+      });
     }
+
+    /* ═══════════ MAGNETIC BUTTONS ═══════════ */
+    if (!isMobile) {
+      document.querySelectorAll('.pf-magnetic').forEach(function(btn) {
+        btn.addEventListener('mousemove', function(e) {
+          var rect = btn.getBoundingClientRect();
+          var x = e.clientX - rect.left - rect.width / 2;
+          var y = e.clientY - rect.top - rect.height / 2;
+          btn.style.transform = 'translate(' + (x * 0.25) + 'px,' + (y * 0.25) + 'px)';
+        });
+        btn.addEventListener('mouseleave', function() {
+          btn.style.transform = '';
+        });
+      });
+    }
+
   })();
   </script>
-  <!-- 토스트 알림 -->
-  <div class="copy-toast" id="copyToast">이메일이 복사되었습니다!</div>
+
 </body>
 
 </html>
