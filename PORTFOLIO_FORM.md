@@ -79,6 +79,11 @@ Git, Docker
 
 ```
 
+### 주력 기술 숙련도 (참고)
+```
+Java (Advanced, ~90%) · Spring Boot (Advanced, ~85%) · Spring Data JPA (Intermediate+, ~80%) · PostgreSQL (Intermediate, ~70%)
+```
+
 ---
 
 ## 4. 프로젝트 (Projects)
@@ -92,7 +97,7 @@ Git, Docker
 팀 인원      : 6명 (예: 4명)
 한줄 설명    : SSAFY(삼성 청년 SW AI 아카데미) 교육생들을 위한 커뮤니티 플랫폼
 기술 스택    : Java, Spring Boot, PostgreSQL, Redis (예: React, TypeScript, Spring Boot, MySQL, Redis)
-스크린샷     : https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FcGa595%2FdJMb99SXmfb%2FAAAAAAAAAAAAAAAAAAAAADAqKIYQnin57ZCUjIJxzV8t4Ig32biffx1OisqVt0d7%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1774969199%26allow_ip%3D%26allow_referer%3D%26signature%3DTWaTdND3CdneJ832pgiDzKRxBys%253D (이미지 파일명 또는 URL, 없으면 비워두세요)
+스크린샷     : (모바일1) https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FwDcMf%2FdJMcaiXPQch%2FAAAAAAAAAAAAAAAAAAAAAD8xFfwru_qfE0X0a-AbkOJVOOKuHFh-J7Iq4HSyz1cm%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1782831599%26allow_ip%3D%26allow_referer%3D%26signature%3DYVWCnwyJOuJb%252FGfoM4XXNOvrUao%253D  /  (모바일2) https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbJxdes%2FdJMcafmBBZa%2FAAAAAAAAAAAAAAAAAAAAAH20T5j06boFKjO8MD6iMtVMdGOO3Z3tlvLK4Ne2Ic5z%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1782831599%26allow_ip%3D%26allow_referer%3D%26signature%3D1u1WQPNeUUCGZ%252BuMqVxw8TiF1Xk%253D
 ```
 
 #### 프로젝트 상세 설명 (2~3문장)
@@ -104,35 +109,90 @@ Git, Docker
 
 ```
 
-#### 담당 역할 (3개 내외)
+#### 담당 역할
 ```
-- Backend
+- Backend (핵심 비즈니스 로직 / API 설계 / 실시간 채팅 / FCM, 약 158커밋)
+- 인증/인가: JWT Access(30분)+Refresh(1년) 이중 토큰, SSAFY Mattermost 연동 본인 인증, Spring Security 필터 체인
+- 게시판: RESTful CRUD·좋아요·스크랩·투표, 커서 기반 페이지네이션, HOT 게시판(Redis 3분 캐시), 인기 검색어(Redis Sorted Set)
+- 실시간 채팅: WebSocket STOMP, 핸들러 레벨 JWT 검증, 온라인 프레즌스 추적, Nginx WebSocket 프록시
+- 팀/스터디 매칭: 전체 생명주기 API(생성→모집→운영→종료), 지원/수락/거절, Task 관리
+- FCM 푸시: Firebase Admin SDK 연동, @Async 비동기 전송
+- DB 설계(공동): ERD 1~3차(15+ 엔티티, 44 Repository), 댓글 Soft Delete(트리 보존)
+```
 
+#### 팀 구성
+```
+- BE 김도영(본인) — 핵심 로직/API/채팅/FCM (~158커밋)
+- BE + Infra 1명 — 초기 설정/AI 검열/모니터링/React 웹/CI·CD (~237커밋)
+- Android 3명 — Kotlin/Jetpack Compose
+- iOS 1명(겸임) — SwiftUI
+```
+
+#### 기술 선택 이유
+```
+- PostgreSQL (vs MySQL): 복잡한 JOIN 최적화, CTE 재귀 쿼리(대댓글), JSON 타입 확장성
+- Redis: HOT 게시판 캐시(3분 TTL), FCM 설정 캐시, 인기 검색어 Sorted Set(O(log N))
+- WebSocket STOMP (vs HTTP Polling): 서버 부하 감소, 토픽 기반 구독/발행, SockJS 폴백
+```
+
+#### 트러블슈팅
+```
+- Jackson3 + Redis 직렬화 연쇄 장애 → GenericJackson3JsonRedisSerializer로 타입 정보(@class) 보존
+- 회원탈퇴 Side Effect (4일 추적) → Hard Delete → Soft Delete(deletedAt) 전환, 리더 null 처리
+- API 스펙 반복 수정(3~5차) → Req/Res body 상세 명세 + Swagger 문서화로 1차 80%+ 통과
+```
+
+#### 주요 성과
+```
+- 출시 1주 내 100+ 유저 확보
+- 안드로이드 원스토어 + iOS 앱스토어 2개 출시
+- 전체 761커밋 중 ~158커밋(20.8%), 20+ 도메인 모듈 / 44 Repository
 ```
 
 ---
 
-### 프로젝트 2 (삭제)
+### 프로젝트 2
 ```
-프로젝트명   :
-기간         :
-팀 인원      :
-한줄 설명    :
-기술 스택    :
-스크린샷     :
-```
-
-#### 프로젝트 상세 설명
+프로젝트명   : 번역의 민족  (🏆 SSAFY 전국 3위 · 전시부문)
+기간         : 2026.04.06 ~ 2026.06.02 (약 8주)
+팀 인원      : 6명 (팀장 / Backend / Infra)
+한줄 설명    : 대학 강의 실시간 번역 서비스 — 강사의 한국어 발화를 즉시 영어 음성·자막·번역 슬라이드로 변환 (완전 로컬 추론)
+기술 스택    : Python, FastAPI, Electron, Whisper(CT2), NLLB-200, Qwen3-VL, WebRTC/TURN, onnxruntime-web
+스크린샷     : (PC1) https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fddu2rt%2FdJMcaijiaMl%2FAAAAAAAAAAAAAAAAAAAAADaGGtWBdpuq_VBV1rAJjnwZfNyMjrFymgQ4Wm6nSPtS%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1782831599%26allow_ip%3D%26allow_referer%3D%26signature%3Dhbx7QOElgQ803tkIy9MXqomUdL8%253D  /  (PC2) https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FcrnlDm%2FdJMcaijiaMk%2FAAAAAAAAAAAAAAAAAAAAAHZxijVuIlOK-0Uo2eT_1OztdZPtfNH6IF9qzZnvLyjF%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1782831599%26allow_ip%3D%26allow_referer%3D%26signature%3Dg0yTnlyU%252FoFNAFNx38h1XiuD9Jo%253D  /  (수상) https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2F0dtwY%2FdJMcacciY8e%2FAAAAAAAAAAAAAAAAAAAAAOy09Y7U5r8B2FzaMvgyXglSzPzZE38N7S2rmNyfJeZZ%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1782831599%26allow_ip%3D%26allow_referer%3D%26signature%3DiMQxD6YsWlar91kjF3suARId5%252BE%253D
 ```
 
+#### 프로젝트 상세 설명 (2~3문장)
+```
+"강의자는 평소대로 말하고, 수강자는 모국어로 듣는다" — ASR→NMT→TTS 추론 파이프라인을 강사 PC에서 완전 로컬로 구동하는 FastAPI 백엔드 + Electron 설치형 배포 인프라를 설계·구현했습니다.
+음성·슬라이드 원문을 외부 서버로 보내지 않는 완전 로컬 추론이 핵심 차별점입니다.
+로컬 AI 스택: Whisper turbo(ASR) · NLLB-200(한→영 NMT) · Qwen3-VL-4B(슬라이드 VLM 번역) · 내장 TURN(node-turn, P2P 차단망 우회).
 
+회고 링크 : (있으면 추가)
 ```
 
 #### 담당 역할
 ```
--
--
--
+- 팀장 / Backend / Infra (약 132커밋)
+- Electron 데스크톱 배포 인프라: PyInstaller→electron-builder→Inno Setup 3단계 패키징, 관리자 권한 없는 per-user 설치, 디스크 사전 체크(~17GB)
+- AI 모델 다운로드/관리 UX: ThreadPoolExecutor 병렬 다운로드, safetensors 무결성 검증, 사용자 동의 마법사
+- 백엔드 생명주기: GIL 독립 Health 서버, ctypes 부모 프로세스 Watchdog, 5분 Grace Shutdown
+- 네트워크/실시간: 내장 TURN(포트 47878, UDP→TCP fallback), LAN IP 자동 탐지, 강의자 loopback 전용
+- 로컬 추론 운영: VRAM 용량별 VLM 4/8bit 자동 양자화(6GB GPU 지원), COOP/COEP 헤더(SharedArrayBuffer)
+- 강의 자막 저장/다운로드 API, 번역 용어집(glossary) 동적 관리
+```
+
+#### 트러블슈팅
+```
+- HF Hub 다운로드 진행률 튐(7GB→2GB) → blobs/·snapshots/ 양쪽 재귀 측정 후 MAX + 단조 증가 clamp
+- 강의실 보안망 P2P 차단 → 포트 47878 node-turn 내장 TURN(UDP 차단 시 TCP fallback)로 relay 우회
+- Electron frozen 번들에서 마이크·화면공유·AI 미동작 → frozen 경로 헬퍼 + .mjs/.wasm MIME 등록
+- 강사 앱 종료 시 학생 자막 소실 → 부모 프로세스 watchdog + 5분 grace shutdown
+```
+
+#### 주요 성과 / 회고
+```
+- SSAFY 결선 전시 전국 3위 🏆 / 약 132커밋(Backend·Infra) / 17GB 로컬 AI 모델을 단일 setup.exe로 패키징
+- 회고: 배포가 곧 제품 · 실행 환경 제약 우선 고려 · 로컬 추론 운영 난이도 · 팀 리딩
 ```
 
 ---
@@ -196,13 +256,11 @@ Git, Docker
 `종류`는 **자격증** 또는 **수상** 중 선택해주세요.
 
 ```
-종류  | 이름                    | 취득/수상일
-------|------------------------|------------
-자격증 | SQLD                   | 24.04
-자격증 |                        |
-수상   |                        |
-수상   |                        |
-기타   |                        |
+종류  | 이름                                              | 취득/수상일
+------|--------------------------------------------------|------------
+자격증 | SQLD                                             | 2024.04
+수상   | SSAFY 14기 프로젝트 전시발표회 전시부문 전국 3위 (번역의 민족) | 2026.06
+기타   |                                                  |
 ```
 
 ---
