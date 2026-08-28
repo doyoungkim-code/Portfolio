@@ -9,12 +9,13 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- corp.imbc.com 서체 구성: Roboto(대문자 디스플레이) + Noto Sans KR(본문) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./images/font.css">
 
   <style>
+    /* 인덱스에서는 포트폴리오만, 그 외에는 블로그만 */
     #tt-body-index #dkWrap { display: none; }
     #tt-body-index #dyoPortfolio { display: block; }
   </style>
@@ -35,13 +36,15 @@
       <a href="#dkBody">본문 바로가기</a>
     </div>
 
-    <!-- ===== 일반 페이지 레이아웃 (블로그 본문) ===== -->
+    <!-- =====================================================
+         BLOG — 티스토리 본문 (인덱스 외 모든 페이지)
+         ===================================================== -->
     <div id="dkWrap" class="wrap_skin">
 
       <header id="dkHead" role="banner" class="site-header">
         <div class="header-inner">
           <a href="/" class="header-logo">
-            <img src="[##_image_##]" alt="프로필" class="header-avatar">
+            <span class="header-chip">DY</span>
             <span class="header-title">[##_title_##]</span>
           </a>
           <nav class="header-nav">
@@ -247,6 +250,7 @@
             <img src="[##_image_##]" alt="프로필" class="sidebar-avatar">
             <strong class="sidebar-name">[##_blogger_##]</strong>
             <span class="sidebar-blog">[##_title_##]</span>
+            <a href="/" class="sidebar-pf-link">포트폴리오 보기 &rarr;</a>
           </div>
           <div class="sidebar-section">
             <strong class="sidebar-title">Categories</strong>
@@ -296,318 +300,510 @@
     </div>
 
 
-    <!-- ===== 포트폴리오 (인덱스 전용 · 카페 배경 + 키오스크 화면) ===== -->
+    <!-- =====================================================
+         PORTFOLIO — 인덱스 전용 · corp.imbc.com 에디토리얼 풀페이지
+         다크 커버(스냅) + 라이트 상세(자유 스크롤)
+         ===================================================== -->
     <div id="dyoPortfolio" class="pf">
-      <div class="pf-stage">
 
-        <!-- 클릭 가이드 (배경 속 키오스크 위) -->
-        <button class="pf-hot" id="pfHot" type="button" aria-label="키오스크 열기">
-          <span class="pf-hot__ring"></span>
-          <span class="pf-hot__hand">👆</span>
-          <span class="pf-hot__label">키오스크를 눌러주세요!</span>
-        </button>
+      <!-- 고정 크롬: 로고 · 슬로건 -->
+      <header class="pf-chrome">
+        <a class="pf-logo" href="#cv-about">DOYOUNG<i>.</i></a>
+        <p class="pf-slogan">Solid Backend &amp; AI-Ready Engineer</p>
+        <a class="pf-chrome__blog" href="/category">BLOG</a>
+      </header>
 
-        <!-- 키오스크 화면 (열리면 사람 왼쪽을 가득 채움) -->
-        <section class="pf-screen" id="pfScreen">
-          <div class="pf-screen__bar">
-            <span class="pf-screen__dot"></span>
-            <span class="pf-screen__brand">김도영 · Backend Developer</span>
-            <button class="pf-screen__close" id="pfClose" type="button" aria-label="닫기">&#10005;</button>
+      <!-- 좌측 세로 내비 (corp 스타일: 불릿 + 텍스트) -->
+      <nav class="pf-sidenav" aria-label="섹션">
+        <a href="#cv-about" data-sec="about"><i></i>ABOUT</a>
+        <a href="#cv-journey" data-sec="journey"><i></i>JOURNEY</a>
+        <a href="#cv-skills" data-sec="skills"><i></i>SKILLS</a>
+        <a href="#cv-p1" data-sec="p1"><i></i>PROJECT 01</a>
+        <a href="#cv-p2" data-sec="p2"><i></i>PROJECT 02</a>
+        <a href="#cv-contact" data-sec="contact"><i></i>CONTACT</a>
+      </nav>
+
+      <main class="pf-main">
+
+        <!-- ■ COVER 01 · ABOUT -->
+        <section class="pf-cover" id="cv-about" data-nav="about" data-tone="dark" data-page="01">
+          <div class="pf-cover__bg" aria-hidden="true"><img src="./images/hero-bg.jpg" alt="" onerror="this.parentNode.remove()"></div>
+          <span class="pf-cover__num" aria-hidden="true">01</span>
+          <div class="pf-cover__in">
+            <p class="pf-overline rv">BACKEND DEVELOPER &middot; PORTFOLIO 2026</p>
+            <h1 class="pf-display" data-split>KIM DOYOUNG</h1>
+            <p class="pf-cover__sub rv">탄탄하게 쌓고, <b>AI</b>로 확장하는 백엔드 개발자 김도영입니다.</p>
+            <p class="pf-cover__desc rv">
+              정보통신공학 &rarr; 42경산 &rarr; SSAFY. 세 번의 담금질로 다진 CS 기본기 위에,<br class="pf-br">
+              로컬 AI 서비스를 설치 파일까지 직접 배포해 본 실행력을 얹었습니다.
+            </p>
+            <div class="pf-vitals rv">
+              <div><b data-count="100" data-suffix="+">0</b><span>출시 1주 유저</span></div>
+              <div><b data-count="3" data-prefix="TOP ">0</b><span>SSAFY 전국 &middot; 전시부문</span></div>
+              <div><b data-count="2">0</b><span>앱스토어 출시</span></div>
+              <div><b data-count="290" data-suffix="+">0</b><span>프로젝트 커밋</span></div>
+            </div>
           </div>
-          <div class="pf-screen__scroll">
+          <a class="pf-down" href="#cv-journey" aria-label="다음 섹션"></a>
+        </section>
 
-            <!-- Hero -->
-            <section class="sec sec--hero">
-              <p class="hero-kicker">DOYOUNG · BACKEND PORTFOLIO</p>
-              <h1 class="hero-title">안녕하세요,<br><b>백엔드 개발자 김도영</b>입니다.</h1>
-              <p class="hero-desc">데이터 흐름을 안정적으로 설계하는 개발자입니다.</p>
-              <div class="hero-cta">
-                <a class="pf-btn pf-btn--solid" href="#sec-proj1">프로젝트 보기</a>
-                <a class="pf-btn" href="#sec-contact">연락처</a>
-              </div>
-            </section>
+        <!-- ■ COVER 02 · JOURNEY -->
+        <section class="pf-cover pf-cover--alt" id="cv-journey" data-nav="journey" data-tone="dark" data-page="02">
+          <span class="pf-cover__num" aria-hidden="true">02</span>
+          <div class="pf-cover__in">
+            <p class="pf-overline rv">THE ROAD SO FAR</p>
+            <h2 class="pf-display" data-split>JOURNEY</h2>
+            <p class="pf-cover__sub rv">한 번에 완성된 개발자는 없다고 생각합니다. 세 개의 과정을 순서대로 통과했습니다.</p>
 
-            <!-- About -->
-            <section class="sec" id="sec-about">
-              <h2 class="pf-h2"><span>01</span> About</h2>
-              <div class="about-top">
-                <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FyJ8nh%2FdJMcaaExlf6%2FAAAAAAAAAAAAAAAAAAAAADx9Ieu49xl_q3JXZvePhyidrWkEF9vxsC8V4jF6EutV%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1782831599%26allow_ip%3D%26allow_referer%3D%26signature%3DpbvmW0qx4Av10gimBG7FTKIEJVE%253D" alt="김도영 프로필">
-                <div class="about-top__t"><b>김도영</b><span>Backend Developer</span></div>
+            <div class="pf-panel rv">
+              <div class="pf-jrow">
+                <span class="pf-jrow__date">2018.03 &mdash; 2024.02</span>
+                <span class="pf-jrow__name">영남대학교 &middot; 정보통신공학과</span>
+                <span class="pf-jrow__desc">자료구조 &middot; 알고리즘 &middot; 네트워크 &middot; 운영체제 &mdash; 소프트웨어의 바닥을 이루는 CS 기초를 전공으로.</span>
               </div>
-              <p class="pf-lead">사용자 경험의 기반은 튼튼한 백엔드라고 믿습니다. 데이터 무결성과 안정적인 API 설계를 최우선으로 고려하며, 실제 서비스를 출시하고 100여 명의 사용자에게 운영한 경험을 바탕으로 캐싱 전략·실시간 통신·인증 시스템 등 백엔드 핵심 영역에서 깊이 있는 구현 역량을 쌓아가고 있습니다.</p>
-              <div class="pf-goal">
-                <b>단기 목표</b> — 안정적인 서비스 설계와 성능 최적화 역량 강화<br>
-                <b>중장기 목표</b> — 대규모 트래픽을 처리할 수 있는 확장 가능한 아키텍처 설계
+              <div class="pf-jrow">
+                <span class="pf-jrow__date">2024.02 &mdash; 2025.06</span>
+                <span class="pf-jrow__name">42경산 &middot; 1기 본과정</span>
+                <span class="pf-jrow__desc">교재도 강의도 없는 피어 리뷰 환경에서 C/C++ 시스템 프로그래밍 수련. Unix 프로세스와 메모리를 코드로 직접.</span>
               </div>
-              <dl class="pf-meta">
-                <div><dt>생년월일</dt><dd>1999.09.29</dd></div>
-                <div><dt>지역</dt><dd>Daegu, Korea</dd></div>
-                <div><dt>현재</dt><dd>SSAFY 14기 교육중</dd></div>
-              </dl>
-            </section>
+              <div class="pf-jrow">
+                <span class="pf-jrow__date">2025.07 &mdash; 2026.06</span>
+                <span class="pf-jrow__name">SSAFY 14기 &middot; 전공 Java 과정</span>
+                <span class="pf-jrow__desc">Java/Spring Boot 심화. 두 번의 팀 프로젝트에서 기획부터 출시 &middot; 운영까지 실서비스 전 과정 통과.</span>
+              </div>
+            </div>
+            <p class="pf-covermeta rv">SQLD &middot; 2024.04&ensp;/&ensp;SSAFY 프로젝트 전시발표회 전시부문 전국 3위 &middot; 2026.06</p>
+          </div>
+          <a class="pf-down" href="#cv-skills" aria-label="다음 섹션"></a>
+        </section>
 
-            <!-- Skills -->
-            <section class="sec" id="sec-skills">
-              <h2 class="pf-h2"><span>02</span> Skills</h2>
+        <!-- ■ COVER 03 · SKILLS -->
+        <section class="pf-cover pf-cover--g2" id="cv-skills" data-nav="skills" data-tone="dark" data-page="03">
+          <span class="pf-cover__num" aria-hidden="true">03</span>
+          <div class="pf-cover__in">
+            <p class="pf-overline rv">PROVEN BY WORK, NOT PERCENT</p>
+            <h2 class="pf-display" data-split>SKILLS</h2>
+            <p class="pf-cover__sub rv">숫자 게이지 대신, 각 기술로 실제로 무엇을 만들었는지로 말합니다.</p>
 
-              <div class="skill">
-                <div class="skill__top"><span class="skill__name"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="">Java</span><span class="skill__lv">ADVANCED</span></div>
-                <div class="skill__bar"><span class="skill__fill" style="width:90%"></span></div>
-                <p class="skill__why">주력 언어. 20개 이상 도메인 모듈을 Java로 설계·구현. 컬렉션·Stream API·제네릭·예외 처리를 적극 활용한 서비스 로직 작성 경험.</p>
+            <div class="pf-panel rv">
+              <div class="pf-srow">
+                <span class="pf-srow__name">Java &middot; Spring Boot</span>
+                <span class="pf-srow__desc">Spring MVC 아키텍처 기반으로 인증 &middot; 게시판 &middot; 실시간 채팅 &middot; FCM 등 20+ 도메인 모듈을 구현, 앱스토어 출시와 운영까지.</span>
               </div>
-              <div class="skill">
-                <div class="skill__top"><span class="skill__name"><img src="https://cdn.simpleicons.org/springboot" alt="">Spring Boot</span><span class="skill__lv">ADVANCED</span></div>
-                <div class="skill__bar"><span class="skill__fill" style="width:85%"></span></div>
-                <p class="skill__why">실 서비스 배포 경험. JWT 인증, Spring Data JPA, WebSocket STOMP, FCM 연동, Swagger 문서화 등 Spring 생태계 전반 활용.</p>
+              <div class="pf-srow">
+                <span class="pf-srow__name">RDBMS &middot; JPA + PostgreSQL</span>
+                <span class="pf-srow__desc">ERD 3차 반복으로 15+ 엔티티 관계형 스키마 설계(44 Repository). 댓글 Soft Delete, 커서 기반 페이지네이션 실적용.</span>
               </div>
-              <div class="skill">
-                <div class="skill__top"><span class="skill__name"><img src="https://cdn.simpleicons.org/spring" alt="">Spring Data JPA</span><span class="skill__lv">INTERMEDIATE+</span></div>
-                <div class="skill__bar"><span class="skill__fill" style="width:80%"></span></div>
-                <p class="skill__why">ERD 3차 반복 설계, Fetch Join으로 N+1 해결, Soft Delete 전략 설계, @Transactional 범위 관리 경험.</p>
+              <div class="pf-srow">
+                <span class="pf-srow__name">Redis</span>
+                <span class="pf-srow__desc">집계 부하가 큰 HOT 게시판에 3분 TTL 캐시, 인기 검색어에 Sorted Set 트렌딩 설계 &middot; 운영.</span>
               </div>
-              <div class="skill">
-                <div class="skill__top"><span class="skill__name"><img src="https://cdn.simpleicons.org/postgresql" alt="">PostgreSQL</span><span class="skill__lv">INTERMEDIATE</span></div>
-                <div class="skill__bar"><span class="skill__fill" style="width:70%"></span></div>
-                <p class="skill__why">15개 이상 엔티티 관계형 데이터 모델링, 초기 데이터 시딩, 자동 백업 정책(30일 보관) 운영 경험.</p>
+              <div class="pf-srow">
+                <span class="pf-srow__name">C / C++</span>
+                <span class="pf-srow__desc">42경산에서 Unix 프로세스 &middot; 메모리 관리를 밑바닥부터 구현 &mdash; 프레임워크 아래층을 이해하는 눈.</span>
               </div>
+            </div>
 
-              <div class="subh">그 외</div>
-              <div class="pf-tags">
-                <span class="pf-tag"><img src="https://cdn.simpleicons.org/redis" alt="">Redis</span>
-                <span class="pf-tag"><img src="https://cdn.simpleicons.org/docker" alt="">Docker</span>
-                <span class="pf-tag"><img src="https://cdn.simpleicons.org/git" alt="">Git</span>
-                <span class="pf-tag"><img src="https://cdn.simpleicons.org/cplusplus" alt="">C / C++</span>
-                <span class="pf-tag"><img src="https://cdn.simpleicons.org/javascript" alt="">JavaScript</span>
-                <span class="pf-tag"><img src="https://cdn.simpleicons.org/vuedotjs" alt="">Vue.js</span>
-                <span class="pf-tag"><img src="https://cdn.simpleicons.org/mysql" alt="">MySQL</span>
-              </div>
-            </section>
+            <div class="pf-covermeta rv">
+              <b>ALSO</b>&ensp;AWS EC2 &middot; Nginx&ensp;/&ensp;Python &middot; FastAPI&ensp;/&ensp;Electron &middot; PyInstaller &middot; Inno Setup&ensp;/&ensp;Docker&ensp;/&ensp;Git&ensp;/&ensp;MySQL&ensp;/&ensp;HTML5 &middot; JavaScript&ensp;/&ensp;Vue.js
+            </div>
+            <div class="pf-covermeta pf-covermeta--tight rv">
+              로컬 AI 모델 운용(Whisper &middot; NLLB, PyTorch 계열) &mdash; 클라우드 운영(AWS EC2, 현재 운영 중) &mdash; 빌드 자동화(3단계 패키징 파이프라인)
+            </div>
+          </div>
+          <a class="pf-down" href="#cv-p1" aria-label="다음 섹션"></a>
+        </section>
 
-            <!-- Education -->
-            <section class="sec" id="sec-education">
-              <h2 class="pf-h2"><span>03</span> Education &amp; Certifications</h2>
-              <div class="tl">
-                <div class="tl__item">
-                  <span class="tl__date">2018.03 ~ 2024.02</span>
-                  <h4>영남대학교 · 정보통신공학과</h4>
-                  <p>자료구조·알고리즘·컴퓨터 네트워크·운영체제 등 CS 기초 역량 학습. 소프트웨어 설계 원칙과 OOP 기반을 다짐.</p>
+        <!-- ■ COVER 04 · PROJECT 01 -->
+        <section class="pf-cover" id="cv-p1" data-nav="p1" data-tone="dark" data-page="04">
+          <div class="pf-cover__bg pf-cover__bg--blur" aria-hidden="true"><img src="./images/ssabree-1.jpg" alt="" onerror="this.parentNode.remove()"></div>
+          <span class="pf-cover__num" aria-hidden="true">04</span>
+          <div class="pf-cover__in">
+            <p class="pf-overline rv">PROJECT 01 &mdash; LIVE SERVICE, STILL RUNNING</p>
+            <h2 class="pf-display" data-split>SSABREE TIME</h2>
+            <p class="pf-cover__sub rv">SSAFY 교육생 전용 폐쇄형 커뮤니티 + 팀 매칭 서비스 &mdash; 출시 1주 만에 100명이 모였습니다.</p>
+            <p class="pf-cover__desc rv">2026.01 &ndash; 2026.02 (6주) &middot; 6인 &middot; Backend &middot; Java / Spring Boot / PostgreSQL / Redis / AWS EC2</p>
+            <div class="pf-vitals rv">
+              <div><b>100+</b><span>출시 1주 유저</span></div>
+              <div><b>2</b><span>스토어 출시</span></div>
+              <div><b>~158</b><span>본인 커밋 / 761</span></div>
+              <div><b>44</b><span>Repository</span></div>
+            </div>
+          </div>
+          <a class="pf-down pf-down--detail" href="#dt-p1" aria-label="상세 보기"></a>
+        </section>
+
+        <!-- □ DETAIL · PROJECT 01 (단일 페이지 · 탭 전환) -->
+        <section class="pf-detail" id="dt-p1" data-nav="p1" data-tone="light" data-page="05">
+          <div class="pf-detail__in">
+            <div class="dt-top">
+              <p class="dt-overline">PROJECT 01 &mdash; SSABREE TIME</p>
+              <div class="dt-tabs" role="tablist" aria-label="SSABREE TIME 상세">
+                <button type="button" class="on" data-tab="p1-tab-a">개요</button>
+                <button type="button" data-tab="p1-tab-b">구현</button>
+                <button type="button" data-tab="p1-tab-c">기술 선택</button>
+                <button type="button" data-tab="p1-tab-d">트러블슈팅</button>
+              </div>
+            </div>
+
+            <div class="dt-panels">
+              <div class="dt-panel on" id="p1-tab-a">
+                <p class="dt-lead">
+                  에브리타임을 벤치마킹해 기획하고, <b>원스토어 &middot; 앱스토어에 실제 출시해 1주 만에 100명 이상의 유저</b>를 확보했습니다.
+                  AWS EC2에 배포해 지금도 운영 중입니다.
+                </p>
+                <div class="dt-shots dt-shots--mobile">
+                  <figure class="dt-shot"><img loading="lazy" src="./images/ssabree-1.jpg" alt="SSABREE TIME 모바일 화면 1" onerror="this.parentNode.classList.add('is-ph');this.remove()"></figure>
+                  <figure class="dt-shot"><img loading="lazy" src="./images/ssabree-2.jpg" alt="SSABREE TIME 모바일 화면 2" onerror="this.parentNode.classList.add('is-ph');this.remove()"></figure>
                 </div>
-                <div class="tl__item">
-                  <span class="tl__date">2024.02 ~ 2025.06</span>
-                  <h4>42경산 · 1기 본과정</h4>
-                  <p>피어 리뷰 기반 자기주도 학습 환경에서 C/C++ 시스템 프로그래밍, Unix 프로세스·메모리 관리 등 저수준 역량 습득.</p>
-                </div>
-                <div class="tl__item">
-                  <span class="tl__date">2025.07 ~ 2026.06</span>
-                  <h4>SSAFY 14기 · 전공 Java 과정</h4>
-                  <p>Java/Spring Boot 웹 개발 심화. 팀 프로젝트에서 실제 서비스 기획~설계~개발~배포~운영 전 과정 수행.</p>
-                </div>
-              </div>
-              <div class="subh">Certifications</div>
-              <div class="pf-tags"><span class="pf-tag">SQLD · 2024.04</span></div>
-            </section>
-
-            <!-- Project 01 -->
-            <section class="sec" id="sec-proj1">
-              <h2 class="pf-h2"><span>04</span> Project 01 · SSABREE TIME</h2>
-              <p class="proj-meta">2026.01.06 ~ 2026.02.09 (약 6주) · 6명</p>
-              <p class="pf-lead">SSAFY 교육생 간 정보 공유·협업을 위한 전용 플랫폼이 부재하여, 에브리타임을 벤치마킹한 SSAFY 전용 폐쇄형 커뮤니티 + 팀 매칭 서비스를 기획·개발했습니다.</p>
-              <div class="stats">
-                <div class="stat"><b>761</b><span>Commits</span></div>
-                <div class="stat"><b>100+</b><span>Branches</span></div>
-                <div class="stat"><b>~158</b><span>My Commits</span></div>
-              </div>
-              <div class="pf-tags pf-tags--sm">
-                <span class="pf-tag">익명 게시판</span><span class="pf-tag">팀/스터디 매칭</span><span class="pf-tag">실시간 채팅</span>
-                <span class="pf-tag">FCM 알림</span><span class="pf-tag">AI 검열</span><span class="pf-tag">HOT 게시판</span>
-              </div>
-              <div class="shots shots--mobile">
-                <img loading="lazy" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FwDcMf%2FdJMcaiXPQch%2FAAAAAAAAAAAAAAAAAAAAAD8xFfwru_qfE0X0a-AbkOJVOOKuHFh-J7Iq4HSyz1cm%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1782831599%26allow_ip%3D%26allow_referer%3D%26signature%3DYVWCnwyJOuJb%252FGfoM4XXNOvrUao%253D" alt="SSABREE TIME 모바일 화면 1">
-                <img loading="lazy" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbJxdes%2FdJMcafmBBZa%2FAAAAAAAAAAAAAAAAAAAAAH20T5j06boFKjO8MD6iMtVMdGOO3Z3tlvLK4Ne2Ic5z%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1782831599%26allow_ip%3D%26allow_referer%3D%26signature%3D1u1WQPNeUUCGZ%252BuMqVxw8TiF1Xk%253D" alt="SSABREE TIME 모바일 화면 2">
+                <a href="https://dyomyo.tistory.com/118" target="_blank" rel="noopener" class="dt-more">회고 블로그 보기 &rarr;</a>
               </div>
 
-              <div class="subh">Tech Selection</div>
-              <div class="impl">
-                <div class="impl__card">
-                  <span class="impl__badge">DB · PostgreSQL vs MySQL</span>
-                  <ul>
-                    <li>복잡한 JOIN(게시글-댓글-좋아요-투표)에 쿼리 최적화 유리</li>
-                    <li>CTE 지원으로 대댓글 재귀 쿼리 용이</li>
-                    <li>JSON 타입으로 유연한 확장</li>
-                  </ul>
-                </div>
-                <div class="impl__card">
-                  <span class="impl__badge">CACHE · Redis</span>
-                  <ul>
-                    <li>HOT 게시판: 3분 TTL 캐시로 집계 부하 해결</li>
-                    <li>FCM 설정 캐시로 DB 조회 비효율 제거</li>
-                    <li>인기 검색어: Sorted Set O(log N) 트렌딩</li>
-                  </ul>
-                </div>
-                <div class="impl__card">
-                  <span class="impl__badge">REALTIME · WebSocket STOMP</span>
-                  <ul>
-                    <li>Polling 대비 서버 부하 대폭 감소</li>
-                    <li>STOMP 토픽 기반 구독/발행(방별 라우팅)</li>
-                    <li>SockJS 폴백으로 미지원 브라우저 대응</li>
-                  </ul>
+              <div class="dt-panel" id="p1-tab-b">
+                <div class="dt-rows">
+                  <div class="dt-row"><span class="dt-row__no">01</span><span class="dt-row__h">인증/인가</span><p>JWT Access(30분)+Refresh(1년) 이중 토큰, SSAFY Mattermost 연동 본인 인증, Spring Security 필터 체인.</p></div>
+                  <div class="dt-row"><span class="dt-row__no">02</span><span class="dt-row__h">게시판 + 캐싱</span><p>CRUD &middot; 좋아요 &middot; 스크랩 &middot; 투표, 커서 기반 페이지네이션, HOT 게시판(Redis 3분 TTL), 인기 검색어(Sorted Set).</p></div>
+                  <div class="dt-row"><span class="dt-row__no">03</span><span class="dt-row__h">실시간 채팅</span><p>WebSocket STOMP 채팅 서버, 핸들러 레벨 JWT 검증, Nginx WebSocket 프록시.</p></div>
+                  <div class="dt-row"><span class="dt-row__no">04</span><span class="dt-row__h">팀/스터디 매칭</span><p>생성&rarr;모집&rarr;운영&rarr;종료 생명주기 API, 지원/수락/거절, Task 관리.</p></div>
+                  <div class="dt-row"><span class="dt-row__no">05</span><span class="dt-row__h">FCM 푸시</span><p>Firebase Admin SDK 연동, 이벤트별 푸시, @Async 비동기 전송.</p></div>
+                  <div class="dt-row"><span class="dt-row__no">06</span><span class="dt-row__h">DB 설계 (공동)</span><p>ERD 1~3차 반복(15+ 엔티티), 댓글 Soft Delete(트리 보존), 포트폴리오 CRUD &middot; solved.ac 연동.</p></div>
                 </div>
               </div>
 
-              <div class="subh">My Implementation</div>
-              <div class="impl">
-                <div class="impl__card"><span class="impl__badge">AUTH · 100%</span><h5>인증/인가</h5><ul><li>JWT Access(30분)+Refresh(1년) 이중 토큰</li><li>SSAFY Mattermost 연동 본인 인증</li><li>Spring Security 필터 체인</li></ul></div>
-                <div class="impl__card"><span class="impl__badge">BOARD · 100%</span><h5>게시판</h5><ul><li>CRUD·좋아요·스크랩·투표</li><li>커서 기반 페이지네이션</li><li>HOT 게시판(Redis 3분 캐시)·인기 검색어</li></ul></div>
-                <div class="impl__card"><span class="impl__badge">CHAT · 100%</span><h5>실시간 채팅</h5><ul><li>WebSocket STOMP 채팅 서버</li><li>핸들러 레벨 JWT 검증</li><li>Nginx WebSocket 프록시</li></ul></div>
-                <div class="impl__card"><span class="impl__badge">TEAM · 100%</span><h5>팀/스터디 매칭</h5><ul><li>전체 생명주기 API(생성→모집→운영→종료)</li><li>지원/수락/거절·Task 관리</li><li>LazyInitializationException 전면 수정</li></ul></div>
-                <div class="impl__card"><span class="impl__badge">FCM · 100%</span><h5>푸시 알림</h5><ul><li>Firebase Admin SDK, 이벤트별 푸시</li><li>@Async 비동기 전송</li><li>얕은 재동기화로 토큰 갱신 최적화</li></ul></div>
-                <div class="impl__card"><span class="impl__badge">DB · 공동</span><h5>DB 설계 &amp; 기타</h5><ul><li>ERD 1~3차(15+ 엔티티, 44 Repository)</li><li>포트폴리오 CRUD, solved.ac 연동</li><li>댓글 Soft Delete(트리 보존)</li></ul></div>
+              <div class="dt-panel" id="p1-tab-c">
+                <div class="dt-rows">
+                  <div class="dt-row"><span class="dt-row__no">&mdash;</span><span class="dt-row__h">PostgreSQL</span><p>게시글-댓글-좋아요-투표의 복잡한 JOIN 최적화, 대댓글 CTE 재귀 쿼리, JSON 타입 확장성.</p></div>
+                  <div class="dt-row"><span class="dt-row__no">&mdash;</span><span class="dt-row__h">Redis</span><p>매 요청 집계가 부담인 HOT 게시판을 3분 TTL 캐시로, 인기 검색어를 Sorted Set으로.</p></div>
+                  <div class="dt-row"><span class="dt-row__no">&mdash;</span><span class="dt-row__h">WebSocket STOMP</span><p>Polling 대비 서버 부하 감소, 토픽 기반 구독/발행, SockJS 폴백.</p></div>
+                </div>
               </div>
 
-              <div class="subh">Trouble Shooting</div>
-              <div class="tro">
-                <div class="tro__h"><span class="tro__tag">Redis</span><strong>Jackson 3 + Redis 직렬화 연쇄 장애</strong></div>
-                <div class="tro__row"><span class="tro__k tro__k--p">분석</span><p>Spring Boot 4.0이 Jackson 3을 강제 → 패키지명 변경으로 Redis 직렬화 설정이 모두 깨짐</p></div>
-                <table class="cmp">
-                  <tr><th>구분</th><th>Before</th><th>After</th></tr>
-                  <tr><td>직렬화</td><td class="b">JdkSerialization(타입 손실)</td><td class="a">GenericJackson3JsonRedisSerializer</td></tr>
-                  <tr><td>타입 정보</td><td class="b">역직렬화 실패(5회)</td><td class="a">@class 필드로 보존</td></tr>
-                </table>
-                <div class="tro__row"><span class="tro__k tro__k--s">교훈</span><p>최신 버전 도입 시 의존성 연쇄 변경을 사전 검증. 안정화된 LTS 기반으로 시작.</p></div>
+              <div class="dt-panel" id="p1-tab-d">
+                <div class="dt-tro">
+                  <h4>Jackson 3 + Redis 직렬화 연쇄 장애</h4>
+                  <p><span class="dt-k">문제</span>Spring Boot 4.0이 Jackson 3을 강제하면서 패키지 변경으로 Redis 직렬화 설정이 전부 깨짐.</p>
+                  <p><span class="dt-k dt-k--s">해결</span>GenericJackson3JsonRedisSerializer로 전환, @class 필드로 타입 정보를 보존해 역직렬화 실패 제거.</p>
+                </div>
+                <div class="dt-tro">
+                  <h4>회원탈퇴 Side Effect &mdash; 4일의 추적</h4>
+                  <p><span class="dt-k">문제</span>Hard Delete 후 FK 제약조건의 연쇄 오류가 서비스 곳곳에서 발생.</p>
+                  <p><span class="dt-k dt-k--s">해결</span>Soft Delete(deletedAt) 전환, 리더 탈퇴 시 null 처리 + 경고, 게시물은 "탈퇴한 사용자"로 표시. 삭제 정책은 UX와 무결성 양면의 설계임을 체득.</p>
+                </div>
+                <div class="dt-tro">
+                  <h4>클라이언트 3팀과의 스펙 협업</h4>
+                  <p><span class="dt-k">문제</span>Android &middot; iOS 클라이언트와의 API 스펙이 3~5차례 반복 수정됨.</p>
+                  <p><span class="dt-k dt-k--s">해결</span>Req/Res body 상세 명세 + Swagger 문서화 체계를 잡아 1차 리뷰 80% 이상 통과로 개선.</p>
+                </div>
               </div>
-              <div class="tro">
-                <div class="tro__h"><span class="tro__tag">JPA</span><strong>회원탈퇴 Side Effect (4일 추적)</strong></div>
-                <div class="tro__row"><span class="tro__k tro__k--p">분석</span><p>Hard Delete 후 FK 제약조건에 의한 연쇄 오류 발생</p></div>
-                <table class="cmp">
-                  <tr><th>구분</th><th>Before</th><th>After</th></tr>
-                  <tr><td>삭제 방식</td><td class="b">Hard Delete</td><td class="a">Soft Delete(deletedAt)</td></tr>
-                  <tr><td>리더 탈퇴</td><td class="b">null 참조 오류</td><td class="a">리더 null 처리+경고</td></tr>
-                  <tr><td>게시물</td><td class="b">cascade 삭제</td><td class="a">"탈퇴한 사용자" 표시</td></tr>
-                </table>
-                <div class="tro__row"><span class="tro__k tro__k--s">교훈</span><p>삭제 정책은 UX와 데이터 무결성 양면에서 설계해야 함을 체감.</p></div>
-              </div>
-
-              <div class="subh">Results &amp; Retrospective</div>
-              <div class="stats">
-                <div class="stat"><b>100+</b><span>유저(1주 내)</span></div>
-                <div class="stat"><b>2</b><span>앱스토어 출시</span></div>
-                <div class="stat"><b>~158</b><span>본인 커밋</span></div>
-                <div class="stat"><b>20+</b><span>도메인 모듈</span></div>
-              </div>
-              <div class="retro">
-                <div class="retro__card"><h5>초기 설계의 가치</h5><p>ERD 3차·API 5차 반복으로, 설계에 투자할수록 전체 개발 기간이 단축됨을 체감.</p></div>
-                <div class="retro__card"><h5>데이터 무결성 설계</h5><p>회원탈퇴 4일 추적으로 Soft vs Hard Delete 균형을 깊이 이해.</p></div>
-                <div class="retro__card"><h5>개선 · 테스트 코드</h5><p>다음 프로젝트에선 JUnit+Mockito 테스트를 우선 작성할 계획.</p></div>
-                <div class="retro__card"><h5>개선 · 모니터링 활용</h5><p>Grafana/Prometheus 구축 경험을 메트릭 기반 최적화로 연결할 계획.</p></div>
-              </div>
-              <a href="https://dyomyo.tistory.com/118" target="_blank" class="pf-card__link">회고 블로그 보기 &rarr;</a>
-            </section>
-
-            <!-- Project 02 -->
-            <section class="sec" id="sec-proj2">
-              <h2 class="pf-h2"><span>05</span> Project 02 · 번역의 민족 <span class="pf-pill">🏆 전국 3위</span></h2>
-              <p class="proj-meta">2026.04.06 ~ 2026.06.02 (약 8주) · 6명 · 팀장 / Backend / Infra</p>
-              <p class="pf-lead">대학 강의 실시간 번역 서비스. 강사의 한국어 발화를 즉시 영어 음성·자막·번역 슬라이드로 변환하며, 원문을 외부 서버로 보내지 않는 <b style="color:var(--brand)">완전 로컬 추론</b>이 핵심 차별점입니다. ASR→NMT→TTS 파이프라인을 강사 PC에서 로컬 구동하는 FastAPI 백엔드 + Electron 설치형 배포 인프라를 설계·구현했습니다.</p>
-              <div class="stats">
-                <div class="stat"><b>3위</b><span>전국 순위</span></div>
-                <div class="stat"><b>~132</b><span>본인 커밋</span></div>
-                <div class="stat"><b>8주</b><span>개발 기간</span></div>
-              </div>
-
-              <div class="shots shots--pc">
-                <img loading="lazy" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fddu2rt%2FdJMcaijiaMl%2FAAAAAAAAAAAAAAAAAAAAADaGGtWBdpuq_VBV1rAJjnwZfNyMjrFymgQ4Wm6nSPtS%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1782831599%26allow_ip%3D%26allow_referer%3D%26signature%3Dhbx7QOElgQ803tkIy9MXqomUdL8%253D" alt="번역의 민족 화면 1">
-                <img loading="lazy" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FcrnlDm%2FdJMcaijiaMk%2FAAAAAAAAAAAAAAAAAAAAAHZxijVuIlOK-0Uo2eT_1OztdZPtfNH6IF9qzZnvLyjF%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1782831599%26allow_ip%3D%26allow_referer%3D%26signature%3Dg0yTnlyU%252FoFNAFNx38h1XiuD9Jo%253D" alt="번역의 민족 화면 2">
-              </div>
-
-              <div class="subh">로컬 AI 추론 스택 (강사 PC 단일 구동)</div>
-              <div class="impl">
-                <div class="impl__card"><span class="impl__badge">ASR</span><h5>Whisper turbo (CT2 int8)</h5><ul><li>한국어 음성 인식</li></ul></div>
-                <div class="impl__card"><span class="impl__badge">NMT</span><h5>NLLB-200 (CT2 int8)</h5><ul><li>한→영 번역</li></ul></div>
-                <div class="impl__card"><span class="impl__badge">VLM</span><h5>Qwen3-VL-4B (4/8bit)</h5><ul><li>슬라이드 레이아웃 번역</li></ul></div>
-                <div class="impl__card"><span class="impl__badge">RTC</span><h5>내장 TURN (node-turn)</h5><ul><li>P2P 차단망 우회 relay</li></ul></div>
-              </div>
-
-              <div class="subh">My Implementation</div>
-              <div class="impl">
-                <div class="impl__card"><span class="impl__badge">DEPLOY · 핵심</span><h5>Electron 배포 인프라</h5><ul><li>PyInstaller→electron-builder→Inno Setup 3단계</li><li>관리자 권한 없는 per-user 설치</li><li>디스크 사전 체크(~17GB)</li></ul></div>
-                <div class="impl__card"><span class="impl__badge">DOWNLOAD · 핵심</span><h5>모델 다운로드 UX</h5><ul><li>ThreadPoolExecutor 병렬 다운로드</li><li>symlink 차단 copy fallback, 무결성 검증</li><li>사용자 동의 마법사</li></ul></div>
-                <div class="impl__card"><span class="impl__badge">LIFECYCLE · 핵심</span><h5>백엔드 생명주기</h5><ul><li>GIL 독립 Health 서버</li><li>ctypes 부모 프로세스 Watchdog</li><li>5분 Grace Shutdown</li></ul></div>
-                <div class="impl__card"><span class="impl__badge">NETWORK · 핵심</span><h5>네트워크 &amp; 실시간</h5><ul><li>내장 TURN(포트 47878) relay 우회</li><li>LAN IP 자동 탐지·초대 URL</li><li>강의자 loopback·중복 접속 방지</li></ul></div>
-                <div class="impl__card"><span class="impl__badge">INFERENCE · 핵심</span><h5>로컬 추론 운영</h5><ul><li>VRAM별 VLM 4/8bit 자동 양자화</li><li>COOP/COEP → SharedArrayBuffer</li><li>frozen 경로 헬퍼·.mjs/.wasm MIME</li></ul></div>
-                <div class="impl__card"><span class="impl__badge">TRANSCRIPT · 핵심</span><h5>강의 자막 저장/다운로드</h5><ul><li>자막 자동 저장·다운로드 API</li><li>외부 링크 수강자 자막 누락 해결</li><li>번역 용어집(glossary) 동적 관리</li></ul></div>
-              </div>
-
-              <div class="subh">Problem Solving</div>
-              <div class="tro">
-                <div class="tro__h"><span class="tro__tag">HF Hub</span><strong>다운로드 진행률이 7GB→2GB→완료로 튀는 문제</strong></div>
-                <div class="tro__row"><span class="tro__k tro__k--p">원인</span><p>환경에 따라 blobs/ 또는 snapshots/에 저장되는데 기존 로직은 blobs/만 합산 → symlink 차단 환경에서 0</p></div>
-                <div class="tro__row"><span class="tro__k tro__k--s">해결</span><p>두 디렉터리 재귀 측정 후 MAX, atomic move 순간 감소를 단조 증가 clamp</p></div>
-              </div>
-              <div class="tro">
-                <div class="tro__h"><span class="tro__tag">WebRTC</span><strong>강의실 보안망에서 원본 음성 단절</strong></div>
-                <div class="tro__row"><span class="tro__k tro__k--p">원인</span><p>사내망이 client-to-client(P2P) 차단</p></div>
-                <div class="tro__row"><span class="tro__k tro__k--s">해결</span><p>포트 47878 node-turn 로컬 TURN 내장, UDP 차단 시 TCP fallback으로 relay 우회</p></div>
-              </div>
-              <div class="tro">
-                <div class="tro__h"><span class="tro__tag">Electron</span><strong>frozen 번들에서 마이크·화면공유·AI 미동작</strong></div>
-                <div class="tro__row"><span class="tro__k tro__k--p">원인</span><p>frozen 경로 어긋남, .mjs/.wasm이 text/plain으로 서빙되어 onnxruntime-web 로드 실패</p></div>
-                <div class="tro__row"><span class="tro__k tro__k--s">해결</span><p>frozen 경로 해석 헬퍼 + MIME 등록으로 VAD/마이크 파이프라인 정상화</p></div>
-              </div>
-              <div class="tro">
-                <div class="tro__h"><span class="tro__tag">Lifecycle</span><strong>강사가 앱을 닫으면 학생 자막이 사라지는 문제</strong></div>
-                <div class="tro__row"><span class="tro__k tro__k--p">원인</span><p>강사 앱 종료 시 백엔드 즉시 종료 → 수강자 자막 파일 미수신</p></div>
-                <div class="tro__row"><span class="tro__k tro__k--s">해결</span><p>부모 프로세스 watchdog + 5분 grace shutdown으로 종료 후 다운로드 시간 보장</p></div>
-              </div>
-
-              <div class="subh">Results &amp; Retrospective</div>
-              <div class="stats">
-                <div class="stat"><b>3위</b><span>SSAFY 결선</span></div>
-                <div class="stat"><b>~132</b><span>본인 커밋</span></div>
-                <div class="stat"><b>8주</b><span>6인/팀장</span></div>
-                <div class="stat"><b>17GB</b><span>단일 setup.exe</span></div>
-              </div>
-              <figure class="figure">
-                <img loading="lazy" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2F0dtwY%2FdJMcacciY8e%2FAAAAAAAAAAAAAAAAAAAAAOy09Y7U5r8B2FzaMvgyXglSzPzZE38N7S2rmNyfJeZZ%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1782831599%26allow_ip%3D%26allow_referer%3D%26signature%3DiMQxD6YsWlar91kjF3suARId5%252BE%253D" alt="번역의 민족 수상 단체사진">
-                <figcaption>SSAFY 프로젝트 전시발표회 · 전시부문 전국 3위</figcaption>
-              </figure>
-              <div class="retro">
-                <div class="retro__card"><h5>배포가 곧 제품</h5><p>비개발자가 설치 못 하면 의미 없음. 설치·다운로드·권한·방화벽까지가 백엔드의 책임 범위.</p></div>
-                <div class="retro__card"><h5>실행 환경 제약 우선</h5><p>관리자 권한·P2P 차단·symlink 차단 등 강의실 제약을 초기 가정·설계하는 것의 중요성.</p></div>
-                <div class="retro__card"><h5>로컬 추론 운영 난이도</h5><p>VRAM 양자화·모델 캐시·GIL과 이벤트 루프 분리 등 온프레미스 과제를 직접 해결.</p></div>
-                <div class="retro__card"><h5>팀 리딩</h5><p>AI·Frontend·Backend 통합 지점(배포·네트워크·생명주기)을 팀장으로 조율·책임.</p></div>
-              </div>
-            </section>
-
-            <!-- Contact -->
-            <section class="sec" id="sec-contact">
-              <h2 class="pf-h2"><span>06</span> Contact</h2>
-              <p class="pf-lead">함께 일하고 싶으시다면 편하게 연락 주세요.</p>
-              <div class="pf-links">
-                <a href="mailto:ehehkwat1@naver.com" class="pf-linkcard"><strong>Email</strong><span>ehehkwat1@naver.com</span></a>
-                <a href="https://github.com/doyoungkim-code" target="_blank" class="pf-linkcard"><strong>GitHub</strong><span>doyoungkim-code</span></a>
-                <a href="https://dyomyo.tistory.com/" target="_blank" class="pf-linkcard"><strong>Blog</strong><span>dyomyo.tistory.com</span></a>
-              </div>
-              <p style="margin-top:18px;font-size:12px;color:var(--ink-3);font-family:var(--font-mono)">&copy; 2026 김도영 — 함께 일하고 싶은 동료가 될 개발자입니다.</p>
-            </section>
-
+            </div>
           </div>
         </section>
 
-      </div>
+        <!-- ■ COVER 05 · PROJECT 02 -->
+        <section class="pf-cover pf-cover--alt" id="cv-p2" data-nav="p2" data-tone="dark" data-page="06">
+          <div class="pf-cover__bg" aria-hidden="true"><img src="./images/translate-1.png" alt="" onerror="this.parentNode.remove()"></div>
+          <span class="pf-cover__num" aria-hidden="true">05</span>
+          <div class="pf-cover__in">
+            <p class="pf-overline rv">PROJECT 02 &mdash; NATIONAL TOP 3</p>
+            <h2 class="pf-display pf-display--kr" data-split>번역의 민족</h2>
+            <p class="pf-cover__sub rv">강의실의 한국어를 즉시 영어 음성 &middot; 자막으로 &mdash; 원문이 밖으로 나가지 않는 완전 로컬 AI 번역.</p>
+            <p class="pf-cover__desc rv">2026.04 &ndash; 2026.06 (8주) &middot; 6인 &middot; <b>팀장</b> / 배포 인프라 / FastAPI &middot; Python / Electron</p>
+            <div class="pf-vitals rv">
+              <div><b>TOP 3</b><span>SSAFY 결선 전시부문</span></div>
+              <div><b>~132</b><span>본인 커밋</span></div>
+              <div><b>17GB</b><span>단일 setup.exe</span></div>
+              <div><b>8주</b><span>6인 &middot; 팀장</span></div>
+            </div>
+          </div>
+          <a class="pf-down pf-down--detail" href="#dt-p2" aria-label="상세 보기"></a>
+        </section>
+
+        <!-- □ DETAIL · PROJECT 02 (단일 페이지 · 탭 전환) -->
+        <section class="pf-detail" id="dt-p2" data-nav="p2" data-tone="light" data-page="07">
+          <div class="pf-detail__in">
+            <div class="dt-top">
+              <p class="dt-overline">PROJECT 02 &mdash; 번역의 민족</p>
+              <div class="dt-tabs" role="tablist" aria-label="번역의 민족 상세">
+                <button type="button" class="on" data-tab="p2-tab-a">개요</button>
+                <button type="button" data-tab="p2-tab-b">담당 영역</button>
+                <button type="button" data-tab="p2-tab-c">트러블슈팅 &middot; 수상</button>
+              </div>
+            </div>
+
+            <div class="dt-panels">
+              <div class="dt-panel on" id="p2-tab-a">
+                <p class="dt-lead">
+                  팀장으로서 6인 팀을 이끌며, <b>17GB AI 모델을 품은 데스크톱 앱을 "비개발자가 설치할 수 있는 물건"으로 만드는 일</b>을 맡았습니다.
+                </p>
+                <div class="dt-shots dt-shots--pc">
+                  <figure class="dt-shot"><img loading="lazy" src="./images/translate-1.png" alt="번역의 민족 화면 1" onerror="this.parentNode.classList.add('is-ph');this.remove()"></figure>
+                  <figure class="dt-shot"><img loading="lazy" src="./images/translate-2.png" alt="번역의 민족 화면 2" onerror="this.parentNode.classList.add('is-ph');this.remove()"></figure>
+                </div>
+              </div>
+
+              <div class="dt-panel" id="p2-tab-b">
+                <div class="dt-rows">
+                  <div class="dt-row"><span class="dt-row__no">01</span><span class="dt-row__h">팀장 리딩</span><p>AI &middot; Frontend &middot; Backend가 만나는 통합 지점(배포 &middot; 일정 &middot; 역할 분담)을 조율하고 최종 책임.</p></div>
+                  <div class="dt-row"><span class="dt-row__no">02</span><span class="dt-row__h">Electron 배포 파이프라인</span><p>PyInstaller &rarr; electron-builder &rarr; Inno Setup 3단계 패키징. 강의실 PC를 고려한 관리자 권한 없는 per-user 설치, 디스크 용량 사전 체크.</p></div>
+                  <div class="dt-row"><span class="dt-row__no">03</span><span class="dt-row__h">설치 &middot; 모델 다운로드 플로우</span><p>대용량 AI 모델의 다운로드 &middot; 설치 과정을 비개발자도 통과할 수 있는 사용자 플로우로 설계 &middot; 구현.</p></div>
+                  <div class="dt-row"><span class="dt-row__no">04</span><span class="dt-row__h">FastAPI 백엔드</span><p>Python FastAPI 기반 서버 API 일부 구현.</p></div>
+                </div>
+              </div>
+
+              <div class="dt-panel" id="p2-tab-c">
+                <div class="dt-tro">
+                  <h4>17GB짜리 설치 파일이라는 문제</h4>
+                  <p><span class="dt-k">문제</span>AI 모델을 포함한 앱을 강사(비개발자)가 스스로 설치할 수 있어야 함. 거대한 빌드 용량과 설치 대상 PC의 권한 &middot; 디스크 제약이 겹침.</p>
+                  <p><span class="dt-k dt-k--s">해결</span>3단계 패키징 파이프라인으로 빌드를 구조화하고, per-user 설치로 관리자 권한 의존을 제거, 설치 전 디스크 용량을 사전 체크해 실패를 예방. "배포까지가 제품"임을 배웠습니다.</p>
+                </div>
+                <figure class="dt-figure">
+                  <img loading="lazy" src="./images/award.jpg" alt="SSAFY 전시발표회 수상 단체사진" onerror="this.parentNode.classList.add('is-ph');this.remove()">
+                  <figcaption>SSAFY 프로젝트 전시발표회 &middot; 전시부문 전국 3위</figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ■ COVER 06 · CONTACT -->
+        <section class="pf-cover pf-cover--g3" id="cv-contact" data-nav="contact" data-tone="dark" data-page="08">
+          <span class="pf-cover__num" aria-hidden="true">06</span>
+          <div class="pf-cover__in">
+            <p class="pf-overline rv">LET'S WORK TOGETHER</p>
+            <h2 class="pf-display" data-split>CONTACT</h2>
+            <p class="pf-cover__sub rv">함께 만들 준비가 되어 있습니다.</p>
+            <div class="pf-contacts rv">
+              <a href="mailto:ehehkwat1@naver.com"><b>EMAIL</b><span>ehehkwat1@naver.com</span></a>
+              <a href="https://github.com/doyoungkim-code" target="_blank" rel="noopener"><b>GITHUB</b><span>doyoungkim-code</span></a>
+              <a href="https://dyomyo.tistory.com/" target="_blank" rel="noopener"><b>BLOG</b><span>dyomyo.tistory.com</span></a>
+            </div>
+            <p class="pf-covermeta rv">&copy; 2026 KIM DOYOUNG &mdash; 감사합니다. 함께 일하고 싶은 동료가 될 개발자입니다.</p>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- 현재 페이지 카운터 -->
+      <div class="pf-pageno" aria-hidden="true"><b id="pfPageCur">01</b><span>/ 08</span></div>
     </div>
 
   </s_t3>
 
+  <!-- GSAP · Three.js (실패해도 콘텐츠는 그대로 보임) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
   <script>
   (function () {
     var pf = document.getElementById('dyoPortfolio');
-    if (!pf) return;
-    var stage = pf.querySelector('.pf-stage');
-    var hot = document.getElementById('pfHot');
-    var closeBtn = document.getElementById('pfClose');
-    if (hot) hot.addEventListener('click', function () { stage.classList.add('is-open'); });
-    if (closeBtn) closeBtn.addEventListener('click', function () { stage.classList.remove('is-open'); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') stage.classList.remove('is-open'); });
+    if (!pf || getComputedStyle(pf).display === 'none') return;
+    pf.classList.add('js'); /* JS 동작 시에만 리빌 요소를 숨김 */
+
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var hasGsap = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
+    if (hasGsap) gsap.registerPlugin(ScrollTrigger);
+
+    /* 커버 스냅 (데스크톱 전용, mandatory — 페이지 단위로 딱 정착) */
+    function applySnap() {
+      var on = window.innerWidth > 860 && !reduceMotion;
+      document.documentElement.style.scrollSnapType = on ? 'y mandatory' : '';
+    }
+    applySnap();
+    window.addEventListener('resize', applySnap);
+
+    /* 대형 타이틀 문자 분할 (GSAP 스태거용) */
+    if (!reduceMotion) {
+      pf.querySelectorAll('[data-split]').forEach(function (el) {
+        var text = el.textContent;
+        el.setAttribute('aria-label', text);
+        el.textContent = '';
+        text.split('').forEach(function (ch) {
+          var s = document.createElement('span');
+          s.className = 'ch';
+          s.setAttribute('aria-hidden', 'true');
+          s.textContent = ch === ' ' ? ' ' : ch;
+          el.appendChild(s);
+        });
+      });
+    }
+
+    /* 좌측 내비 활성 + 크롬 톤 전환 (다크 커버 ↔ 라이트 상세) + 페이지 카운터 */
+    var navLinks = pf.querySelectorAll('.pf-sidenav a');
+    var sections = pf.querySelectorAll('[data-nav]');
+    var pageCur = document.getElementById('pfPageCur');
+    function setSection(el) {
+      var navKey = el.getAttribute('data-nav');
+      var tone = el.getAttribute('data-tone');
+      var page = el.getAttribute('data-page');
+      navLinks.forEach(function (a) {
+        a.classList.toggle('on', a.getAttribute('data-sec') === navKey);
+      });
+      pf.classList.toggle('pf--onlight', tone === 'light');
+      if (pageCur && page && pageCur.textContent !== page) {
+        pageCur.textContent = page;
+        pageCur.classList.remove('tick');
+        void pageCur.offsetWidth; /* 애니메이션 재시작 */
+        pageCur.classList.add('tick');
+      }
+    }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) setSection(e.target);
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      sections.forEach(function (s) { io.observe(s); });
+      /* 페이지 바닥에서는 마지막 섹션 강제 */
+      var lastSec = sections[sections.length - 1];
+      window.addEventListener('scroll', function () {
+        var h = document.documentElement;
+        if (lastSec && h.scrollTop + h.clientHeight >= h.scrollHeight - 80) {
+          setSection(lastSec);
+        }
+      }, { passive: true });
+    }
+
+    /* 상세 페이지 탭 전환 */
+    pf.querySelectorAll('.dt-tabs').forEach(function (tabs) {
+      tabs.addEventListener('click', function (e) {
+        var btn = e.target.closest('button[data-tab]');
+        if (!btn) return;
+        tabs.querySelectorAll('button').forEach(function (b) {
+          b.classList.toggle('on', b === btn);
+          b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+        });
+        var detail = tabs.closest('.pf-detail');
+        detail.querySelectorAll('.dt-panel').forEach(function (p) {
+          p.classList.toggle('on', p.id === btn.getAttribute('data-tab'));
+        });
+      });
+    });
+
+    /* 요소 리빌 */
+    var rvEls = pf.querySelectorAll('.rv');
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      rvEls.forEach(function (el) { el.classList.add('in'); });
+    } else {
+      var rvIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); rvIo.unobserve(e.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      rvEls.forEach(function (el) { rvIo.observe(el); });
+    }
+
+    /* 숫자 카운트업 */
+    function countUp(el) {
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var prefix = el.getAttribute('data-prefix') || '';
+      var suffix = el.getAttribute('data-suffix') || '';
+      if (reduceMotion) { el.textContent = prefix + target + suffix; return; }
+      var start = null, dur = 1400;
+      function step(ts) {
+        if (!start) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = prefix + Math.round(target * eased) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    var counters = pf.querySelectorAll('[data-count]');
+    if ('IntersectionObserver' in window && !reduceMotion) {
+      var cIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { countUp(e.target); cIo.unobserve(e.target); }
+        });
+      }, { threshold: 0.6 });
+      counters.forEach(function (el) { cIo.observe(el); });
+    } else {
+      counters.forEach(countUp);
+    }
+
+    /* GSAP 연출: 타이틀 문자 스태거 + 워터마크 번호 패럴랙스 */
+    if (hasGsap && !reduceMotion) {
+      pf.querySelectorAll('.pf-display').forEach(function (d) {
+        var chars = d.querySelectorAll('.ch');
+        if (!chars.length) return;
+        gsap.from(chars, {
+          yPercent: 70, opacity: 0, duration: 0.8, stagger: 0.04, ease: 'power3.out',
+          scrollTrigger: { trigger: d, start: 'top 78%' }
+        });
+      });
+      pf.querySelectorAll('.pf-cover__num').forEach(function (num) {
+        gsap.to(num, {
+          yPercent: -36, ease: 'none',
+          scrollTrigger: { trigger: num.parentNode, start: 'top bottom', end: 'bottom top', scrub: true }
+        });
+      });
+    }
+
+    /* Three.js 3D 파티클 배경 — 다크 커버 뒤에서만 은은하게, 라이트 상세에선 페이드아웃 */
+    (function () {
+      if (typeof THREE === 'undefined' || reduceMotion || window.innerWidth <= 860) return;
+      var canvas, renderer, scene, camera;
+      try {
+        canvas = document.createElement('canvas');
+        canvas.className = 'pf-3d';
+        renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+      } catch (e) { return; }
+      pf.insertBefore(canvas, pf.firstChild);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
+      camera.position.z = 9;
+
+      function makeCloud(count, color, size, opacity, spread) {
+        var geo = new THREE.BufferGeometry();
+        var pos = new Float32Array(count * 3);
+        for (var i = 0; i < count; i++) {
+          pos[i * 3] = (Math.random() - 0.5) * spread;
+          pos[i * 3 + 1] = (Math.random() - 0.5) * spread * 0.7;
+          pos[i * 3 + 2] = (Math.random() - 0.5) * 9 - 3; /* 카메라(z=9)에 붙지 않게 */
+        }
+        geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+        var mat = new THREE.PointsMaterial({
+          color: color, size: size, transparent: true, opacity: opacity,
+          depthWrite: false, sizeAttenuation: true
+        });
+        return new THREE.Points(geo, mat);
+      }
+      var cloudBlue = makeCloud(420, 0x4664E6, 0.045, 0.55, 22);
+      var cloudGray = makeCloud(520, 0x8A93B0, 0.03, 0.3, 26);
+      scene.add(cloudBlue); scene.add(cloudGray);
+
+      var ico = new THREE.Mesh(
+        new THREE.IcosahedronGeometry(2.6, 1),
+        new THREE.MeshBasicMaterial({ color: 0x4664E6, wireframe: true, transparent: true, opacity: 0.1 })
+      );
+      ico.position.set(4.2, -0.6, -2);
+      scene.add(ico);
+
+      function resize() {
+        var w = window.innerWidth, h = window.innerHeight;
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function tick() {
+        requestAnimationFrame(tick);
+        if (document.hidden) return;
+        var t = performance.now() * 0.0001;
+        cloudBlue.rotation.y = t * 0.5;
+        cloudGray.rotation.y = -t * 0.35;
+        ico.rotation.x = t * 1.6;
+        ico.rotation.y = t * 2.2;
+        /* 커서 반응 없음 — 스크롤에 따른 미세한 상하 이동만 */
+        camera.position.y += (window.pageYOffset * -0.00012 - camera.position.y) * 0.02;
+        camera.lookAt(0, 0, 0);
+        renderer.render(scene, camera);
+      }
+      tick();
+    })();
   })();
   </script>
 
