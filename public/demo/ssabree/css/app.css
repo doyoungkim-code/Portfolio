@@ -857,3 +857,6 @@ html[data-theme="dark"] .splash-tile { background: rgba(31, 27, 29, 0.95); }
 /* kiosk 모드(포트폴리오 임베드): 컨트롤 숨김·조작 차단·무한 반복 */
 body.kiosk .demo-strip{display:none !important}
 body.kiosk{pointer-events:none;user-select:none}
+/* kiosk(포트폴리오 임베드): 페이지 배경 투명, 휴대폰만 보이게 */
+html.kiosk, body.kiosk, body.kiosk .stage-outer, body.kiosk .stage { background: transparent !important; }
+body.kiosk .phone-label { display: none !important; }

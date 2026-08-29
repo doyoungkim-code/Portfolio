@@ -579,3 +579,8 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
   .pf-cover--demo .pf-demo__side{padding:28px 20px 60px}
   .pf-cover--demo .pf-down{left:50%}
 }
+
+/* 배경 없이 휴대폰만 떠 있는 스테이지 */
+.pf-demo__stage--bare,.pf-demo__stage--bare .pf-demo__scaler,.pf-demo__stage--bare .pf-demo__frame{background:transparent}
+.pf-cover--demo .pf-demo__stage--bare{border-right:0}
+.pf-demo__stage--bare.pf-demo__stage--free{box-shadow:none;border:0}

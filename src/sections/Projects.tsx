@@ -62,6 +62,7 @@ function ProjectDemo({ p, num, variant }: { p: Project; num: string; variant?: '
           mode={mode}
           size={p.demo.size}
           title={p.demo.title}
+          bare={'bare' in p.demo && p.demo.bare}
           onPhase={onPhase}
         />
         <aside className="pf-demo__side">

@@ -16,6 +16,8 @@ interface DemoStageProps {
   /** 데모의 논리 너비(w)로 렌더한 뒤 스테이지에 맞게 축소. h는 초기값이며 스테이지 비율을 따라 재계산 */
   size: { w: number; h: number }
   title: string
+  /** 배경 없이 콘텐츠(휴대폰)만 떠 있게 — iframe·스테이지 투명 */
+  bare?: boolean
   /** 데모가 postMessage로 보내는 단계 자막 */
   onPhase: (text: string) => void
 }
@@ -24,7 +26,7 @@ interface DemoStageProps {
  * 데모를 논리 해상도로 렌더하고 CSS transform으로 스테이지에 꽉 맞춘다.
  * 화면에 들어올 때만 마운트. auto 모드는 조작 차단, free 모드는 같은 스테이지에서 직접 조작.
  */
-export function DemoStage({ path, autoHash, freeHash, mode, size, title, onPhase }: DemoStageProps) {
+export function DemoStage({ path, autoHash, freeHash, mode, size, title, bare = false, onPhase }: DemoStageProps) {
   const stageRef = useRef<HTMLDivElement>(null)
   const frameRef = useRef<HTMLIFrameElement>(null)
   const inView = useInView(stageRef, { amount: 0.3 })
@@ -62,7 +64,10 @@ export function DemoStage({ path, autoHash, freeHash, mode, size, title, onPhase
   const h = Math.round(logicalH * scale)
 
   return (
-    <div ref={stageRef} className={`pf-demo__stage${mode === 'free' ? ' pf-demo__stage--free' : ''}`}>
+    <div
+      ref={stageRef}
+      className={`pf-demo__stage${mode === 'free' ? ' pf-demo__stage--free' : ''}${bare ? ' pf-demo__stage--bare' : ''}`}
+    >
       {inView && (
         <div className="pf-demo__scaler" style={{ width: w, height: h }}>
           <iframe
@@ -71,8 +76,9 @@ export function DemoStage({ path, autoHash, freeHash, mode, size, title, onPhase
             className="pf-demo__frame"
             src={asset(`${path}#${hash}`)}
             title={title}
-            style={{ width: size.w, height: logicalH, transform: `scale(${scale})` }}
+            style={{ width: size.w, height: logicalH, transform: `scale(${scale})`, background: bare ? 'transparent' : undefined }}
             allow="autoplay"
+            allowTransparency
           />
           {mode === 'auto' && <div className="pf-demo__shield" aria-hidden />}
         </div>

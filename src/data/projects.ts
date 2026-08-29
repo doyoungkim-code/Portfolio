@@ -32,8 +32,9 @@ export const project1 = {
   repoUrl: 'https://github.com/doyoungkim-code/SSABREE_TIME',
   demo: {
     path: 'demo/ssabree/index.html',
-    autoHash: 'autoplay+dual',
-    freeHash: 'dual',
+    autoHash: 'autoplay',
+    freeHash: '',
+    bare: true, /* 배경 없이 휴대폰만 */
     size: { w: 900, h: 1000 }, /* 논리 너비를 줄여 폰이 크게 보이도록 */
     title: 'SSABREE TIME 데모 — 갤럭시 폰 2대 실시간 동기화',
     steps: [
