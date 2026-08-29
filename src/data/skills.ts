@@ -36,4 +36,4 @@ export const alsoKeys: TechKey[] = [
 ]
 
 export const highlightLine =
-  '로컬 AI 모델 운용(Whisper · NLLB, PyTorch 계열) — 클라우드 운영(AWS EC2, 출시~2026.07) — 빌드 자동화(3단계 패키징 파이프라인)'
+  '로컬 AI 모델 운용(Whisper · NLLB, PyTorch 계열) — 클라우드 운영(AWS EC2, 출시~2026.06) — 빌드 자동화(3단계 패키징 파이프라인)'

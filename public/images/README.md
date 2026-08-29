@@ -1,18 +1,22 @@
-# images/ — 스킨 동봉 이미지
+# images/ — 커버 배경 · 링크 미리보기 이미지
 
-티스토리 스킨 업로드 시 이 폴더의 파일이 `./images/`로 함께 올라간다.
-아래 파일명을 그대로 맞춰서 넣으면 index.html이 자동으로 사용한다.
-**파일이 없으면 페이지는 컬러 플레이스홀더를 대신 보여준다** (onerror 처리 — 깨진 이미지 아이콘 없음).
+**파일이 없으면 커버는 배경 사진 없이 렌더된다** (onError 처리 — 깨진 이미지 아이콘 없음).
 
-| 파일명 | 용도 | 권장 |
-|---|---|---|
-| `hero-bg.jpg` | 첫 화면(ABOUT 커버) 반투명 배경 사진 — 분위기 있는 사진 아무거나 (작업 환경, 풍경 등) | 가로 1920px+ |
-| `profile.jpg` | 프로필 사진 (블로그 사이드바는 티스토리 관리자 이미지 사용) | 정방형 600px+ |
-| `ssabree-1.jpg` | SSABREE TIME 모바일 스크린샷 1 (PROJECT 01 커버의 반투명 배경으로도 사용됨) | 세로 |
-| `ssabree-2.jpg` | SSABREE TIME 모바일 스크린샷 2 | 세로 |
-| `translate-1.png` | 번역의 민족 PC 화면 1 (PROJECT 02 커버의 반투명 배경으로도 사용됨) | 가로 16:10 내외 |
-| `translate-2.png` | 번역의 민족 PC 화면 2 | 가로 16:10 내외 |
-| `award.jpg` | SSAFY 전시발표회 수상 단체사진 | 가로 |
+현재 `ssabree-1.jpg` · `translate-1.png` · `og.png`는 **데모 화면을 캡처해 자동 생성한 임시본**이다.
 
-> 주의: 기존에 쓰던 티스토리 CDN 서명 URL(`...&expires=...`)은 만료되므로 다시 쓰지 말 것.
-> 원본 파일을 직접 이 폴더에 넣는 방식이 만료 걱정이 없다.
+```
+npm run dev       # dev 서버
+npm run capture   # → ssabree-1.jpg, translate-1.png, og.png 재생성
+```
+
+실제 사진이 준비되면 **같은 파일명으로 덮어쓰기만** 하면 된다 (코드 수정 불필요).
+
+| 파일명 | 용도 | 권장 | 상태 |
+|---|---|---|---|
+| `ssabree-1.jpg` | PROJECT 01 커버 반투명 배경 | 세로 (휴대폰 스크린샷) | 데모 캡처 (자동) |
+| `translate-1.png` | PROJECT 02 커버 반투명 배경 | 가로 16:10 | 데모 캡처 (자동) |
+| `og.png` | 카톡·슬랙·메일 링크 미리보기 (`index.html` og:image) | 1200×630 | 1페이지 캡처 (자동) |
+| `hero-bg.jpg` | ABOUT 커버 배경 사진 — 넣은 뒤 `src/sections/About.tsx`의 `Cover`에 `bg={{ src: 'images/hero-bg.jpg' }}` 추가 | 가로 1920px+ | 없음 |
+| `award.jpg` | 전시발표회 수상 사진 — PROJECT 02 커버 배경으로 쓰려면 `src/data/projects.ts` `project2.bg` 교체 | 가로 | 없음 |
+
+이력서 PDF는 `public/resume.pdf`로 넣고 `src/data/profile.ts`의 `resumeUrl: 'resume.pdf'`로 설정하면 1페이지에 링크가 생긴다.

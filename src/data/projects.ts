@@ -60,17 +60,22 @@ export const project1 = {
       '알림함 & 마이페이지 — 포트폴리오 · solved.ac 연동',
     ],
   },
+  /* 사진이 오기 전까지는 데모 캡처(npm run capture)가 이 파일명으로 생성된다 */
   bg: { src: 'images/ssabree-1.jpg', blur: true },
   vitals: [
     { value: '150+', label: '누적 실사용자' },
-    { value: '2', label: '스토어 출시' },
-    { value: '~158', label: '본인 커밋 / 761' },
-    { value: '44', label: 'Repository' },
+    { value: '2', label: '스토어 출시 · 원스토어 & 앱스토어' },
+    { value: '158', label: '본인 커밋 (팀 761)' },
+    { value: '~5개월', label: '실서비스 운영 · 2026.02 – 06' },
+  ],
+  links: [
+    { label: 'GITHUB', url: 'https://github.com/doyoungkim-code/SSABREE_TIME' },
+    { label: '회고', url: 'https://dyomyo.tistory.com/118' },
   ],
   lead: {
     before: '에브리타임을 벤치마킹해 기획하고, ',
     strong: '원스토어 · 앱스토어에 실제 출시해 150명 이상의 유저',
-    after: '가 사용했습니다. AWS EC2에 배포해 SSAFY 수료(2026.07)까지 운영했습니다.',
+    after: '가 사용했습니다. AWS EC2에 배포해 SSAFY 수료(2026.06)까지 운영했습니다.',
   },
   shots: [
     { src: 'images/ssabree-1.jpg', alt: 'SSABREE TIME 모바일 화면 1' },
@@ -150,13 +155,15 @@ export const project2 = {
       '강의 종료 — 자막 TXT/SRT 다운로드',
     ],
   },
-  bg: { src: 'images/translate-1.png', blur: false },
+  /* 사진(award.jpg 등)이 오면 여기서 교체. 그 전까지는 데모 캡처(npm run capture) */
+  bg: { src: 'images/translate-1.png', blur: true },
   vitals: [
     { value: 'TOP 3', label: '전국 전시발표회 · 117팀' },
     { value: '1위', label: '본선 자율 프로젝트 · 11팀' },
-    { value: '~132', label: '본인 커밋' },
+    { value: '132', label: '본인 커밋' },
     { value: '17GB', label: '단일 setup.exe' },
   ],
+  links: [{ label: 'GITHUB', url: 'https://github.com/doyoungkim-code/Bunmin' }],
   lead: {
     before: '팀장으로서 요구사항 명세와 일정을 관리하며 6인 팀을 이끌고, ',
     strong: '17GB AI 모델을 품은 데스크톱 앱을 "비개발자가 설치할 수 있는 물건"으로 만드는 일',
@@ -167,9 +174,9 @@ export const project2 = {
     { src: 'images/translate-2.png', alt: '번역의 민족 화면 2' },
   ] as Shot[],
   roles: [
-    { no: '01', title: '팀장 리딩', desc: '기업 요구사항 명세 · 일정 관리. AI · Frontend · Backend가 만나는 통합 지점(배포 · 역할 분담)을 조율하고 최종 책임.' },
-    { no: '02', title: 'Electron 배포 파이프라인', desc: 'PyInstaller → electron-builder → Inno Setup 3단계 패키징. 강의실 PC를 고려한 관리자 권한 없는 per-user 설치, 디스크 용량 사전 체크.' },
-    { no: '03', title: '설치 · 모델 다운로드 플로우', desc: '대용량 AI 모델의 다운로드 · 설치 과정을 비개발자도 통과할 수 있는 사용자 플로우로 설계 · 구현.' },
+    { no: '01', title: 'Electron 배포 파이프라인', desc: 'PyInstaller → electron-builder → Inno Setup 3단계 패키징. 강의실 PC를 고려한 관리자 권한 없는 per-user 설치, 디스크 용량 사전 체크.' },
+    { no: '02', title: '설치 · 모델 다운로드 플로우', desc: '대용량 AI 모델의 다운로드 · 설치 과정을 비개발자도 통과할 수 있는 사용자 플로우로 설계 · 구현.' },
+    { no: '03', title: '팀장 리딩', desc: '기업 요구사항 명세 · 일정 관리. AI · Frontend · Backend가 만나는 통합 지점(배포 · 역할 분담)을 조율하고 최종 책임.' },
     { no: '04', title: 'FastAPI 백엔드', desc: 'Python FastAPI 기반 서버 API 일부 구현.' },
   ] as RowItem[],
   troubles: [

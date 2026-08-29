@@ -15,13 +15,36 @@ import type { Trouble } from '../data/projects'
 
 type Project = typeof project1 | typeof project2
 
-/** 커버 하단 헤어라인 링크 */
-function CoverLinks({ repoUrl }: { repoUrl: string }) {
+/** 커버 하단 헤어라인 링크 (GITHUB · 회고 …) */
+function CoverLinks({ links }: { links: { label: string; url: string }[] }) {
   return (
     <div className="pf-coverlinks">
-      <a href={repoUrl} target="_blank" rel="noopener noreferrer">GITHUB &#8599;</a>
+      {links.map((l) => (
+        <a key={l.url} href={l.url} target="_blank" rel="noopener noreferrer">{l.label} &#8599;</a>
+      ))}
     </div>
   )
+}
+
+/** 커버 한 줄 요약 — "내가 한 일"이 커버에서 바로 보이게 */
+function CoverLead({ lead }: { lead: { before: string; strong: string; after: string } }) {
+  return (
+    <p className="pf-cover__lead">
+      {lead.before}<b>{lead.strong}</b>{lead.after}
+    </p>
+  )
+}
+
+/** 작은 화면에서는 카메라 확대를 쓰지 않는다 (확대하면 오히려 잘림) */
+function useIsNarrow() {
+  const [narrow, setNarrow] = useState(() => window.matchMedia('(max-width: 860px)').matches)
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 860px)')
+    const on = () => setNarrow(mq.matches)
+    mq.addEventListener('change', on)
+    return () => mq.removeEventListener('change', on)
+  }, [])
+  return narrow
 }
 
 /** "④ 그룹 매칭 — …" 형태의 자막에서 단계 인덱스(0-based)를 뽑는다 */
@@ -84,6 +107,7 @@ function ProjectDeep({ p, num, variant, next, diagrams }: DeepProps) {
     return () => window.clearTimeout(t)
   }, [shown])
 
+  const narrow = useIsNarrow()
   const stage = (
     <DemoStage
       path={p.demo.path}
@@ -91,7 +115,7 @@ function ProjectDeep({ p, num, variant, next, diagrams }: DeepProps) {
       size={p.demo.size}
       title={p.demo.title}
       bare={p.device === 'phone'}
-      focus={zoomed ? p.demo.focus[shown] : undefined}
+      focus={zoomed && !narrow ? p.demo.focus[shown] : undefined}
       onPhase={onPhase}
     />
   )
@@ -127,11 +151,12 @@ function ProjectDeep({ p, num, variant, next, diagrams }: DeepProps) {
           <DetailTabs
             overline="DEEP DIVE"
             tabs={[
+              /* 훑어보는 사람이 "내가 한 일"을 먼저 보도록 역할 탭이 기본 */
+              { id: 'roles', label: '역할 · 구현', content: <DtRows items={p.roles} /> },
               { id: 'arch', label: '아키텍처', content: <DiagramTab note={diagrams.notes[0]}>{diagrams.arch}</DiagramTab> },
               { id: 'flow', label: '데이터 플로우', content: <DiagramTab note={diagrams.notes[1]}>{diagrams.flow}</DiagramTab> },
               { id: 'seq', label: '시퀀스', content: <DiagramTab note={diagrams.notes[2]}>{diagrams.seq}</DiagramTab> },
               { id: 'psr', label: '문제 → 해결 → 결과', content: <Psr items={p.troubles} /> },
-              { id: 'roles', label: '역할 · 구현', content: <DtRows items={p.roles} /> },
             ]}
           />
         </aside>
@@ -145,13 +170,14 @@ function ProjectDeep({ p, num, variant, next, diagrams }: DeepProps) {
 export function Project1Cover() {
   const p = project1
   return (
-    <Cover id={p.coverId} nav={p.id} page={p.coverPage} num="04" bg={p.bg} next={`dm-${p.id}`}>
+    <Cover id={p.coverId} nav={p.id} page={p.coverPage} num={p.coverPage} bg={p.bg} next={`dm-${p.id}`}>
       <Reveal className="pf-overline">{p.overline}</Reveal>
       <DisplayTitle text={p.title} />
       <Reveal className="pf-cover__sub" delay={0.1}>
         <p>{p.sub}</p>
       </Reveal>
-      <Reveal className="pf-cover__desc" delay={0.16}>
+      <Reveal className="pf-cover__desc" delay={0.14}>
+        <CoverLead lead={p.lead} />
         <p>{p.meta}</p>
       </Reveal>
       <Reveal delay={0.2}>
@@ -161,7 +187,7 @@ export function Project1Cover() {
         <Vitals items={p.vitals} />
       </Reveal>
       <Reveal delay={0.3}>
-        <CoverLinks repoUrl={p.repoUrl} />
+        <CoverLinks links={p.links} />
       </Reveal>
     </Cover>
   )
@@ -192,13 +218,14 @@ export function Project1Deep() {
 export function Project2Cover() {
   const p = project2
   return (
-    <Cover id={p.coverId} nav={p.id} page={p.coverPage} num="05" variant="alt" bg={p.bg} next={`dm-${p.id}`}>
+    <Cover id={p.coverId} nav={p.id} page={p.coverPage} num={p.coverPage} variant="alt" bg={p.bg} next={`dm-${p.id}`}>
       <Reveal className="pf-overline">{p.overline}</Reveal>
       <DisplayTitle text={p.title} kr />
       <Reveal className="pf-cover__sub" delay={0.1}>
         <p>{p.sub}</p>
       </Reveal>
-      <Reveal className="pf-cover__desc" delay={0.16}>
+      <Reveal className="pf-cover__desc" delay={0.14}>
+        <CoverLead lead={p.lead} />
         <p>{p.meta}</p>
       </Reveal>
       <Reveal delay={0.2}>
@@ -208,7 +235,7 @@ export function Project2Cover() {
         <Vitals items={p.vitals} />
       </Reveal>
       <Reveal delay={0.3}>
-        <CoverLinks repoUrl={p.repoUrl} />
+        <CoverLinks links={p.links} />
       </Reveal>
     </Cover>
   )

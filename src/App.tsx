@@ -15,6 +15,12 @@ import { Skills } from './sections/Skills'
 import { Project1Cover, Project1Deep, Project2Cover, Project2Deep } from './sections/Projects'
 import { Contact } from './sections/Contact'
 
+/* 모바일·저사양 기기에서는 3D 배경을 아예 올리지 않는다 (CSS 배경만으로 충분) */
+const use3d =
+  typeof window !== 'undefined' &&
+  !window.matchMedia('(max-width: 860px)').matches &&
+  (navigator.hardwareConcurrency ?? 8) > 4
+
 export default function App() {
   const { id, nav, tone, page } = useActiveSection()
   useSnapScroll()
@@ -26,9 +32,11 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <div className={rootClass}>
-        <Suspense fallback={null}>
-          <ThreeBackground dimmed={tone === 'light'} />
-        </Suspense>
+        {use3d && (
+          <Suspense fallback={null}>
+            <ThreeBackground dimmed={tone === 'light'} />
+          </Suspense>
+        )}
         <Chrome />
         <SideNav active={nav} />
         <main>

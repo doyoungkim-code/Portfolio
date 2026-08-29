@@ -23,4 +23,4 @@ export const journeyRows: JourneyRow[] = [
 ]
 
 export const journeyMeta =
-  'SQLD · 2024.04 / SSAFY 프로젝트 전시발표회 전시부문 전국 3위 · 2026.06'
+  'SQLD · 2024.04  /  SSAFY 프로젝트 전시발표회 전시부문 전국 3위 · 2026.06  /  SSAFY 14기 수료 · 2026.06'

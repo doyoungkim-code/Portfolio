@@ -3,10 +3,11 @@ import { DisplayTitle } from '../components/DisplayTitle'
 import { Reveal } from '../components/Reveal'
 import { Vitals } from '../components/Vitals'
 import { heroVitals, profile } from '../data/profile'
+import { asset } from '../lib/asset'
 
 export function About() {
   return (
-    <Cover id="cv-about" nav="about" page="01" num="01" bg={{ src: 'images/hero-bg.jpg' }} next="cv-journey">
+    <Cover id="cv-about" nav="about" page="01" num="01" next="cv-journey">
       <Reveal className="pf-overline">BACKEND DEVELOPER &middot; PORTFOLIO 2026</Reveal>
       <DisplayTitle as="h1" text={profile.nameEn} />
       <Reveal className="pf-cover__sub" delay={0.1}>
@@ -25,6 +26,16 @@ export function About() {
       </Reveal>
       <Reveal delay={0.26}>
         <Vitals items={heroVitals} />
+      </Reveal>
+      <Reveal delay={0.32}>
+        <div className="pf-coverlinks pf-coverlinks--hero">
+          <a href={profile.githubUrl} target="_blank" rel="noopener noreferrer">GITHUB &#8599;</a>
+          <a href={`mailto:${profile.email}`}>EMAIL</a>
+          <a href={profile.blogUrl} target="_blank" rel="noopener noreferrer">BLOG &#8599;</a>
+          {profile.resumeUrl && (
+            <a href={asset(profile.resumeUrl)} target="_blank" rel="noopener noreferrer">이력서 PDF &#8599;</a>
+          )}
+        </div>
       </Reveal>
     </Cover>
   )

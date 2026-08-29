@@ -30,16 +30,19 @@ npm install
 npm run dev      # 개발 서버
 npm run build    # 타입체크 + 프로덕션 빌드 (dist/)
 npm run preview  # 빌드 결과 미리보기 (/Portfolio/ base)
+npm run capture  # (dev 서버 실행 중) 데모 화면 캡처 → public/images/{ssabree-1.jpg, translate-1.png, og.png}
 ```
+
+`npm run capture`는 로컬 Edge(Playwright `channel: msedge`)로 데모의 특정 장면을 찍어 커버 배경과 링크 미리보기(OG) 이미지를 만듭니다. 실제 사진이 준비되면 같은 파일명으로 덮어쓰면 됩니다 — `public/images/README.md`.
 
 ## Demos
 
 `public/demo/` 에 두 프로젝트의 **정적 인터랙티브 데모**(빌드 없는 바닐라 HTML/CSS/JS)가 들어 있고, 프로젝트마다 **딥다이브 페이지** 왼쪽(휴대폰 / 모니터 목업)에서 영상처럼 반복 재생됩니다. 오른쪽에는 아키텍처 · 데이터 플로우 · 시퀀스 다이어그램 · 문제→해결→결과 · 역할 탭이 있습니다.
 
-- `public/demo/ssabree/` — SSABREE TIME: 갤럭시 폰 프레임 2대가 채팅·알림을 실시간 동기화하는 자동 시연
+- `public/demo/ssabree/` — SSABREE TIME: 갤럭시 폰 프레임에서 로그인 → 게시판 → AI 검열 → 팀 매칭 → 수락 푸시 → 채팅까지 자동 시연 (kiosk 모드에서는 지원자 폰 1대만 표시)
 - `public/demo/bunmin/` — 번역의 민족: 강의자 화면 자동 시연
-- 해시 옵션: `#autoplay`(자동 시연) `#dual`(폰 2대) `#dark`(다크 테마) `#kiosk`(컨트롤 숨김·조작 차단·무한 반복, 단계 자막을 `postMessage`로 부모창에 전달)
-- 페이지는 1280×800 논리 해상도로 렌더한 iframe을 CSS `transform: scale`로 스테이지에 맞추고, 우측에 "지금 보여주는 단계"를 동기 표시합니다 (`src/components/DemoStage.tsx`)
+- 해시 옵션: `#autoplay`(자동 시연) `#dual`(폰 2대, 직접 실행 시) `#dark`(다크 테마) `#kiosk`(컨트롤 숨김·조작 차단·무한 반복, 단계 자막을 `postMessage`로 부모창에 전달)
+- 페이지는 논리 해상도(휴대폰 440×880, 모니터 1120×700)로 렌더한 iframe을 CSS `transform: scale`로 스테이지에 맞추고, 단계마다 전체 → 해당 영역 확대(카메라)로 보여줍니다 (`src/components/DemoStage.tsx`). 모바일에서는 세로 스택·확대 없음
 
 ## Content docs
 
