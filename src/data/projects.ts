@@ -32,7 +32,7 @@ export const project1 = {
   repoUrl: 'https://github.com/doyoungkim-code/SSABREE_TIME',
   demo: {
     path: 'demo/ssabree/index.html',
-    autoHash: 'autoplay+dual+dark',
+    autoHash: 'autoplay+dual',
     freeHash: 'dual',
     size: { w: 1280, h: 800 },
     title: 'SSABREE TIME 데모 — 갤럭시 폰 2대 실시간 동기화',
@@ -112,7 +112,7 @@ export const project2 = {
   repoUrl: 'https://github.com/doyoungkim-code/Bunmin',
   demo: {
     path: 'demo/bunmin/index.html',
-    autoHash: 'autoplay+dark',
+    autoHash: 'autoplay',
     freeHash: '',
     size: { w: 1280, h: 800 },
     title: '번역의 민족 데모 — 강의자 화면 자동 시연',

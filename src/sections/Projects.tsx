@@ -8,7 +8,7 @@ import { DtRows, DtTroubles } from '../components/rows'
 import { CaptionFigure, Shots } from '../components/media'
 import { TechStrip } from '../components/TechIcon'
 import { DemoStage } from '../components/DemoStage'
-import { asset } from '../lib/asset'
+import type { DemoMode } from '../components/DemoStage'
 import { project1, project2 } from '../data/projects'
 
 type Project = typeof project1 | typeof project2
@@ -42,9 +42,15 @@ function stepIndexOf(text: string): number {
 
 function ProjectDemo({ p, num, variant }: { p: Project; num: string; variant?: 'alt' }) {
   const [phase, setPhase] = useState('')
+  const [mode, setMode] = useState<DemoMode>('auto')
   const onPhase = useCallback((t: string) => setPhase(t), [])
-  const active = stepIndexOf(phase)
-  const caption = active >= 0 ? p.demo.steps[active] : p.demo.steps[0]
+  const free = mode === 'free'
+  const active = free ? -1 : stepIndexOf(phase)
+  const caption = free
+    ? '직접 조작 중 — 화면을 눌러 기능을 써 보세요. 하단 ▶ 로 시연을 다시 재생할 수도 있습니다.'
+    : active >= 0
+      ? p.demo.steps[active]
+      : p.demo.steps[0]
 
   return (
     <Cover id={`dm-${p.id}`} nav={p.id} page={p.demoPage} num={num} variant={variant} next={p.detailId} wide>
@@ -52,18 +58,20 @@ function ProjectDemo({ p, num, variant }: { p: Project; num: string; variant?: '
         <DemoStage
           path={p.demo.path}
           autoHash={p.demo.autoHash}
+          freeHash={p.demo.freeHash}
+          mode={mode}
           size={p.demo.size}
           title={p.demo.title}
           onPhase={onPhase}
         />
         <aside className="pf-demo__side">
-          <p className="pf-overline">LIVE DEMO &middot; AUTO REPLAY</p>
+          <p className="pf-overline">{free ? 'HANDS-ON · TRY IT' : 'LIVE DEMO · AUTO REPLAY'}</p>
           <h2 className={`pf-demo__title${'titleKr' in p && p.titleKr ? ' pf-demo__title--kr' : ''}`}>{p.title}</h2>
 
-          <p className="pf-demo__label">NOW SHOWING</p>
+          <p className="pf-demo__label">{free ? 'HANDS-ON' : 'NOW SHOWING'}</p>
           <p className="pf-demo__caption">{caption}</p>
 
-          <ol className="pf-demo__steps">
+          <ol className={`pf-demo__steps${free ? ' pf-demo__steps--dim' : ''}`}>
             {p.demo.steps.map((s, i) => (
               <li key={s} className={i === active ? 'on' : i < active ? 'done' : undefined}>
                 <i>{String(i + 1).padStart(2, '0')}</i>
@@ -72,9 +80,9 @@ function ProjectDemo({ p, num, variant }: { p: Project; num: string; variant?: '
             ))}
           </ol>
 
-          <a className="pf-demo__cta" href={asset(`${p.demo.path}#${p.demo.freeHash}`)} target="_blank" rel="noopener noreferrer">
-            직접 조작해보기 &#8599;
-          </a>
+          <button type="button" className="pf-demo__cta" onClick={() => setMode(free ? 'auto' : 'free')}>
+            {free ? '↺ 자동 시연으로 돌아가기' : '직접 조작해보기 →'}
+          </button>
         </aside>
       </div>
     </Cover>
