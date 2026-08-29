@@ -135,20 +135,8 @@
     /* kiosk에선 항상 휴대폰 1대만 (시나리오의 2대 전환 무시) */
     var origSetPhone2 = S.actions.setPhone2;
     S.actions.setPhone2 = function () { origSetPhone2(false); };
-    /* 대신 시나리오가 조작 중인 폰을 같은 자리에서 보여준다: nav/flash가 일어난 폰이 활성 */
-    var stageEl = document.getElementById('stage');
-    function showPhone(n) { stageEl.classList.toggle('kiosk-p2', n === 2); }
-    [S.phone1, S.phone2].forEach(function (ph, i) {
-      ['nav', 'navTab', 'flash', 'back'].forEach(function (m) {
-        var orig = ph[m];
-        if (typeof orig !== 'function') return;
-        ph[m] = function () { showPhone(i + 1); return orig.apply(ph, arguments); };
-      });
-    });
-    S.store.subscribe(function (state, keys) {
-      if (!keys.has('headsUp') || !state.headsUp) return;
-      if (state.headsUp.u1) showPhone(1); else if (state.headsUp.u2) showPhone(2);
-    });
+    /* 부트 시 이미 만들어진 스크립트를 kiosk 분기로 다시 빌드 */
+    S.scenario.reset(true);
   }
   if (tokens.indexOf('dark') !== -1) setTheme('dark');
   if (tokens.indexOf('dual') !== -1) S.actions.setPhone2(true);

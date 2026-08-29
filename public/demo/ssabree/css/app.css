@@ -863,5 +863,3 @@ body.kiosk .phone-label { display: none !important; }
 body.kiosk .phone { position: relative; }
 body.kiosk .phone .toast { position: absolute; bottom: 96px; left: 50%; max-width: 84%; font-size: 12.5px; padding: 9px 16px; }
 body.kiosk #phone2-wrap { display: none !important; }
-body.kiosk #stage.kiosk-p2 #phone1-wrap { display: none !important; }
-body.kiosk #stage.kiosk-p2 #phone2-wrap { display: flex !important; opacity: 1 !important; transform: none !important; animation: none !important; }

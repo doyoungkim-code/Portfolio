@@ -86,10 +86,16 @@
     at(63300, function () { S.handlers['apply-submit'](p1()); });
     at(64700, function () { confirmDialog(p1()); });
 
-    /* ⑥ 상대방 등장 — 리더의 수락 */
-    phase(66000, '⑥ 실시간 수락 — 스터디장 박싸피의 폰에 FCM 푸시 도착');
-    at(66200, function () { S.actions.setPhone2(true); });
-    at(67800, function () { A.showHeadsUp('u2', { title: '새 지원자', body: '새로운 지원자가 있습니다.' }); });
+    /* ⑥ 상대방 등장 — 리더의 수락 (kiosk: 지원자 폰 하나로만 시연, 리더 조작은 화면 밖에서 진행) */
+    if (window.__kiosk) {
+      phase(66000, '⑥ 실시간 수락 — 스터디장이 수락하면 내 폰에 FCM 푸시 도착');
+      at(66800, function () { p1().navTab('myGroups'); });
+      at(71000, function () { p1().flash('#mygrp-g1'); });   /* 지원 대기 중인 그룹 */
+    } else {
+      phase(66000, '⑥ 실시간 수락 — 스터디장 박싸피의 폰에 FCM 푸시 도착');
+      at(66200, function () { S.actions.setPhone2(true); });
+      at(67800, function () { A.showHeadsUp('u2', { title: '새 지원자', body: '새로운 지원자가 있습니다.' }); });
+    }
     at(69800, function () { p2().navTab('myGroups'); });
     at(70600, function () { p2().flash('#mygrp-g1'); });
     at(71600, function () { p2().nav('myGroupDetail', { id: 'g1' }); });
@@ -98,9 +104,10 @@
     at(75000, function () { p2().flash('#btn-accept'); });
     at(75700, function () { S.handlers['mm-accept'](p2(), fakeEl({ 'data-uid': 'u1', 'data-name': '김도영' })); });
     at(77200, function () { confirmDialog(p2()); });   /* 수락 → 폰1에 헤드업 */
+    if (window.__kiosk) at(78400, function () { p1().nav('myGroupDetail', { id: 'g1' }); });
 
     /* ⑦ 실시간 쪽지 */
-    phase(79500, '⑦ 실시간 쪽지 — WebSocket(STOMP) 채팅, 두 폰이 즉시 동기화');
+    phase(79500, window.__kiosk ? '⑦ 실시간 쪽지 — WebSocket(STOMP) 채팅, 상대 메시지가 즉시 도착' : '⑦ 실시간 쪽지 — WebSocket(STOMP) 채팅, 두 폰이 즉시 동기화');
     at(79800, function () { p1().navTab('chatList'); });
     at(81000, function () { p1().nav('chatRoom', { id: 'ch1' }); });
     at(82000, function () { p2().nav('chatRoom', { id: 'ch1' }); });
