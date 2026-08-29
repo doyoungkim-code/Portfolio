@@ -65,6 +65,7 @@ export function Project1Detail() {
         <DetailTabs
           overline={`PROJECT 01 — ${p.title}`}
           tabs={[
+            { id: 'demo', label: '데모', content: <DemoFrame path={p.demo.path} title={p.demo.title} /> },
             {
               id: 'a',
               label: '개요',
@@ -81,7 +82,6 @@ export function Project1Detail() {
             { id: 'b', label: '구현', content: <DtRows items={p.roles} /> },
             { id: 'c', label: '기술 선택', content: <DtRows items={p.tech} /> },
             { id: 'd', label: '트러블슈팅', content: <DtTroubles items={p.troubles} /> },
-            { id: 'e', label: '데모', content: <DemoFrame path={p.demo.path} title={p.demo.title} /> },
           ]}
         />
       </div>
@@ -124,6 +124,7 @@ export function Project2Detail() {
         <DetailTabs
           overline={`PROJECT 02 — ${p.title}`}
           tabs={[
+            { id: 'demo', label: '데모', content: <DemoFrame path={p.demo.path} title={p.demo.title} /> },
             {
               id: 'a',
               label: '개요',
@@ -145,7 +146,6 @@ export function Project2Detail() {
                 </>
               ),
             },
-            { id: 'd', label: '데모', content: <DemoFrame path={p.demo.path} title={p.demo.title} /> },
           ]}
         />
       </div>

@@ -1,24 +1,23 @@
+import { useRef } from 'react'
+import { useInView } from 'framer-motion'
 import { asset } from '../lib/asset'
 
 interface DemoFrameProps {
-  /** public/ 기준 경로 (해시 포함 가능) */
+  /** public/ 기준 경로 (자동 시연 해시 포함) */
   path: string
   title: string
-  note?: string
 }
 
-/** 정적 데모(public/demo/*)를 상세 페이지 탭 안에 임베드 */
-export function DemoFrame({ path, title, note }: DemoFrameProps) {
-  const url = asset(path)
+/**
+ * 정적 데모(public/demo/*)를 상세 페이지에 꽉 채워 임베드.
+ * 화면에 들어올 때만 iframe을 마운트해 자동 시연을 시작하고, 벗어나면 내려서 리소스를 아낀다.
+ */
+export function DemoFrame({ path, title }: DemoFrameProps) {
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { amount: 0.3 })
   return (
-    <div className="dt-demo">
-      <div className="dt-demo__bar">
-        <span>{note ?? '자동 시연이 재생됩니다 — 실제 서비스 UI를 재현한 정적 데모'}</span>
-        <a href={url} target="_blank" rel="noopener noreferrer">
-          새 창에서 열기 &#8599;
-        </a>
-      </div>
-      <iframe className="dt-demo__frame" src={url} title={title} loading="lazy" allow="autoplay" />
+    <div ref={ref} className="dt-demo">
+      {inView && <iframe className="dt-demo__frame" src={asset(path)} title={title} allow="autoplay" />}
     </div>
   )
 }
