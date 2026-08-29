@@ -127,7 +127,12 @@
 
   /* URL 해시 옵션 (+ 로 조합): #autoplay #dark #dual */
   var tokens = (location.hash || '').replace('#', '').split('+').filter(Boolean);
-  if (tokens.indexOf('kiosk') !== -1) { window.__kiosk = true; document.body.classList.add('kiosk'); document.documentElement.classList.add('kiosk'); }
+  if (tokens.indexOf('kiosk') !== -1) {
+    window.__kiosk = true; document.body.classList.add('kiosk'); document.documentElement.classList.add('kiosk');
+    /* 토스트를 휴대폰 화면 안으로 */
+    var toastEl = document.getElementById('toast'), phoneEl = document.getElementById('phone1');
+    if (toastEl && phoneEl) phoneEl.appendChild(toastEl);
+  }
   if (tokens.indexOf('dark') !== -1) setTheme('dark');
   if (tokens.indexOf('dual') !== -1) S.actions.setPhone2(true);
   if (tokens.indexOf('autoplay') !== -1) S.scenario.play();

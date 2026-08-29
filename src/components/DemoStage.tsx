@@ -24,24 +24,33 @@ interface DemoStageProps {
 
 /**
  * 데모를 논리 해상도로 렌더하고 CSS transform으로 스테이지에 꽉 맞춘다.
- * 화면에 들어올 때만 마운트. auto 모드는 조작 차단, free 모드는 같은 스테이지에서 직접 조작.
+ * - 화면에 처음 들어올 때 한 번 마운트하고 이후 유지 (재마운트로 인한 위치 점프 방지)
+ * - 로드 후 데모가 자리 잡을 때까지 숨겼다가 페이드인 (흰 화면 깜박임 방지)
+ * - auto 모드는 조작 차단, free 모드는 같은 스테이지에서 직접 조작
  */
 export function DemoStage({ path, autoHash, freeHash, mode, size, title, bare = false, onPhase }: DemoStageProps) {
   const stageRef = useRef<HTMLDivElement>(null)
   const frameRef = useRef<HTMLIFrameElement>(null)
-  const inView = useInView(stageRef, { amount: 0.3 })
+  const inView = useInView(stageRef, { amount: 0.2 })
+  const [mounted, setMounted] = useState(false)
+  const [ready, setReady] = useState(false)
   const [fitState, setFit] = useState({ scale: 0.5, h: size.h })
   const scale = fitState.scale
   const logicalH = fitState.h
 
-  /* 스테이지에 여백 없이 꽉 차도록: 논리 너비는 고정, 논리 높이는 스테이지 비율을 따라감 */
+  useEffect(() => {
+    if (inView) setMounted(true)
+  }, [inView])
+
+  /* 스테이지에 여백 없이 꽉 차도록 — 레이아웃 px(clientWidth) 기준이라 CSS zoom과 무관 */
   useEffect(() => {
     const el = stageRef.current
     if (!el) return
     const fit = () => {
-      const r = el.getBoundingClientRect()
-      if (r.width === 0 || r.height === 0) return
-      setFit({ scale: r.width / size.w, h: Math.round(size.w * (r.height / r.width)) })
+      const cw = el.clientWidth
+      const ch = el.clientHeight
+      if (cw === 0 || ch === 0) return
+      setFit({ scale: cw / size.w, h: Math.round(size.w * (ch / cw)) })
     }
     fit()
     const ro = new ResizeObserver(fit)
@@ -68,8 +77,8 @@ export function DemoStage({ path, autoHash, freeHash, mode, size, title, bare = 
       ref={stageRef}
       className={`pf-demo__stage${mode === 'free' ? ' pf-demo__stage--free' : ''}${bare ? ' pf-demo__stage--bare' : ''}`}
     >
-      {inView && (
-        <div className="pf-demo__scaler" style={{ width: w, height: h }}>
+      {mounted && (
+        <div className={`pf-demo__scaler${ready ? ' is-ready' : ''}`} style={{ width: w, height: h }}>
           <iframe
             key={hash}
             ref={frameRef}
@@ -79,6 +88,10 @@ export function DemoStage({ path, autoHash, freeHash, mode, size, title, bare = 
             style={{ width: size.w, height: logicalH, transform: `scale(${scale})`, background: bare ? 'transparent' : undefined }}
             allow="autoplay"
             allowTransparency
+            onLoad={() => {
+              setReady(false)
+              window.setTimeout(() => setReady(true), 450) /* 데모가 스스로 배치를 끝낸 뒤 표시 */
+            }}
           />
           {mode === 'auto' && <div className="pf-demo__shield" aria-hidden />}
         </div>

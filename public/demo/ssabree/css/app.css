@@ -860,3 +860,5 @@ body.kiosk{pointer-events:none;user-select:none}
 /* kiosk(포트폴리오 임베드): 페이지 배경 투명, 휴대폰만 보이게 */
 html.kiosk, body.kiosk, body.kiosk .stage-outer, body.kiosk .stage { background: transparent !important; }
 body.kiosk .phone-label { display: none !important; }
+body.kiosk .phone { position: relative; }
+body.kiosk .phone .toast { position: absolute; bottom: 96px; left: 50%; max-width: 84%; font-size: 12.5px; padding: 9px 16px; }

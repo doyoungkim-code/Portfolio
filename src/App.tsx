@@ -8,6 +8,7 @@ import { PageCounter } from './components/PageCounter'
 const ThreeBackground = lazy(() => import('./components/ThreeBackground'))
 import { useActiveSection } from './hooks/useActiveSection'
 import { useSnapScroll } from './hooks/useSnapScroll'
+import { useFixedCanvas } from './hooks/useFixedCanvas'
 import { About } from './sections/About'
 import { Journey } from './sections/Journey'
 import { Skills } from './sections/Skills'
@@ -17,6 +18,7 @@ import { Contact } from './sections/Contact'
 export default function App() {
   const { id, nav, tone, page } = useActiveSection()
   useSnapScroll()
+  useFixedCanvas()
   const rootClass = ['pf', tone === 'light' && 'pf--onlight', id.startsWith('dm-') && 'pf--ondemo']
     .filter(Boolean)
     .join(' ')
