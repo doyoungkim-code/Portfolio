@@ -1,13 +1,13 @@
 @charset "UTF-8";
 
 /* =========================================================
-   김도영 · Portfolio — corp.imbc.com 에디토리얼 8페이지 (React)
+   김도영 · Portfolio — 에디토리얼 8페이지 (React)
    다크 커버(스냅) + 라이트 상세(탭), Roboto + Noto Sans KR
    ========================================================= */
 
 :root{
-  --mbc-blue:#4664E6;          /* MBC/iMBC 공통 블루 */
-  --pur:#8F83FF;               /* corp 링크 퍼플 오마주 */
+  --accent:#4664E6;            /* 포인트 블루 */
+  --pur:#8F83FF;               /* 보조 퍼플 */
 
   /* 라이트 (상세) */
   --ink:#14171F; --ink-2:#4C5568; --ink-3:#8B93A5;
@@ -66,7 +66,7 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
   font-family:var(--font-disp);font-weight:500;font-size:17px;letter-spacing:.24em;
   color:var(--d-ink);transition:color .45s ease;
 }
-.pf-logo i{font-style:normal;color:var(--mbc-blue)}
+.pf-logo i{font-style:normal;color:var(--accent)}
 .pf-slogan{
   position:absolute;left:50%;transform:translateX(-50%);
   font-family:var(--font-disp);font-weight:300;font-size:11.5px;letter-spacing:.4em;
@@ -100,11 +100,11 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 }
 .pf-sidenav a:hover{color:var(--d-ink)}
 .pf-sidenav a.on{color:var(--d-ink)}
-.pf-sidenav a.on i{background:var(--mbc-blue);border-color:var(--mbc-blue);transform:scale(1.4)}
+.pf-sidenav a.on i{background:var(--accent);border-color:var(--accent);transform:scale(1.4)}
 .pf--onlight .pf-sidenav a{color:var(--ink-3)}
 .pf--onlight .pf-sidenav a:hover,.pf--onlight .pf-sidenav a.on{color:var(--ink)}
 .pf--onlight .pf-sidenav a i{border-color:var(--ink-3)}
-.pf--onlight .pf-sidenav a.on i{background:var(--mbc-blue);border-color:var(--mbc-blue)}
+.pf--onlight .pf-sidenav a.on i{background:var(--accent);border-color:var(--accent)}
 
 /* ── 다크 풀스크린 커버 ── */
 .pf-cover{
@@ -169,7 +169,7 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 
 .pf-overline{
   font-family:var(--font-disp);font-weight:400;font-size:11.5px;letter-spacing:.44em;
-  text-transform:uppercase;color:var(--mbc-blue);margin-bottom:30px;
+  text-transform:uppercase;color:var(--accent);margin-bottom:30px;
 }
 .pf-cover--alt .pf-overline{color:var(--pur)}
 .pf-display{
@@ -186,7 +186,7 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 .pf-cover__sub p{
   font-weight:300;font-size:17.5px;line-height:1.8;color:var(--d-ink);
 }
-.pf-cover__sub b{font-weight:500;color:var(--mbc-blue)}
+.pf-cover__sub b{font-weight:500;color:var(--accent)}
 .pf-cover--alt .pf-cover__sub b{color:var(--pur)}
 .pf-cover__desc{margin-top:14px}
 .pf-cover__desc p{font-size:13.5px;line-height:1.9;color:var(--d-ink2)}
@@ -203,7 +203,7 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
   font-size:30px;line-height:1.15;color:var(--d-ink);letter-spacing:.04em;
   transition:color .35s ease;
 }
-.pf-vitals>div:hover b{color:var(--mbc-blue)}
+.pf-vitals>div:hover b{color:var(--accent)}
 .pf-cover--alt .pf-vitals>div:hover b{color:var(--pur)}
 .pf-vitals span{display:block;font-size:11.5px;color:var(--d-ink3);margin-top:6px;letter-spacing:.04em}
 
@@ -220,10 +220,10 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
   transition:transform .3s ease;
 }
 .pf-jrow:hover{transform:translateX(3px)}
-.pf-jrow:hover .pf-jrow__name{color:var(--mbc-blue)}
+.pf-jrow:hover .pf-jrow__name{color:var(--accent)}
 .pf-cover--alt .pf-jrow:hover .pf-jrow__name{color:var(--pur)}
 .pf-jrow:last-child{border-bottom:0}
-.pf-jrow__date{font-family:var(--font-disp);font-weight:400;font-size:12px;letter-spacing:.08em;color:var(--mbc-blue)}
+.pf-jrow__date{font-family:var(--font-disp);font-weight:400;font-size:12px;letter-spacing:.08em;color:var(--accent)}
 .pf-cover--alt .pf-jrow__date{color:var(--pur)}
 .pf-jrow__name{font-weight:500;font-size:15px;color:var(--d-ink);transition:color .3s ease}
 .pf-jrow__desc{font-weight:300;font-size:13px;line-height:1.75;color:var(--d-ink2)}
@@ -234,7 +234,7 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
   transition:transform .3s ease;
 }
 .pf-srow:hover{transform:translateX(3px)}
-.pf-srow:hover .pf-srow__name{color:var(--mbc-blue)}
+.pf-srow:hover .pf-srow__name{color:var(--accent)}
 .pf-srow:last-child{border-bottom:0}
 .pf-srow__name{font-weight:500;font-size:15px;color:var(--d-ink);letter-spacing:.02em;transition:color .3s ease}
 .pf-srow__desc{font-weight:300;font-size:13px;line-height:1.75;color:var(--d-ink2)}
@@ -247,7 +247,7 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 .pf-covermeta--tight{margin-top:6px}
 .pf-covermeta b{
   font-family:var(--font-disp);font-weight:400;font-size:10.5px;
-  letter-spacing:.34em;color:var(--mbc-blue);
+  letter-spacing:.34em;color:var(--accent);
 }
 
 /* 연락처 */
@@ -300,7 +300,7 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 }
 .dt-overline{
   font-family:var(--font-disp);font-weight:400;font-size:11px;letter-spacing:.4em;
-  text-transform:uppercase;color:var(--mbc-blue);padding-bottom:14px;
+  text-transform:uppercase;color:var(--accent);padding-bottom:14px;
 }
 .dt-tabs{display:flex;gap:2px}
 .dt-tabs button{
@@ -314,7 +314,7 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 }
 .dt-tabs button:hover{color:var(--ink)}
 .dt-tabs button.on{color:var(--ink);font-weight:700}
-.dt-tabs button.on::after{background:var(--mbc-blue)}
+.dt-tabs button.on::after{background:var(--accent)}
 
 .dt-panels{flex:1;min-height:0;margin-top:4px}
 .dt-panel{
@@ -338,7 +338,7 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
   transition:background .25s ease,transform .25s ease;
 }
 .dt-row:hover{background:#fff;transform:translateX(2px)}
-.dt-row:hover .dt-row__no{color:var(--mbc-blue)}
+.dt-row:hover .dt-row__no{color:var(--accent)}
 .dt-row__no{font-family:var(--font-disp);font-weight:300;font-size:13px;color:var(--ink-3);letter-spacing:.06em;transition:color .25s ease}
 .dt-row__h{font-weight:700;font-size:15px;color:var(--ink)}
 .dt-row p{font-size:13.5px;line-height:1.8;color:var(--ink-2)}
@@ -378,7 +378,7 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 .dt-more{
   display:inline-block;margin-top:16px;
   font-family:var(--font-disp);font-weight:400;font-size:12px;letter-spacing:.22em;
-  color:var(--mbc-blue);border-bottom:1px solid currentColor;padding-bottom:4px;
+  color:var(--accent);border-bottom:1px solid currentColor;padding-bottom:4px;
   transition:opacity var(--tr);
 }
 .dt-more:hover{opacity:.65}

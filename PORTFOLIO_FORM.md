@@ -1,7 +1,7 @@
 # 포트폴리오 콘텐츠 원본 (검증본)
 
 > 2026-08-28 인터뷰로 사실 검증을 마친 내용만 담는다.
-> `TODO` 표시는 사용자 입력 대기 항목 — 채워지면 index.html에 반영할 것.
+> `TODO` 표시는 사용자 입력 대기 항목 — 채워지면 src/data/ 에 반영할 것.
 
 ---
 
@@ -15,7 +15,6 @@
 이메일       : ehehkwat1@naver.com
 GitHub       : https://github.com/doyoungkim-code
 블로그       : https://dyomyo.tistory.com
-지원 목표    : iMBC (방송/미디어 업계)
 ```
 
 ### 핵심 내러티브 (Hero)
@@ -54,7 +53,7 @@ AI 도구를 활용하는 개발 습관으로 **AI 활용 능력까지 갖춘** 
 - AWS EC2·Nginx (SSABREE 배포·운영), Python·FastAPI (번역의 민족 백엔드 일부),
   Electron·패키징(PyInstaller/electron-builder/Inno Setup), Docker, Git, MySQL, HTML5·JavaScript, Vue.js
 
-### iMBC 모집요강 매핑 (2026-08-28 사실 확인 완료)
+### 모집요강 매핑 — 방송·미디어 기업 서버 개발 직군 기준 (2026-08-28 사실 확인 완료)
 
 | 요강 항목 | 구분 | 본인 경험 | 반영 |
 |---|---|---|---|
@@ -158,15 +157,16 @@ Blog   : dyomyo.tistory.com
 
 ## 7. 이미지 목록 (TODO — 원본 파일 대기)
 
-레포 `images/` 폴더에 아래 파일을 넣으면 스킨 업로드 시 함께 올라간다.
+`public/images/` 폴더에 아래 파일을 넣고 push하면 자동 배포된다.
 
 | 파일명 | 용도 | 권장 |
 |---|---|---|
-| `images/profile.jpg` | 프로필 사진 | 정방형 600px+ |
-| `images/ssabree-1.jpg` | SSABREE 모바일 스크린샷 1 | 세로 |
-| `images/ssabree-2.jpg` | SSABREE 모바일 스크린샷 2 | 세로 |
-| `images/translate-1.png` | 번역의 민족 PC 화면 1 | 가로 |
-| `images/translate-2.png` | 번역의 민족 PC 화면 2 | 가로 |
-| `images/award.jpg` | 수상 단체사진 | 가로 |
+| `hero-bg.jpg` | 첫 화면(ABOUT 커버) 반투명 배경 사진 | 가로 1920px+ |
+| `profile.jpg` | 프로필 사진 (현재 미사용, 추후 About에 배치 가능) | 정방형 600px+ |
+| `ssabree-1.jpg` | SSABREE 모바일 스크린샷 1 (P1 커버 배경 겸용) | 세로 |
+| `ssabree-2.jpg` | SSABREE 모바일 스크린샷 2 | 세로 |
+| `translate-1.png` | 번역의 민족 PC 화면 1 (P2 커버 배경 겸용) | 가로 |
+| `translate-2.png` | 번역의 민족 PC 화면 2 | 가로 |
+| `award.jpg` | 수상 단체사진 | 가로 |
 
-파일이 없으면 페이지는 자동으로 컬러 플레이스홀더를 보여준다 (onerror 처리).
+파일이 없으면 컴포넌트가 자동으로 플레이스홀더를 보여준다 (onError 처리).

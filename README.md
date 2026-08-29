@@ -1,6 +1,6 @@
 # Portfolio
 
-백엔드 개발자 김도영의 포트폴리오. corp.imbc.com에서 영감을 받은 에디토리얼 풀페이지 디자인.
+백엔드 개발자 김도영의 포트폴리오. 에디토리얼 풀페이지 디자인.
 
 **Live**: https://doyoungkim-code.github.io/Portfolio
 
