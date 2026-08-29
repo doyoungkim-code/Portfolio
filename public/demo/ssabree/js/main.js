@@ -132,6 +132,9 @@
     /* 토스트를 휴대폰 화면 안으로 */
     var toastEl = document.getElementById('toast'), phoneEl = document.getElementById('phone1');
     if (toastEl && phoneEl) phoneEl.appendChild(toastEl);
+    /* kiosk에선 항상 휴대폰 1대만 (시나리오의 2대 전환 무시) */
+    var origSetPhone2 = S.actions.setPhone2;
+    S.actions.setPhone2 = function () { origSetPhone2(false); };
   }
   if (tokens.indexOf('dark') !== -1) setTheme('dark');
   if (tokens.indexOf('dual') !== -1) S.actions.setPhone2(true);
