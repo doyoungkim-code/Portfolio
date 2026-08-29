@@ -23,7 +23,7 @@ export const project1 = {
   detailId: 'dt-p1',
   coverPage: '04',
   detailPage: '05',
-  overline: 'PROJECT 01 — LIVE SERVICE, STILL RUNNING',
+  overline: 'PROJECT 01 — SHIPPED, OPERATED, 150+ USERS',
   title: 'SSABREE TIME',
   sub: 'SSAFY 교육생 전용 폐쇄형 커뮤니티 + 팀 매칭 서비스 — 출시 후 150명 이상이 실제로 사용했습니다.',
   meta: '2026.01 – 2026.02 (6주) · 6인 · Backend',
@@ -38,7 +38,7 @@ export const project1 = {
   lead: {
     before: '에브리타임을 벤치마킹해 기획하고, ',
     strong: '원스토어 · 앱스토어에 실제 출시해 150명 이상의 유저',
-    after: '가 사용했습니다. AWS EC2에 배포해 지금도 운영 중입니다.',
+    after: '가 사용했습니다. AWS EC2에 배포해 SSAFY 수료(2026.07)까지 운영했습니다.',
   },
   shots: [
     { src: 'images/ssabree-1.jpg', alt: 'SSABREE TIME 모바일 화면 1' },

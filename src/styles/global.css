@@ -440,7 +440,8 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 
 /* ── 기술 아이콘 ── */
 .pf-srow__name{display:flex;align-items:center;gap:11px}
-.pf-srow__name svg{flex-shrink:0;opacity:.9}
+.pf-srow__name svg,.pf-srow__name img{flex-shrink:0}
+.pf-techicon{display:block;object-fit:contain}
 .pf-techstrip{display:flex;flex-wrap:wrap;justify-content:center;margin:22px auto 0;max-width:960px}
 .pf-techstrip li{
   display:flex;flex-direction:column;align-items:center;gap:8px;
