@@ -146,6 +146,7 @@
   });
   B.setView(bootView);
   B.setPhase('데모 준비 완료 — ▶ 를 누르면 강의 시뮬레이션이 시작됩니다 (시연 중 클릭하면 직접 조작)');
+  if (tokens.indexOf('kiosk') !== -1) { window.__kiosk = true; document.body.classList.add('kiosk'); }
   if (tokens.indexOf('autoplay') !== -1) { B.setView('lecturer'); B.scenario.play(); }
   if (tokens.indexOf('autoplay-student') !== -1) { B.setView('student'); B.scenario.play(); }
 })();

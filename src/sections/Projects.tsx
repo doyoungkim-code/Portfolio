@@ -65,7 +65,7 @@ export function Project1Detail() {
         <DetailTabs
           overline={`PROJECT 01 — ${p.title}`}
           tabs={[
-            { id: 'demo', label: '데모', content: <DemoFrame path={p.demo.path} title={p.demo.title} /> },
+            { id: 'demo', label: '데모', content: <DemoFrame path={p.demo.path} autoHash={p.demo.autoHash} freeHash={p.demo.freeHash} title={p.demo.title} /> },
             {
               id: 'a',
               label: '개요',
@@ -124,7 +124,7 @@ export function Project2Detail() {
         <DetailTabs
           overline={`PROJECT 02 — ${p.title}`}
           tabs={[
-            { id: 'demo', label: '데모', content: <DemoFrame path={p.demo.path} title={p.demo.title} /> },
+            { id: 'demo', label: '데모', content: <DemoFrame path={p.demo.path} autoHash={p.demo.autoHash} freeHash={p.demo.freeHash} title={p.demo.title} /> },
             {
               id: 'a',
               label: '개요',

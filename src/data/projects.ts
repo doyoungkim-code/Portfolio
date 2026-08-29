@@ -29,7 +29,7 @@ export const project1 = {
   meta: '2026.01 – 2026.02 (6주) · 6인 · Backend',
   stack: ['java', 'spring', 'postgres', 'redis', 'aws', 'nginx'] as TechKey[],
   repoUrl: 'https://github.com/doyoungkim-code/SSABREE_TIME',
-  demo: { path: 'demo/ssabree/index.html#autoplay+dual', title: 'SSABREE TIME 데모 — 갤럭시 폰 2대 실시간 동기화' },
+  demo: { path: 'demo/ssabree/index.html', autoHash: 'autoplay+dual', freeHash: 'dual', title: 'SSABREE TIME 데모 — 갤럭시 폰 2대 실시간 동기화' },
   bg: { src: 'images/ssabree-1.jpg', blur: true },
   vitals: [
     { value: '150+', label: '누적 실사용자' },
@@ -92,7 +92,7 @@ export const project2 = {
   meta: '2026.04 – 2026.06 (8주) · 6인 · 팀장 / 배포 인프라 / FastAPI · 기업연계 프로젝트',
   stack: ['python', 'fastapi', 'electron'] as TechKey[],
   repoUrl: 'https://github.com/doyoungkim-code/Bunmin',
-  demo: { path: 'demo/bunmin/index.html#autoplay', title: '번역의 민족 데모 — 강의자 화면 자동 시연' },
+  demo: { path: 'demo/bunmin/index.html', autoHash: 'autoplay', freeHash: '', title: '번역의 민족 데모 — 강의자 화면 자동 시연' },
   bg: { src: 'images/translate-1.png', blur: false },
   vitals: [
     { value: 'TOP 3', label: '전국 전시발표회 · 117팀' },

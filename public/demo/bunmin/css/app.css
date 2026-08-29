@@ -935,3 +935,7 @@ html[data-theme="gradient"] .modal-card { background: #fff; color: #2A2F4A; }
   .pip { width: 16rem; }
   .start-prompt { white-space: normal; text-align: center; }
 }
+
+/* kiosk 모드(포트폴리오 임베드): 컨트롤 숨김·조작 차단·무한 반복 */
+body.kiosk .demo-strip{display:none !important}
+body.kiosk{pointer-events:none;user-select:none}

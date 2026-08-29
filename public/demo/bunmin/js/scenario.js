@@ -160,7 +160,7 @@
       try { handle(script[fired]); } catch (err) { /* 직접 조작과 겹쳐도 시연은 계속 */ }
       fired++;
     }
-    if (fired >= script.length) stop(false);
+    if (fired >= script.length) { stop(false); if (window.__kiosk) setTimeout(function () { reset(true); play(); }, 2500); }
   }
 
   function handle(e) {
