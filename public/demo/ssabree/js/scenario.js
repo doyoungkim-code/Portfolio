@@ -182,7 +182,7 @@
       try { script[fired].fn(); } catch (e) { /* 데모 방어 */ }
       fired++;
     }
-    if (fired >= script.length) { stop(false); if (window.__kiosk) setTimeout(function () { reset(true); play(); }, 2500); }
+    if (fired >= script.length) { stop(false); if (window.__kiosk) setTimeout(function () { location.reload(); }, 2500); /* 깨끗하게 처음부터 */ }
   }
 
   function play() {

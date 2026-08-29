@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Cover } from '../components/Cover'
 import { DisplayTitle } from '../components/DisplayTitle'
@@ -76,6 +76,14 @@ function ProjectDeep({ p, num, variant, next, diagrams }: DeepProps) {
   const shown = Math.max(active, 0)
   const caption = p.demo.steps[shown]
 
+  /* 챕터가 바뀌면 먼저 전체 화면을 잠깐 보여준 뒤(1.8초) 해당 영역으로 확대 */
+  const [zoomed, setZoomed] = useState(false)
+  useEffect(() => {
+    setZoomed(false)
+    const t = window.setTimeout(() => setZoomed(true), 1800)
+    return () => window.clearTimeout(t)
+  }, [shown])
+
   const stage = (
     <DemoStage
       path={p.demo.path}
@@ -83,7 +91,7 @@ function ProjectDeep({ p, num, variant, next, diagrams }: DeepProps) {
       size={p.demo.size}
       title={p.demo.title}
       bare={p.device === 'phone'}
-      focus={p.demo.focus[shown]}
+      focus={zoomed ? p.demo.focus[shown] : undefined}
       onPhase={onPhase}
     />
   )
