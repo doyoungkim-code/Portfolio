@@ -617,3 +617,116 @@ html.fixed-canvas .pf-3d{left:0;right:0}
 #cv-journey .pf-jrow{padding:17px 0}
 #cv-contact .pf-etc{margin-top:26px}
 #cv-contact .pf-contacts{margin-top:34px}
+
+/* ═══════════════════════════════════════════════════════
+   딥다이브 페이지 — 왼쪽 디바이스(영상처럼 재생) + 오른쪽 기술 탭
+   ═══════════════════════════════════════════════════════ */
+.pf-cover--demo .pf-down{left:50%}
+.pf-deep{
+  height:100%;display:grid;grid-template-columns:520px 1fr;gap:48px;
+  padding:92px 60px 84px 60px;text-align:left;min-height:0;
+}
+.pf-deep__left{display:flex;flex-direction:column;min-height:0}
+.pf-device{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+.pf-device--phone .pf-demo__stage{width:100%;height:100%;border:0;box-shadow:none;background:transparent}
+.pf-device--phone .pf-demo__stage--free{box-shadow:none}
+
+/* 모니터 목업 — PC 앱은 16:10 화면 안에서 */
+.pf-monitor{width:100%}
+.pf-monitor__screen{
+  position:relative;aspect-ratio:16/10;background:#000;
+  border:9px solid #1B1F2E;border-radius:10px;overflow:hidden;
+  box-shadow:0 30px 60px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.pf-monitor__screen .pf-demo__stage{position:absolute;inset:0;border:0;box-shadow:none;background:#fff}
+.pf-monitor__screen .pf-demo__stage--free{box-shadow:inset 0 0 0 2px var(--pur)}
+.pf-monitor__stand{width:110px;height:16px;margin:0 auto;background:linear-gradient(#1B1F2E,#141826);border-radius:0 0 4px 4px}
+.pf-monitor__base{width:240px;height:7px;margin:0 auto;background:#232838;border-radius:4px}
+
+/* 하단 단계 스트립 — 작고 간단하게 */
+.pf-deep__strip{
+  margin-top:16px;padding-top:12px;border-top:1px solid var(--d-line);
+  display:flex;align-items:center;gap:12px;font-size:13.5px;color:var(--d-ink2);
+}
+.pf-deep__now{font-family:var(--font-disp);font-size:10.5px;letter-spacing:.28em;color:var(--accent);white-space:nowrap}
+.pf-cover--alt .pf-deep__now{color:var(--pur)}
+.pf-deep__cap{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--d-ink)}
+.pf-deep__dots{display:flex;gap:4px;flex-shrink:0}
+.pf-deep__dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.18);transition:background .3s ease}
+.pf-deep__dots i.done{background:rgba(255,255,255,.45)}
+.pf-deep__dots i.on{background:var(--accent)}
+.pf-cover--alt .pf-deep__dots i.on{background:var(--pur)}
+.pf-deep__toggle{
+  flex-shrink:0;font-family:var(--font-sans);font-weight:700;font-size:12px;color:var(--d-ink);
+  border:1px solid rgba(255,255,255,.3);padding:6px 12px;cursor:pointer;
+  transition:border-color var(--tr),background var(--tr);
+}
+.pf-deep__toggle:hover{border-color:var(--accent);background:rgba(70,100,230,.15)}
+
+/* 오른쪽 기술 패널 (다크 탭) */
+.pf-deep__panel{display:flex;flex-direction:column;min-height:0}
+.pf-deep__title{
+  font-family:var(--font-disp);font-weight:100;text-transform:uppercase;
+  font-size:40px;letter-spacing:.1em;line-height:1.1;color:var(--d-ink);margin-bottom:6px;
+}
+.pf-deep__title--kr{font-family:'Noto Sans KR',var(--font-disp);letter-spacing:.12em}
+.pf-deep .dt-top{border-bottom-color:rgba(255,255,255,.3)}
+.pf-deep .dt-overline{color:var(--d-ink3)}
+.pf-deep .dt-tabs button{color:var(--d-ink3);font-size:14px;padding:8px 13px 12px}
+.pf-deep .dt-tabs button::after{left:13px;right:13px}
+.pf-deep .dt-tabs button:hover,.pf-deep .dt-tabs button.on{color:var(--d-ink)}
+.pf-cover--alt .pf-deep .dt-tabs button.on::after{background:var(--pur)}
+.pf-deep .dt-panels{flex:1;min-height:0}
+.pf-deep .dt-panel{scrollbar-color:#3A4158 transparent;padding-top:16px}
+.pf-deep .dt-panel::-webkit-scrollbar-thumb{background:#3A4158}
+.pf-deep .dt-row{border-bottom-color:var(--d-line);grid-template-columns:44px 190px 1fr;padding:14px 10px}
+.pf-deep .dt-row:hover{background:rgba(255,255,255,.04)}
+.pf-deep .dt-row__h{color:var(--d-ink);font-size:16px}
+.pf-deep .dt-row p{color:var(--d-ink2);font-size:14.5px}
+.pf-deep .dt-row__no{color:var(--d-ink3)}
+
+/* 다이어그램 */
+.dg-wrap{padding-top:2px}
+.dg{width:100%;height:auto;display:block;font-family:var(--font-sans)}
+.dg-node rect{fill:rgba(255,255,255,.04);stroke:rgba(255,255,255,.32);stroke-width:1}
+.dg-node--mine rect{fill:rgba(70,100,230,.18);stroke:var(--accent);stroke-width:1.5}
+.pf-cover--alt .dg-node--mine rect{fill:rgba(143,131,255,.18);stroke:var(--pur)}
+.dg-node--muted rect{stroke:rgba(255,255,255,.16);fill:rgba(255,255,255,.02)}
+.dg-node--muted .dg-title{fill:var(--d-ink2)}
+.dg-title{fill:var(--d-ink);font-size:13px;font-weight:500}
+.dg-sub{fill:var(--d-ink3);font-size:10.5px}
+.dg-edge{fill:none;stroke:rgba(255,255,255,.42);stroke-width:1.2}
+.dg-edge--dashed{stroke-dasharray:4 4}
+.dg-edge--acc{stroke:var(--accent);stroke-width:1.6}
+.pf-cover--alt .dg-edge--acc{stroke:var(--pur)}
+.dg-arrowhead{fill:rgba(255,255,255,.6)}
+.dg-arrowhead--acc{fill:var(--accent)}
+.pf-cover--alt .dg-arrowhead--acc{fill:var(--pur)}
+.dg-label{fill:var(--d-ink2);font-size:10.5px}
+.dg-group rect{fill:none;stroke:rgba(255,255,255,.2);stroke-dasharray:5 5}
+.dg-group text{fill:var(--d-ink3);font-size:10px;letter-spacing:.14em;font-family:var(--font-disp)}
+.dg-lifeline{stroke:rgba(255,255,255,.16);stroke-dasharray:3 5}
+.dg-note{margin-top:12px;font-size:12.5px;color:var(--d-ink3);line-height:1.6}
+.dg-note b{color:var(--accent);font-weight:500}
+.pf-cover--alt .dg-note b{color:var(--pur)}
+
+/* 문제 → 해결 → 결과 */
+.psr__item{padding:14px 0 18px;border-bottom:1px solid var(--d-line)}
+.psr__title{font-weight:700;font-size:16.5px;color:var(--d-ink);margin-bottom:10px}
+.psr__grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.psr__cell b{display:block;font-family:var(--font-disp);font-weight:400;font-size:10.5px;letter-spacing:.26em;margin-bottom:6px}
+.psr__cell--p b{color:#F07A7A}
+.psr__cell--s b{color:#46BE8C}
+.psr__cell--r b{color:var(--accent)}
+.pf-cover--alt .psr__cell--r b{color:var(--pur)}
+.psr__cell p{font-size:13.5px;line-height:1.7;color:var(--d-ink2)}
+.psr__cell--r p{color:var(--d-ink)}
+
+@media(max-width:1180px){
+  .pf-deep{grid-template-columns:1fr;height:auto;padding:80px 20px 70px;gap:28px}
+  .pf-device{min-height:60svh}
+  .pf-deep__panel{min-height:70svh}
+  .psr__grid{grid-template-columns:1fr}
+}
+/* 딥다이브 디바이스 스테이지는 옛 데모 페이지의 여백 규칙을 쓰지 않음 */
+.pf-monitor__screen .pf-demo__stage,.pf-device--phone .pf-demo__stage{margin:0}

@@ -6,7 +6,7 @@ import { etcProjects } from '../data/etc'
 
 export function Contact() {
   return (
-    <Cover id="cv-contact" nav="contact" page="10" num="06" variant="g3">
+    <Cover id="cv-contact" nav="contact" page="08" num="06" variant="g3">
       <Reveal className="pf-overline">LET'S WORK TOGETHER</Reveal>
       <DisplayTitle text="CONTACT" />
       <Reveal className="pf-cover__sub" delay={0.1}>

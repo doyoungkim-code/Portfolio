@@ -12,7 +12,7 @@ import { useFixedCanvas } from './hooks/useFixedCanvas'
 import { About } from './sections/About'
 import { Journey } from './sections/Journey'
 import { Skills } from './sections/Skills'
-import { Project1Cover, Project1Demo, Project1Detail, Project2Cover, Project2Demo, Project2Detail } from './sections/Projects'
+import { Project1Cover, Project1Deep, Project2Cover, Project2Deep } from './sections/Projects'
 import { Contact } from './sections/Contact'
 
 export default function App() {
@@ -36,14 +36,12 @@ export default function App() {
           <Journey />
           <Skills />
           <Project1Cover />
-          <Project1Demo />
-          <Project1Detail />
+          <Project1Deep />
           <Project2Cover />
-          <Project2Demo />
-          <Project2Detail />
+          <Project2Deep />
           <Contact />
         </main>
-        <PageCounter page={page} total="10" />
+        <PageCounter page={page} total="08" />
       </div>
     </MotionConfig>
   )
