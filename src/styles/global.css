@@ -732,3 +732,9 @@ html.fixed-canvas .pf-3d{left:0;right:0}
 .pf-deep--phone{grid-template-columns:460px 1fr}
 .pf-deep--monitor{grid-template-columns:minmax(620px,46%) 1fr}
 .dg{max-width:1040px}
+/* 패널 안에서 스크롤바가 생기지 않도록: 다이어그램은 남은 높이에 맞춰 축소(가로·세로 중 작은 쪽 기준) */
+.pf-deep .dt-panel{display:flex;flex-direction:column;overflow:hidden;padding-right:0}
+.pf-deep .dt-panel>*{flex-shrink:0}
+.pf-deep .dg-wrap{flex:1;min-height:0;display:flex;flex-direction:column}
+.pf-deep .dg{flex:1;min-height:0;height:100%}
+.pf-deep .dg-note{flex-shrink:0}

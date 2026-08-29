@@ -7,7 +7,7 @@ import type { ReactNode } from 'react'
 
 export function Diagram({ w, h, children }: { w: number; h: number; children: ReactNode }) {
   return (
-    <svg className="dg" viewBox={`0 0 ${w} ${h}`} role="img" aria-label="다이어그램">
+    <svg className="dg" viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="xMinYMin meet" role="img" aria-label="다이어그램">
       <defs>
         <marker id="dg-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0,0 L10,5 L0,10 z" className="dg-arrowhead" />
