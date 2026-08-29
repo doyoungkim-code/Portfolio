@@ -1,4 +1,5 @@
 import type { TechKey } from '../components/TechIcon'
+import type { FocusRect } from '../components/DemoStage'
 
 export interface RowItem {
   no: string
@@ -33,10 +34,20 @@ export const project1 = {
   repoUrl: 'https://github.com/doyoungkim-code/SSABREE_TIME',
   demo: {
     path: 'demo/ssabree/index.html',
-    autoHash: 'autoplay',
-    freeHash: '',
+    hash: 'autoplay',
     bare: true, /* 배경 없이 휴대폰만 */
-    size: { w: 900, h: 1000 }, /* 논리 너비를 줄여 폰이 크게 보이도록 */
+    size: { w: 440, h: 880 }, /* 세로 논리 뷰포트 — 휴대폰이 꽉 차게 */
+    /* 단계별 카메라 포커스 (논리 좌표): 입력·기능이 일어나는 부분을 확대 */
+    focus: {
+      0: { x: 55, y: 260, w: 330, h: 440 },
+      1: { x: 55, y: 20, w: 330, h: 470 },
+      2: { x: 55, y: 120, w: 330, h: 470 },
+      3: { x: 55, y: 120, w: 330, h: 470 },
+      4: { x: 55, y: 140, w: 330, h: 470 },
+      5: { x: 55, y: 0, w: 330, h: 420 },
+      6: { x: 55, y: 400, w: 330, h: 480 },
+      7: { x: 55, y: 20, w: 330, h: 470 },
+    } as Record<number, FocusRect>,
     title: 'SSABREE TIME 데모 — 갤럭시 폰 2대 실시간 동기화',
     steps: [
       '앱 시작 — 스플래시 & Mattermost 인증 로그인',
@@ -117,9 +128,17 @@ export const project2 = {
   repoUrl: 'https://github.com/doyoungkim-code/Bunmin',
   demo: {
     path: 'demo/bunmin/index.html',
-    autoHash: 'autoplay',
-    freeHash: '',
-    size: { w: 1120, h: 1000 },
+    hash: 'autoplay',
+    size: { w: 1120, h: 700 }, /* 모니터 16:10 */
+    focus: {
+      0: { x: 40, y: 50, w: 660, h: 540 },
+      1: { x: 770, y: 10, w: 350, h: 340 },
+      2: { x: 40, y: 280, w: 660, h: 380 },
+      3: { x: 760, y: 330, w: 360, h: 320 },
+      4: { x: 520, y: 0, w: 600, h: 140 },
+      5: { x: 760, y: 330, w: 360, h: 320 },
+      6: { x: 0, y: 0, w: 1120, h: 700 },
+    } as Record<number, FocusRect>,
     title: '번역의 민족 데모 — 강의자 화면 자동 시연',
     steps: [
       '강의자료 업로드 → OCR → VLM 번역 시뮬레이션',

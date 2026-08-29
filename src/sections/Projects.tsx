@@ -8,7 +8,6 @@ import { DetailTabs } from '../components/DetailTabs'
 import { DtRows } from '../components/rows'
 import { TechStrip } from '../components/TechIcon'
 import { DemoStage } from '../components/DemoStage'
-import type { DemoMode } from '../components/DemoStage'
 import { SsabreeArch, SsabreeFlow, SsabreeSeq } from '../components/diagrams/SsabreeDiagrams'
 import { BunminArch, BunminFlow, BunminSeq } from '../components/diagrams/BunminDiagrams'
 import { project1, project2 } from '../data/projects'
@@ -72,21 +71,19 @@ interface DeepProps {
 
 function ProjectDeep({ p, num, variant, next, diagrams }: DeepProps) {
   const [phase, setPhase] = useState('')
-  const [mode, setMode] = useState<DemoMode>('auto')
   const onPhase = useCallback((t: string) => setPhase(t), [])
-  const free = mode === 'free'
-  const active = free ? -1 : stepIndexOf(phase)
-  const caption = free ? '직접 조작 중 — 화면을 눌러 기능을 써 보세요' : p.demo.steps[Math.max(active, 0)]
+  const active = stepIndexOf(phase)
+  const shown = Math.max(active, 0)
+  const caption = p.demo.steps[shown]
 
   const stage = (
     <DemoStage
       path={p.demo.path}
-      autoHash={p.demo.autoHash}
-      freeHash={p.demo.freeHash}
-      mode={mode}
+      hash={p.demo.hash}
       size={p.demo.size}
       title={p.demo.title}
       bare={p.device === 'phone'}
+      focus={p.demo.focus[shown]}
       onPhase={onPhase}
     />
   )
@@ -107,16 +104,13 @@ function ProjectDeep({ p, num, variant, next, diagrams }: DeepProps) {
             )}
           </div>
           <div className="pf-deep__strip">
-            <span className="pf-deep__now">{free ? 'HANDS-ON' : `NOW · ${String(Math.max(active, 0) + 1).padStart(2, '0')}`}</span>
+            <span className="pf-deep__now">{`NOW · ${String(shown + 1).padStart(2, '0')}`}</span>
             <span className="pf-deep__cap" title={caption}>{caption}</span>
             <span className="pf-deep__dots" aria-hidden>
               {p.demo.steps.map((s, i) => (
-                <i key={s} className={i === active ? 'on' : i < active ? 'done' : undefined} />
+                <i key={s} className={i === shown ? 'on' : i < shown ? 'done' : undefined} />
               ))}
             </span>
-            <button type="button" className="pf-deep__toggle" onClick={() => setMode(free ? 'auto' : 'free')}>
-              {free ? '↺ 자동 시연' : '직접 조작 →'}
-            </button>
           </div>
         </div>
 
