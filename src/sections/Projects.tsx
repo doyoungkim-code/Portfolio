@@ -5,6 +5,7 @@ import { Vitals } from '../components/Vitals'
 import { DetailTabs } from '../components/DetailTabs'
 import { DtRows, DtTroubles } from '../components/rows'
 import { CaptionFigure, Shots } from '../components/media'
+import { TechStrip } from '../components/TechIcon'
 import { project1, project2 } from '../data/projects'
 
 function Lead({ lead }: { lead: { before: string; strong: string; after: string } }) {
@@ -30,6 +31,9 @@ export function Project1Cover() {
       </Reveal>
       <Reveal className="pf-cover__desc" delay={0.16}>
         <p>{p.meta}</p>
+      </Reveal>
+      <Reveal delay={0.2}>
+        <TechStrip keys={p.stack} compact />
       </Reveal>
       <Reveal delay={0.24}>
         <Vitals items={p.vitals} />
@@ -82,6 +86,9 @@ export function Project2Cover() {
       </Reveal>
       <Reveal className="pf-cover__desc" delay={0.16}>
         <p>{p.meta}</p>
+      </Reveal>
+      <Reveal delay={0.2}>
+        <TechStrip keys={p.stack} compact />
       </Reveal>
       <Reveal delay={0.24}>
         <Vitals items={p.vitals} />

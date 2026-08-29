@@ -1,7 +1,8 @@
 import { Cover } from '../components/Cover'
 import { DisplayTitle } from '../components/DisplayTitle'
 import { Reveal } from '../components/Reveal'
-import { alsoLine, highlightLine, skillRows } from '../data/skills'
+import { TechIcon, TechStrip } from '../components/TechIcon'
+import { alsoKeys, highlightLine, skillRows } from '../data/skills'
 
 export function Skills() {
   return (
@@ -15,16 +16,17 @@ export function Skills() {
         <div className="pf-panel">
           {skillRows.map((row) => (
             <div className="pf-srow" key={row.name}>
-              <span className="pf-srow__name">{row.name}</span>
+              <span className="pf-srow__name">
+                <TechIcon k={row.icon} size={20} />
+                {row.name}
+              </span>
               <span className="pf-srow__desc">{row.desc}</span>
             </div>
           ))}
         </div>
       </Reveal>
-      <Reveal className="pf-covermeta" delay={0.24}>
-        <p>
-          <b>ALSO</b>&ensp;{alsoLine}
-        </p>
+      <Reveal delay={0.24}>
+        <TechStrip keys={alsoKeys} />
       </Reveal>
       <Reveal className="pf-covermeta pf-covermeta--tight" delay={0.3}>
         <p>{highlightLine}</p>

@@ -230,7 +230,7 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 
 .pf-srow{
   display:grid;grid-template-columns:240px 1fr;gap:26px;align-items:baseline;
-  padding:14px 0;border-bottom:1px solid var(--d-line);
+  padding:11px 0;border-bottom:1px solid var(--d-line);
   transition:transform .3s ease;
 }
 .pf-srow:hover{transform:translateX(3px)}
@@ -437,3 +437,29 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
   .pf-down{width:40px;height:40px;bottom:22px}
   .pf-pageno{right:20px;bottom:20px}
 }
+
+/* ── 기술 아이콘 ── */
+.pf-srow__name{display:flex;align-items:center;gap:11px}
+.pf-srow__name svg{flex-shrink:0;opacity:.9}
+.pf-techstrip{display:flex;flex-wrap:wrap;justify-content:center;margin:22px auto 0;max-width:960px}
+.pf-techstrip li{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  padding:6px 13px;border-left:1px solid var(--d-line);
+  color:var(--d-ink2);transition:color .3s ease,transform .3s ease;
+}
+.pf-techstrip li:first-child{border-left:0}
+.pf-techstrip li:hover{color:var(--d-ink);transform:translateY(-2px)}
+.pf-techstrip li span{
+  font-family:var(--font-disp);font-weight:400;font-size:9.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--d-ink3);white-space:nowrap;
+}
+.pf-techstrip--sm{margin-top:20px}
+.pf-techstrip--sm li{padding:4px 14px;gap:6px}
+.pf-techstrip--sm li span{font-size:9px}
+@media(max-width:860px){
+  .pf-techstrip li{border-left:0;padding:8px 10px}
+  .pf-srow__name{gap:8px}
+}
+#cv-skills .pf-panel{margin-top:30px}
+#cv-skills .pf-covermeta--tight{margin-top:14px}
+#cv-skills{padding-top:112px;padding-bottom:90px}
