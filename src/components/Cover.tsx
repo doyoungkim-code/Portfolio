@@ -14,6 +14,8 @@ interface CoverProps {
   page: string
   num: string
   variant?: 'alt' | 'g2' | 'g3'
+  /** 데모 페이지 레이아웃 (좌측 절반 풀블리드 스테이지) */
+  demo?: boolean
   bg?: CoverBg
   /** 하단 chevron이 가리킬 앵커 id (없으면 chevron 미표시) */
   next?: string
@@ -34,7 +36,7 @@ function CoverPhoto({ src, blur }: CoverBg) {
 }
 
 /** 다크 풀스크린 커버 공통 셸: 배경 · 워터마크 번호(스크롤 패럴랙스) · chevron */
-export function Cover({ id, nav, page, num, variant, bg, next, wide, children }: CoverProps) {
+export function Cover({ id, nav, page, num, variant, bg, next, wide, demo, children }: CoverProps) {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
   const numY = useTransform(scrollYProgress, [0, 1], ['0%', '-36%'])
@@ -43,7 +45,7 @@ export function Cover({ id, nav, page, num, variant, bg, next, wide, children }:
     <section
       ref={ref}
       id={id}
-      className={`pf-cover${variant ? ` pf-cover--${variant}` : ''}`}
+      className={`pf-cover${variant ? ` pf-cover--${variant}` : ''}${demo ? ' pf-cover--demo' : ''}`}
       data-nav={nav}
       data-tone="dark"
       data-page={page}

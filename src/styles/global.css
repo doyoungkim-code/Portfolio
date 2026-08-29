@@ -556,3 +556,26 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
   .pf-demo__stage{aspect-ratio:16/10}
   .pf-demo__steps{overflow:visible}
 }
+
+/* ── 데모 페이지: 화면 좌측 절반을 스테이지로 (풀블리드) ── */
+.pf-cover--demo{padding:0;display:block}
+.pf-cover--demo .pf-cover__in{max-width:none;padding:0;height:100svh}
+.pf-cover--demo .pf-cover__num{display:none}
+.pf-cover--demo .pf-demo{
+  grid-template-columns:1fr 1fr;gap:0;height:100%;min-height:0;
+}
+.pf-cover--demo .pf-demo__stage{
+  margin:88px 0 0;border:0;border-right:1px solid rgba(255,255,255,.14);box-shadow:none;
+}
+.pf-cover--demo .pf-demo__side{padding:120px 64px 80px 56px}
+.pf-cover--demo .pf-down{left:75%}
+/* 데모 페이지에 있는 동안 좌측 내비 숨김 (스테이지와 겹침) */
+.pf--ondemo .pf-sidenav{opacity:0;pointer-events:none;transition:opacity .3s ease}
+.pf-sidenav{transition:opacity .3s ease}
+@media(max-width:1180px){
+  .pf-cover--demo .pf-cover__in{height:auto;min-height:100svh}
+  .pf-cover--demo .pf-demo{grid-template-columns:1fr}
+  .pf-cover--demo .pf-demo__stage{margin-top:72px;aspect-ratio:auto;height:60svh;border-right:0;border-bottom:1px solid rgba(255,255,255,.14)}
+  .pf-cover--demo .pf-demo__side{padding:28px 20px 60px}
+  .pf-cover--demo .pf-down{left:50%}
+}

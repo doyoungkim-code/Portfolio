@@ -34,7 +34,7 @@ export const project1 = {
     path: 'demo/ssabree/index.html',
     autoHash: 'autoplay+dual',
     freeHash: 'dual',
-    size: { w: 1280, h: 800 },
+    size: { w: 900, h: 1000 }, /* 논리 너비를 줄여 폰이 크게 보이도록 */
     title: 'SSABREE TIME 데모 — 갤럭시 폰 2대 실시간 동기화',
     steps: [
       '앱 시작 — 스플래시 & Mattermost 인증 로그인',
@@ -114,7 +114,7 @@ export const project2 = {
     path: 'demo/bunmin/index.html',
     autoHash: 'autoplay',
     freeHash: '',
-    size: { w: 1280, h: 800 },
+    size: { w: 1120, h: 1000 },
     title: '번역의 민족 데모 — 강의자 화면 자동 시연',
     steps: [
       '강의자료 업로드 → OCR → VLM 번역 시뮬레이션',

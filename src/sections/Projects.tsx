@@ -53,7 +53,7 @@ function ProjectDemo({ p, num, variant }: { p: Project; num: string; variant?: '
       : p.demo.steps[0]
 
   return (
-    <Cover id={`dm-${p.id}`} nav={p.id} page={p.demoPage} num={num} variant={variant} next={p.detailId} wide>
+    <Cover id={`dm-${p.id}`} nav={p.id} page={p.demoPage} num={num} variant={variant} next={p.detailId} wide demo>
       <div className="pf-demo">
         <DemoStage
           path={p.demo.path}

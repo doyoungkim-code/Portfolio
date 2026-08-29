@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 
 export interface SectionState {
+  /** 현재 섹션 요소 id (예: cv-about, dm-p1, dt-p1) */
+  id: string
   nav: string
   tone: 'dark' | 'light'
   page: string
@@ -11,7 +13,7 @@ export interface SectionState {
  * 현재 화면의 내비 키 · 톤 · 페이지 번호를 돌려준다.
  */
 export function useActiveSection(): SectionState {
-  const [state, setState] = useState<SectionState>({ nav: 'about', tone: 'dark', page: '01' })
+  const [state, setState] = useState<SectionState>({ id: 'cv-about', nav: 'about', tone: 'dark', page: '01' })
 
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-nav]'))
@@ -19,6 +21,7 @@ export function useActiveSection(): SectionState {
 
     const apply = (el: HTMLElement) =>
       setState({
+        id: el.id,
         nav: el.dataset.nav ?? 'about',
         tone: (el.dataset.tone as 'dark' | 'light') ?? 'dark',
         page: el.dataset.page ?? '01',

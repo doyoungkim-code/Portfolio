@@ -15,12 +15,15 @@ import { Project1Cover, Project1Demo, Project1Detail, Project2Cover, Project2Dem
 import { Contact } from './sections/Contact'
 
 export default function App() {
-  const { nav, tone, page } = useActiveSection()
+  const { id, nav, tone, page } = useActiveSection()
   useSnapScroll()
+  const rootClass = ['pf', tone === 'light' && 'pf--onlight', id.startsWith('dm-') && 'pf--ondemo']
+    .filter(Boolean)
+    .join(' ')
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className={`pf${tone === 'light' ? ' pf--onlight' : ''}`}>
+      <div className={rootClass}>
         <Suspense fallback={null}>
           <ThreeBackground dimmed={tone === 'light'} />
         </Suspense>
