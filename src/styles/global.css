@@ -588,7 +588,7 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 
 /* ── 고정 캔버스: 1440×900 기준 디자인을 창 크기에 맞춰 균일 확대/축소 ──
    (창 크기·브라우저 확대와 무관하게 항상 같은 구도, 데스크톱 ≥1024px) */
-html.fixed-canvas .pf{zoom:var(--zoom,1);width:1440px;margin:0 auto}
+html.fixed-canvas .pf{zoom:var(--zoom,1);width:var(--cw,1440px);margin:0 auto}
 html.fixed-canvas .pf-cover{min-height:0;height:calc(100vh / var(--zoom,1))}
 html.fixed-canvas .pf-detail{height:calc(100vh / var(--zoom,1))}
 html.fixed-canvas .pf-cover--demo .pf-cover__in{height:calc(100vh / var(--zoom,1))}
@@ -597,9 +597,6 @@ html.fixed-canvas .pf-display--kr{font-size:104px}
 html.fixed-canvas .pf-cover__num{font-size:360px}
 html.fixed-canvas .pf-demo__title{font-size:44px}
 /* 고정 크롬은 뷰포트 기준이므로 레터박스만큼 안쪽으로 */
-html.fixed-canvas .pf-chrome{padding-left:calc(40px + var(--lb,0px));padding-right:calc(40px + var(--lb,0px))}
-html.fixed-canvas .pf-sidenav{left:calc(40px + var(--lb,0px))}
-html.fixed-canvas .pf-pageno{right:calc(40px + var(--lb,0px))}
 html.fixed-canvas .pf-3d{left:0;right:0}
 
 /* ── 글씨 확대 후 900px 캔버스에 맞추기 위한 간격 조정 ── */
@@ -682,8 +679,8 @@ html.fixed-canvas .pf-3d{left:0;right:0}
 .pf-cover--alt .dg-node--mine rect{fill:rgba(143,131,255,.18);stroke:var(--pur)}
 .dg-node--muted rect{stroke:rgba(255,255,255,.16);fill:rgba(255,255,255,.02)}
 .dg-node--muted .dg-title{fill:var(--d-ink2)}
-.dg-title{fill:var(--d-ink);font-size:13px;font-weight:500}
-.dg-sub{fill:var(--d-ink3);font-size:10.5px}
+.dg-title{fill:var(--d-ink);font-size:14.5px;font-weight:500}
+.dg-sub{fill:var(--d-ink3);font-size:11.5px}
 .dg-edge{fill:none;stroke:rgba(255,255,255,.42);stroke-width:1.2}
 .dg-edge--dashed{stroke-dasharray:4 4}
 .dg-edge--acc{stroke:var(--accent);stroke-width:1.6}
@@ -691,9 +688,9 @@ html.fixed-canvas .pf-3d{left:0;right:0}
 .dg-arrowhead{fill:rgba(255,255,255,.6)}
 .dg-arrowhead--acc{fill:var(--accent)}
 .pf-cover--alt .dg-arrowhead--acc{fill:var(--pur)}
-.dg-label{fill:var(--d-ink2);font-size:10.5px}
+.dg-label{fill:var(--d-ink2);font-size:11.5px}
 .dg-group rect{fill:none;stroke:rgba(255,255,255,.2);stroke-dasharray:5 5}
-.dg-group text{fill:var(--d-ink3);font-size:10px;letter-spacing:.14em;font-family:var(--font-disp)}
+.dg-group text{fill:var(--d-ink3);font-size:11px;letter-spacing:.14em;font-family:var(--font-disp)}
 .dg-lifeline{stroke:rgba(255,255,255,.16);stroke-dasharray:3 5}
 .dg-note{margin-top:12px;font-size:12.5px;color:var(--d-ink3);line-height:1.6}
 .dg-note b{color:var(--accent);font-weight:500}
@@ -729,3 +726,9 @@ html.fixed-canvas .pf-3d{left:0;right:0}
 .pf-device--phone .pf-demo__stage{width:auto;height:100%;aspect-ratio:1/2}
 /* 모니터: 열 너비에 꽉 차게 */
 .pf-monitor__screen{border-width:8px}
+/* 넓은 창에서는 디바이스 열도 비례해서 커지고, 패널(다이어그램)도 넓어진다 */
+.pf-deep{grid-template-columns:minmax(600px,42%) 1fr}
+/* 디바이스 종류별 열 너비: 휴대폰은 높이 제한이라 좁게, 남는 폭은 패널(다이어그램)에 */
+.pf-deep--phone{grid-template-columns:460px 1fr}
+.pf-deep--monitor{grid-template-columns:minmax(620px,46%) 1fr}
+.dg{max-width:1040px}

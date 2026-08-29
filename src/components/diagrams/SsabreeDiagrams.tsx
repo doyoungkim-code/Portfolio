@@ -17,9 +17,9 @@ export function SsabreeArch() {
       <Node x={380} y={340} w={170} h={52} title="Redis" sub="HOT 캐시 · Sorted Set" mine />
 
       {/* 외부 */}
-      <Node x={610} y={134} w={130} h={48} title="Mattermost" sub="본인 인증" muted />
-      <Node x={610} y={234} w={130} h={48} title="Firebase FCM" sub="푸시" muted />
-      <Node x={610} y={342} w={130} h={48} title="solved.ac" sub="포트폴리오 연동" muted />
+      <Node x={610} y={134} w={130} h={48} title="Mattermost" sub="본인 인증 연동" mine />
+      <Node x={610} y={234} w={130} h={48} title="Firebase FCM" sub="푸시 연동" mine />
+      <Node x={610} y={342} w={130} h={48} title="solved.ac" sub="포트폴리오 연동" mine />
 
       {/* 흐름 */}
       <Edge points={[[115, 66], [115, 100], [300, 100], [300, 134]]} label="HTTPS · WSS" labelDy={-6} />

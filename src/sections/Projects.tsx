@@ -35,7 +35,7 @@ function DiagramTab({ children, note }: { children: ReactNode; note: string }) {
     <div className="dg-wrap">
       {children}
       <p className="dg-note">
-        <b>■</b> 본인 담당 &nbsp;·&nbsp; 흐린 상자 = 팀원 · 외부 서비스 &nbsp;·&nbsp; {note}
+        <b>■</b> 본인 담당 &nbsp;·&nbsp; 흐린 상자 = 팀원 담당 &nbsp;·&nbsp; {note}
       </p>
     </div>
   )
@@ -90,7 +90,7 @@ function ProjectDeep({ p, num, variant, next, diagrams }: DeepProps) {
 
   return (
     <Cover id={`dm-${p.id}`} nav={p.id} page={p.demoPage} num={num} variant={variant} next={next} wide demo>
-      <div className="pf-deep">
+      <div className={`pf-deep pf-deep--${p.device}`}>
         <div className="pf-deep__left">
           <div className={`pf-device pf-device--${p.device}`}>
             {p.device === 'monitor' ? (
