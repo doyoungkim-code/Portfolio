@@ -7,7 +7,7 @@ interface DemoStageProps {
   path: string
   /** 자동 시연 해시 (kiosk는 여기서 붙임) */
   autoHash: string
-  /** 데모의 논리 해상도 — 이 크기로 렌더한 뒤 스테이지에 맞게 축소 */
+  /** 데모의 논리 너비(w)로 렌더한 뒤 스테이지에 맞게 축소. h는 초기값이며 스테이지 비율을 따라 재계산 */
   size: { w: number; h: number }
   title: string
   /** 데모가 postMessage로 보내는 단계 자막 */
@@ -22,21 +22,24 @@ export function DemoStage({ path, autoHash, size, title, onPhase }: DemoStagePro
   const stageRef = useRef<HTMLDivElement>(null)
   const frameRef = useRef<HTMLIFrameElement>(null)
   const inView = useInView(stageRef, { amount: 0.3 })
-  const [scale, setScale] = useState(0.5)
+  const [fitState, setFit] = useState({ scale: 0.5, h: size.h })
+  const scale = fitState.scale
+  const logicalH = fitState.h
 
-  /* 스테이지 크기에 맞춰 축소 비율 계산 */
+  /* 스테이지에 여백 없이 꽉 차도록: 논리 너비는 고정, 논리 높이는 스테이지 비율을 따라감 */
   useEffect(() => {
     const el = stageRef.current
     if (!el) return
     const fit = () => {
       const r = el.getBoundingClientRect()
-      setScale(Math.min(r.width / size.w, r.height / size.h))
+      if (r.width === 0 || r.height === 0) return
+      setFit({ scale: r.width / size.w, h: Math.round(size.w * (r.height / r.width)) })
     }
     fit()
     const ro = new ResizeObserver(fit)
     ro.observe(el)
     return () => ro.disconnect()
-  }, [size.w, size.h])
+  }, [size.w])
 
   /* 데모 → 단계 자막 수신 (이 iframe에서 온 메시지만) */
   useEffect(() => {
@@ -49,7 +52,7 @@ export function DemoStage({ path, autoHash, size, title, onPhase }: DemoStagePro
   }, [onPhase])
 
   const w = Math.round(size.w * scale)
-  const h = Math.round(size.h * scale)
+  const h = Math.round(logicalH * scale)
 
   return (
     <div ref={stageRef} className="pf-demo__stage">
@@ -60,7 +63,7 @@ export function DemoStage({ path, autoHash, size, title, onPhase }: DemoStagePro
             className="pf-demo__frame"
             src={asset(`${path}#${autoHash}+kiosk`)}
             title={title}
-            style={{ width: size.w, height: size.h, transform: `scale(${scale})` }}
+            style={{ width: size.w, height: logicalH, transform: `scale(${scale})` }}
             allow="autoplay"
           />
           <div className="pf-demo__shield" aria-hidden />
