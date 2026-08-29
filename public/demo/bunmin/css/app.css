@@ -939,3 +939,6 @@ html[data-theme="gradient"] .modal-card { background: #fff; color: #2A2F4A; }
 /* kiosk 모드(포트폴리오 임베드): 컨트롤 숨김·조작 차단·무한 반복 */
 body.kiosk .demo-strip{display:none !important}
 body.kiosk{pointer-events:none;user-select:none}
+
+/* kiosk: 강의 종료 시 뜨는 자막 저장 모달 등 모든 모달 숨김 (흐림 방지) */
+body.kiosk .modal-backdrop { display: none !important; }
