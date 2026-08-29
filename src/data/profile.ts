@@ -20,7 +20,7 @@ export interface Vital {
 
 export const heroVitals: Vital[] = [
   { value: 150, suffix: '+', label: '누적 실사용자' },
-  { value: 3, prefix: 'TOP ', label: 'SSAFY 전국 · 전시부문' },
+  { value: 3, prefix: 'TOP ', label: '전국 전시발표회 · 117팀' },
   { value: 2, label: '앱스토어 출시' },
   { value: 290, suffix: '+', label: '프로젝트 커밋' },
 ]

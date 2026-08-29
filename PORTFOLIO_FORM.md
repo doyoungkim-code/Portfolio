@@ -121,8 +121,9 @@ AI 도구를 활용하는 개발 습관으로 **AI 활용 능력까지 갖춘** 
 팀과 3주간 검증 끝에 **노트북 한 대에서 모든 AI를 처리하는 온디바이스 앱**으로 방향 전환 (자소서 기준, 2026-08-29 확인).
 
 ### 성과 수치 (전부 사실 확인)
-- SSAFY 본선 발표회 **기업연계반 1위**
-- 전국 캠퍼스 전시발표회 전시부문 **전국 3위**
+- SSAFY 본선 자율 프로젝트(기업연계) **1위 — 11팀 중** (GitHub README 기준)
+- 전국 캠퍼스 전시발표회 전시부문 **전국 3위 — 117팀 중**
+- 레포: https://github.com/doyoungkim-code/Bunmin · 데모: `public/demo/bunmin/`
 - 본인 ~132커밋
 - 8주 · 6인 · 팀장
 - 17GB 단일 setup.exe 패키징
@@ -144,6 +145,15 @@ AI 도구를 활용하는 개발 습관으로 **AI 활용 능력까지 갖춘** 
 - 팀 리딩 — 파트 간 통합 지점을 팀장으로서 조율·책임.
 
 ---
+
+## 5-1. Etc 프로젝트 (GitHub README 원문 기준, Contact 페이지에 한 줄씩)
+
+- Cube Scheduler — 3D 방 컨셉의 데스크탑 스케줄러 (Electron · React · Three.js) — github.com/doyoungkim-code/cube_scheduler
+- Participatory Audiobook — 웹캠 동작 인식 기반 아동용 참여형 오디오북 (MediaPipe · OpenCV)
+- MyTistorySkin — 자체 제작 데스크탑 스타일 블로그 스킨
+- newYearMessageBot — 새해 메시지 생성 챗봇 (JavaScript)
+
+SSABREE 레포: https://github.com/doyoungkim-code/SSABREE_TIME · 데모: `public/demo/ssabree/`
 
 ## 6. Contact
 

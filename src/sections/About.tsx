@@ -16,6 +16,8 @@ export function About() {
       </Reveal>
       <Reveal className="pf-cover__desc" delay={0.18}>
         <p>
+          손에 잡히는 문제를 끝까지 파고들어 제품으로 만드는 걸 좋아합니다.
+          <br className="pf-br" />
           정보통신공학 &rarr; 42경산 &rarr; SSAFY. 세 번의 담금질로 다진 CS 기본기 위에,
           <br className="pf-br" />
           로컬 AI 서비스를 설치 파일까지 직접 배포해 본 실행력을 얹었습니다.

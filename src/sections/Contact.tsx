@@ -2,6 +2,7 @@ import { Cover } from '../components/Cover'
 import { DisplayTitle } from '../components/DisplayTitle'
 import { Reveal } from '../components/Reveal'
 import { profile } from '../data/profile'
+import { etcProjects } from '../data/etc'
 
 export function Contact() {
   return (
@@ -10,6 +11,18 @@ export function Contact() {
       <DisplayTitle text="CONTACT" />
       <Reveal className="pf-cover__sub" delay={0.1}>
         <p>함께 만들 준비가 되어 있습니다.</p>
+      </Reveal>
+      <Reveal delay={0.14}>
+        <div className="pf-etc">
+          <span className="pf-etc__label">MORE PROJECTS</span>
+          {etcProjects.map((e) => (
+            <a key={e.name} className="pf-etc__row" href={e.url} target="_blank" rel="noopener noreferrer">
+              <b>{e.name}</b>
+              <span>{e.desc}</span>
+              <i>{e.stack}</i>
+            </a>
+          ))}
+        </div>
       </Reveal>
       <Reveal delay={0.18}>
         <div className="pf-contacts">

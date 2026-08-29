@@ -28,6 +28,8 @@ export const project1 = {
   sub: 'SSAFY 교육생 전용 폐쇄형 커뮤니티 + 팀 매칭 서비스 — 출시 후 150명 이상이 실제로 사용했습니다.',
   meta: '2026.01 – 2026.02 (6주) · 6인 · Backend',
   stack: ['java', 'spring', 'postgres', 'redis', 'aws', 'nginx'] as TechKey[],
+  repoUrl: 'https://github.com/doyoungkim-code/SSABREE_TIME',
+  demo: { path: 'demo/ssabree/index.html#autoplay+dual', title: 'SSABREE TIME 데모 — 갤럭시 폰 2대 실시간 동기화' },
   bg: { src: 'images/ssabree-1.jpg', blur: true },
   vitals: [
     { value: '150+', label: '누적 실사용자' },
@@ -89,10 +91,12 @@ export const project2 = {
   sub: '강의실의 한국어를 2초 안에 영어 음성 · 자막으로 — 서버 없이 노트북 한 대에서 도는 온디바이스 AI 번역.',
   meta: '2026.04 – 2026.06 (8주) · 6인 · 팀장 / 배포 인프라 / FastAPI · 기업연계 프로젝트',
   stack: ['python', 'fastapi', 'electron'] as TechKey[],
+  repoUrl: 'https://github.com/doyoungkim-code/Bunmin',
+  demo: { path: 'demo/bunmin/index.html#autoplay', title: '번역의 민족 데모 — 강의자 화면 자동 시연' },
   bg: { src: 'images/translate-1.png', blur: false },
   vitals: [
-    { value: 'TOP 3', label: '전국 전시발표회' },
-    { value: '1위', label: '본선 기업연계반' },
+    { value: 'TOP 3', label: '전국 전시발표회 · 117팀' },
+    { value: '1위', label: '본선 자율 프로젝트 · 11팀' },
     { value: '~132', label: '본인 커밋' },
     { value: '17GB', label: '단일 setup.exe' },
   ],
@@ -131,6 +135,6 @@ export const project2 = {
   award: {
     src: 'images/award.jpg',
     alt: 'SSAFY 전시발표회 수상 단체사진',
-    caption: 'SSAFY 본선 기업연계반 1위 · 전국 전시발표회 전시부문 3위',
+    caption: 'SSAFY 본선 자율 프로젝트 1위 (11팀) · 전국 전시발표회 3위 (117팀)',
   },
 }

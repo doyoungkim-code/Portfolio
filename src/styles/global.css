@@ -464,3 +464,46 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 #cv-skills .pf-panel{margin-top:30px}
 #cv-skills .pf-covermeta--tight{margin-top:14px}
 #cv-skills{padding-top:112px;padding-bottom:90px}
+
+/* ── 커버 하단 링크 (GITHUB · DEMO) ── */
+.pf-coverlinks{display:flex;justify-content:center;gap:28px;margin-top:30px}
+.pf-coverlinks a{
+  font-family:var(--font-disp);font-weight:400;font-size:11px;letter-spacing:.3em;
+  color:var(--d-ink2);border-bottom:1px solid var(--d-line);padding-bottom:4px;
+  transition:color var(--tr),border-color var(--tr);
+}
+.pf-coverlinks a:hover{color:var(--d-ink);border-color:var(--d-ink)}
+
+/* ── Contact: More projects ── */
+.pf-etc{max-width:760px;margin:34px auto 0;text-align:left;border-top:1px solid var(--d-line)}
+.pf-etc__label{
+  display:block;font-family:var(--font-disp);font-weight:400;font-size:10px;letter-spacing:.34em;
+  color:var(--d-ink3);padding:12px 0 6px;
+}
+.pf-etc__row{
+  display:grid;grid-template-columns:200px 1fr auto;gap:18px;align-items:baseline;
+  padding:9px 0;border-bottom:1px solid var(--d-line);transition:transform .3s ease;
+}
+.pf-etc__row:hover{transform:translateX(3px)}
+.pf-etc__row b{font-weight:500;font-size:13.5px;color:var(--d-ink)}
+.pf-etc__row span{font-weight:300;font-size:12.5px;color:var(--d-ink2)}
+.pf-etc__row i{font-style:normal;font-family:var(--font-disp);font-size:10px;letter-spacing:.08em;color:var(--d-ink3);white-space:nowrap}
+
+/* ── 상세 탭: 데모 임베드 ── */
+.dt-demo{display:flex;flex-direction:column;height:100%;min-height:0}
+.dt-demo__bar{
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  font-size:12px;color:var(--ink-3);padding:2px 0 12px;
+}
+.dt-demo__bar a{
+  font-family:var(--font-disp);font-size:11px;letter-spacing:.22em;color:var(--accent);
+  border-bottom:1px solid currentColor;padding-bottom:3px;white-space:nowrap;
+}
+.dt-demo__frame{
+  flex:1;width:100%;min-height:420px;border:1px solid var(--line);background:#fff;display:block;
+}
+@media(max-width:860px){
+  .pf-etc__row{grid-template-columns:1fr;gap:2px}
+  .pf-etc__row i{white-space:normal}
+  .dt-demo__frame{min-height:520px}
+}

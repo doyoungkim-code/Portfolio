@@ -6,7 +6,19 @@ import { DetailTabs } from '../components/DetailTabs'
 import { DtRows, DtTroubles } from '../components/rows'
 import { CaptionFigure, Shots } from '../components/media'
 import { TechStrip } from '../components/TechIcon'
+import { DemoFrame } from '../components/DemoFrame'
+import { asset } from '../lib/asset'
 import { project1, project2 } from '../data/projects'
+
+/** 커버 하단 헤어라인 링크: GITHUB · DEMO */
+function CoverLinks({ repoUrl, demoPath }: { repoUrl: string; demoPath: string }) {
+  return (
+    <div className="pf-coverlinks">
+      <a href={repoUrl} target="_blank" rel="noopener noreferrer">GITHUB &#8599;</a>
+      <a href={asset(demoPath)} target="_blank" rel="noopener noreferrer">DEMO &#8599;</a>
+    </div>
+  )
+}
 
 function Lead({ lead }: { lead: { before: string; strong: string; after: string } }) {
   return (
@@ -38,6 +50,9 @@ export function Project1Cover() {
       <Reveal delay={0.24}>
         <Vitals items={p.vitals} />
       </Reveal>
+      <Reveal delay={0.3}>
+        <CoverLinks repoUrl={p.repoUrl} demoPath={p.demo.path} />
+      </Reveal>
     </Cover>
   )
 }
@@ -66,6 +81,7 @@ export function Project1Detail() {
             { id: 'b', label: '구현', content: <DtRows items={p.roles} /> },
             { id: 'c', label: '기술 선택', content: <DtRows items={p.tech} /> },
             { id: 'd', label: '트러블슈팅', content: <DtTroubles items={p.troubles} /> },
+            { id: 'e', label: '데모', content: <DemoFrame path={p.demo.path} title={p.demo.title} /> },
           ]}
         />
       </div>
@@ -92,6 +108,9 @@ export function Project2Cover() {
       </Reveal>
       <Reveal delay={0.24}>
         <Vitals items={p.vitals} />
+      </Reveal>
+      <Reveal delay={0.3}>
+        <CoverLinks repoUrl={p.repoUrl} demoPath={p.demo.path} />
       </Reveal>
     </Cover>
   )
@@ -126,6 +145,7 @@ export function Project2Detail() {
                 </>
               ),
             },
+            { id: 'd', label: '데모', content: <DemoFrame path={p.demo.path} title={p.demo.title} /> },
           ]}
         />
       </div>
