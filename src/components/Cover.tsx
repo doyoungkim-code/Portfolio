@@ -17,6 +17,8 @@ interface CoverProps {
   bg?: CoverBg
   /** 하단 chevron이 가리킬 앵커 id (없으면 chevron 미표시) */
   next?: string
+  /** 넓은 콘텐츠(데모 스테이지 등) — 최대 폭 확장 */
+  wide?: boolean
   children: ReactNode
 }
 
@@ -32,7 +34,7 @@ function CoverPhoto({ src, blur }: CoverBg) {
 }
 
 /** 다크 풀스크린 커버 공통 셸: 배경 · 워터마크 번호(스크롤 패럴랙스) · chevron */
-export function Cover({ id, nav, page, num, variant, bg, next, children }: CoverProps) {
+export function Cover({ id, nav, page, num, variant, bg, next, wide, children }: CoverProps) {
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
   const numY = useTransform(scrollYProgress, [0, 1], ['0%', '-36%'])
@@ -50,7 +52,7 @@ export function Cover({ id, nav, page, num, variant, bg, next, children }: Cover
       <motion.span className="pf-cover__num" aria-hidden style={{ y: numY }}>
         {num}
       </motion.span>
-      <div className="pf-cover__in">{children}</div>
+      <div className={`pf-cover__in${wide ? ' pf-cover__in--wide' : ''}`}>{children}</div>
       {next && <a className="pf-down" href={`#${next}`} aria-label="다음 섹션" />}
     </section>
   )

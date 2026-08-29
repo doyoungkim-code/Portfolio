@@ -489,32 +489,64 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 .pf-etc__row span{font-weight:300;font-size:12.5px;color:var(--d-ink2)}
 .pf-etc__row i{font-style:normal;font-family:var(--font-disp);font-size:10px;letter-spacing:.08em;color:var(--d-ink3);white-space:nowrap}
 
-/* ── 상세 탭: 데모 임베드 (패널을 꽉 채움, 테두리·안내바 없음) ── */
-.dt-demo{
-  position:relative;
-  height:calc(100% + 32px);margin:-22px -10px -10px 0; /* 패널 패딩 상쇄 */
-  background:#fff;
-}
-.dt-demo__frame{width:100%;height:100%;border:0;display:block;background:#fff}
-/* 자동 시연 모드: 클릭 차단 (영상처럼 보기만) */
-.dt-demo__shield{position:absolute;inset:0;cursor:default}
-/* 우상단 컨트롤: 둘러보기 / 새 창 */
-.dt-demo__ctl{
-  position:absolute;top:12px;right:12px;display:flex;align-items:center;gap:10px;
-}
-.dt-demo__ctl button{
-  font-family:var(--font-sans);font-weight:700;font-size:12.5px;letter-spacing:.02em;
-  color:#fff;background:rgba(20,23,31,.86);padding:9px 16px;
-  box-shadow:0 6px 18px rgba(20,23,31,.25);transition:background var(--tr),transform var(--tr);
-}
-.dt-demo__ctl button:hover{background:var(--accent);transform:translateY(-1px)}
-.dt-demo__ctl a{
-  font-family:var(--font-disp);font-size:10.5px;letter-spacing:.2em;color:var(--ink-2);
-  background:rgba(255,255,255,.85);padding:8px 10px;border:1px solid var(--line);
-}
-.dt-demo__ctl a:hover{color:var(--ink)}
+
 @media(max-width:860px){
   .pf-etc__row{grid-template-columns:1fr;gap:2px}
   .pf-etc__row i{white-space:normal}
-  .dt-demo{height:70svh;margin:0}
+}
+
+/* ── 데모 전용 풀스크린 페이지 ── */
+.pf-cover__in--wide{max-width:1360px}
+.pf-demo{
+  display:grid;grid-template-columns:62fr 38fr;gap:44px;align-items:stretch;
+  height:calc(100svh - 250px);min-height:440px;text-align:left;
+}
+.pf-demo__stage{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--d-line);background:#080A14;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+}
+.pf-demo__scaler{position:relative;overflow:hidden}
+.pf-demo__frame{position:absolute;top:0;left:0;border:0;transform-origin:top left;background:#080A14;display:block}
+.pf-demo__shield{position:absolute;inset:0;cursor:default}
+
+.pf-demo__side{display:flex;flex-direction:column;min-height:0}
+.pf-demo__side .pf-overline{margin-bottom:14px}
+.pf-demo__title{
+  font-family:var(--font-disp);font-weight:100;text-transform:uppercase;
+  font-size:clamp(28px,3vw,44px);letter-spacing:.1em;line-height:1.1;color:var(--d-ink);
+  margin-bottom:26px;
+}
+.pf-demo__title--kr{font-family:'Noto Sans KR',var(--font-disp);letter-spacing:.12em}
+.pf-demo__label{
+  font-family:var(--font-disp);font-weight:400;font-size:10px;letter-spacing:.34em;
+  color:var(--d-ink3);margin-bottom:8px;
+}
+.pf-demo__caption{
+  font-weight:500;font-size:16px;line-height:1.6;color:var(--d-ink);
+  min-height:52px;padding-bottom:18px;border-bottom:1px solid var(--d-line);margin-bottom:12px;
+}
+.pf-demo__steps{flex:1;min-height:0;overflow:auto;scrollbar-width:none}
+.pf-demo__steps::-webkit-scrollbar{display:none}
+.pf-demo__steps li{
+  display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:baseline;
+  padding:8px 0 8px 12px;border-left:2px solid transparent;
+  font-weight:300;font-size:12.5px;line-height:1.55;color:var(--d-ink3);
+  transition:color .35s ease,border-color .35s ease;
+}
+.pf-demo__steps li i{font-family:var(--font-disp);font-style:normal;font-weight:400;font-size:11px;letter-spacing:.08em}
+.pf-demo__steps li.done{color:var(--d-ink2)}
+.pf-demo__steps li.on{color:var(--d-ink);font-weight:500;border-left-color:var(--accent)}
+.pf-cover--alt .pf-demo__steps li.on{border-left-color:var(--pur)}
+.pf-demo__cta{
+  align-self:flex-start;margin-top:18px;
+  font-family:var(--font-sans);font-weight:700;font-size:13px;letter-spacing:.02em;
+  color:var(--d-bg);background:var(--d-ink);padding:12px 22px;
+  transition:background var(--tr),color var(--tr),transform var(--tr);
+}
+.pf-demo__cta:hover{background:var(--accent);color:#fff;transform:translateY(-1px)}
+@media(max-width:1180px){
+  .pf-demo{grid-template-columns:1fr;height:auto;gap:24px}
+  .pf-demo__stage{aspect-ratio:16/10}
+  .pf-demo__steps{overflow:visible}
 }

@@ -11,7 +11,7 @@ import { useSnapScroll } from './hooks/useSnapScroll'
 import { About } from './sections/About'
 import { Journey } from './sections/Journey'
 import { Skills } from './sections/Skills'
-import { Project1Cover, Project1Detail, Project2Cover, Project2Detail } from './sections/Projects'
+import { Project1Cover, Project1Demo, Project1Detail, Project2Cover, Project2Demo, Project2Detail } from './sections/Projects'
 import { Contact } from './sections/Contact'
 
 export default function App() {
@@ -31,12 +31,14 @@ export default function App() {
           <Journey />
           <Skills />
           <Project1Cover />
+          <Project1Demo />
           <Project1Detail />
           <Project2Cover />
+          <Project2Demo />
           <Project2Detail />
           <Contact />
         </main>
-        <PageCounter page={page} total="08" />
+        <PageCounter page={page} total="10" />
       </div>
     </MotionConfig>
   )

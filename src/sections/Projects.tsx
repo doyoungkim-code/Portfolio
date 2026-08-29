@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react'
 import { Cover } from '../components/Cover'
 import { DisplayTitle } from '../components/DisplayTitle'
 import { Reveal } from '../components/Reveal'
@@ -6,16 +7,17 @@ import { DetailTabs } from '../components/DetailTabs'
 import { DtRows, DtTroubles } from '../components/rows'
 import { CaptionFigure, Shots } from '../components/media'
 import { TechStrip } from '../components/TechIcon'
-import { DemoFrame } from '../components/DemoFrame'
+import { DemoStage } from '../components/DemoStage'
 import { asset } from '../lib/asset'
 import { project1, project2 } from '../data/projects'
 
-/** 커버 하단 헤어라인 링크: GITHUB · DEMO */
-function CoverLinks({ repoUrl, demoPath }: { repoUrl: string; demoPath: string }) {
+type Project = typeof project1 | typeof project2
+
+/** 커버 하단 헤어라인 링크 */
+function CoverLinks({ repoUrl }: { repoUrl: string }) {
   return (
     <div className="pf-coverlinks">
       <a href={repoUrl} target="_blank" rel="noopener noreferrer">GITHUB &#8599;</a>
-      <a href={asset(demoPath)} target="_blank" rel="noopener noreferrer">DEMO &#8599;</a>
     </div>
   )
 }
@@ -30,12 +32,61 @@ function Lead({ lead }: { lead: { before: string; strong: string; after: string 
   )
 }
 
+/** "④ 그룹 매칭 — …" 형태의 자막에서 단계 인덱스(0-based)를 뽑는다 */
+function stepIndexOf(text: string): number {
+  const code = text.charCodeAt(0)
+  return code >= 0x2460 && code <= 0x2473 ? code - 0x2460 : -1
+}
+
+/* ── 데모 전용 풀스크린 페이지 ─────────────────────── */
+
+function ProjectDemo({ p, num, variant }: { p: Project; num: string; variant?: 'alt' }) {
+  const [phase, setPhase] = useState('')
+  const onPhase = useCallback((t: string) => setPhase(t), [])
+  const active = stepIndexOf(phase)
+  const caption = active >= 0 ? p.demo.steps[active] : p.demo.steps[0]
+
+  return (
+    <Cover id={`dm-${p.id}`} nav={p.id} page={p.demoPage} num={num} variant={variant} next={p.detailId} wide>
+      <div className="pf-demo">
+        <DemoStage
+          path={p.demo.path}
+          autoHash={p.demo.autoHash}
+          size={p.demo.size}
+          title={p.demo.title}
+          onPhase={onPhase}
+        />
+        <aside className="pf-demo__side">
+          <p className="pf-overline">LIVE DEMO &middot; AUTO REPLAY</p>
+          <h2 className={`pf-demo__title${'titleKr' in p && p.titleKr ? ' pf-demo__title--kr' : ''}`}>{p.title}</h2>
+
+          <p className="pf-demo__label">NOW SHOWING</p>
+          <p className="pf-demo__caption">{caption}</p>
+
+          <ol className="pf-demo__steps">
+            {p.demo.steps.map((s, i) => (
+              <li key={s} className={i === active ? 'on' : i < active ? 'done' : undefined}>
+                <i>{String(i + 1).padStart(2, '0')}</i>
+                <span>{s}</span>
+              </li>
+            ))}
+          </ol>
+
+          <a className="pf-demo__cta" href={asset(`${p.demo.path}#${p.demo.freeHash}`)} target="_blank" rel="noopener noreferrer">
+            직접 조작해보기 &#8599;
+          </a>
+        </aside>
+      </div>
+    </Cover>
+  )
+}
+
 /* ── PROJECT 01 · SSABREE TIME ───────────────────────── */
 
 export function Project1Cover() {
   const p = project1
   return (
-    <Cover id={p.coverId} nav={p.id} page={p.coverPage} num="04" bg={p.bg} next={p.detailId}>
+    <Cover id={p.coverId} nav={p.id} page={p.coverPage} num="04" bg={p.bg} next={`dm-${p.id}`}>
       <Reveal className="pf-overline">{p.overline}</Reveal>
       <DisplayTitle text={p.title} />
       <Reveal className="pf-cover__sub" delay={0.1}>
@@ -51,10 +102,14 @@ export function Project1Cover() {
         <Vitals items={p.vitals} />
       </Reveal>
       <Reveal delay={0.3}>
-        <CoverLinks repoUrl={p.repoUrl} demoPath={p.demo.path} />
+        <CoverLinks repoUrl={p.repoUrl} />
       </Reveal>
     </Cover>
   )
+}
+
+export function Project1Demo() {
+  return <ProjectDemo p={project1} num="04" />
 }
 
 export function Project1Detail() {
@@ -65,7 +120,6 @@ export function Project1Detail() {
         <DetailTabs
           overline={`PROJECT 01 — ${p.title}`}
           tabs={[
-            { id: 'demo', label: '데모', content: <DemoFrame path={p.demo.path} autoHash={p.demo.autoHash} freeHash={p.demo.freeHash} title={p.demo.title} /> },
             {
               id: 'a',
               label: '개요',
@@ -94,7 +148,7 @@ export function Project1Detail() {
 export function Project2Cover() {
   const p = project2
   return (
-    <Cover id={p.coverId} nav={p.id} page={p.coverPage} num="05" variant="alt" bg={p.bg} next={p.detailId}>
+    <Cover id={p.coverId} nav={p.id} page={p.coverPage} num="05" variant="alt" bg={p.bg} next={`dm-${p.id}`}>
       <Reveal className="pf-overline">{p.overline}</Reveal>
       <DisplayTitle text={p.title} kr />
       <Reveal className="pf-cover__sub" delay={0.1}>
@@ -110,10 +164,14 @@ export function Project2Cover() {
         <Vitals items={p.vitals} />
       </Reveal>
       <Reveal delay={0.3}>
-        <CoverLinks repoUrl={p.repoUrl} demoPath={p.demo.path} />
+        <CoverLinks repoUrl={p.repoUrl} />
       </Reveal>
     </Cover>
   )
+}
+
+export function Project2Demo() {
+  return <ProjectDemo p={project2} num="05" variant="alt" />
 }
 
 export function Project2Detail() {
@@ -124,7 +182,6 @@ export function Project2Detail() {
         <DetailTabs
           overline={`PROJECT 02 — ${p.title}`}
           tabs={[
-            { id: 'demo', label: '데모', content: <DemoFrame path={p.demo.path} autoHash={p.demo.autoHash} freeHash={p.demo.freeHash} title={p.demo.title} /> },
             {
               id: 'a',
               label: '개요',

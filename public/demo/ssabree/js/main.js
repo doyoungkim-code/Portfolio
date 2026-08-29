@@ -57,7 +57,10 @@
   };
 
   /* ─── 데모 스트립 ─── */
-  S.setPhase = function (text) { $('demo-phase').textContent = text; };
+  S.setPhase = function (text) {
+    $('demo-phase').textContent = text;
+    if (window.__kiosk && window.parent !== window) window.parent.postMessage({ type: 'demo-phase', text: text }, '*');
+  };
   S.onScenarioState = function (playing) {
     var btn = $('demo-play');
     btn.textContent = playing ? '⏸ 일시정지' : '▶ 데모 시작';

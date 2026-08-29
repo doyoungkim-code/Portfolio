@@ -87,7 +87,10 @@
     b.addEventListener('click', function () { B.setView(b.getAttribute('data-view')); });
   });
 
-  B.setPhase = function (text) { $('demo-phase').textContent = text; };
+  B.setPhase = function (text) {
+    $('demo-phase').textContent = text;
+    if (window.__kiosk && window.parent !== window) window.parent.postMessage({ type: 'demo-phase', text: text }, '*');
+  };
   B.onScenarioState = function (playing) {
     const btn = $('demo-play');
     btn.textContent = playing ? '⏸ 일시정지' : '▶ 데모 시작';
