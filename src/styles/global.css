@@ -497,6 +497,9 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 
 /* ── 데모 전용 풀스크린 페이지 ── */
 .pf-cover__in--wide{max-width:1360px}
+@media(min-width:1181px){
+  .pf-cover__in--wide{padding-left:120px} /* 좌측 세로 내비와 겹치지 않게 */
+}
 .pf-demo{
   display:grid;grid-template-columns:62fr 38fr;gap:44px;align-items:stretch;
   height:calc(100svh - 250px);min-height:440px;text-align:left;
