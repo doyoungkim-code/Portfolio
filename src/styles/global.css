@@ -701,33 +701,76 @@ html.fixed-canvas .pf-3d{left:0;right:0}
 .dg-note b{color:var(--accent);font-weight:500}
 .pf-cover--alt .dg-note b{color:var(--pur)}
 
-/* 아이소메트릭(2.5D) 아키텍처 */
-.iso-plate__top{fill:rgba(255,255,255,.035);stroke:rgba(255,255,255,.28);stroke-width:1;stroke-dasharray:5 5}
-.iso-plate__left{fill:rgba(0,0,0,.35);stroke:rgba(255,255,255,.14);stroke-width:1}
-.iso-plate__right{fill:rgba(0,0,0,.22);stroke:rgba(255,255,255,.14);stroke-width:1}
+/* ═══ 아이소메트릭(2.5D) 다이어그램 ═══ */
+/* 바닥판 */
+.iso-plate__top{fill:url(#dg-g-plate);stroke:rgba(255,255,255,.3);stroke-width:1;stroke-dasharray:5 5}
+.iso-plate__left{fill:rgba(0,0,0,.42);stroke:rgba(255,255,255,.14);stroke-width:1}
+.iso-plate__right{fill:rgba(0,0,0,.26);stroke:rgba(255,255,255,.14);stroke-width:1}
+.iso-plate__grid{fill:none;stroke:rgba(255,255,255,.05);stroke-width:1}
+.iso-plate__edge{fill:none;stroke:rgba(255,255,255,.22);stroke-width:1.2}
 .iso-plate__label{fill:var(--d-ink3);font-size:11px;letter-spacing:.14em;font-family:var(--font-disp)}
-.iso-box__shadow{fill:rgba(0,0,0,.4)}
-.iso-box__top{fill:#2A3050;stroke:rgba(255,255,255,.4);stroke-width:1;stroke-linejoin:round}
-.iso-box__left{fill:#1B2038;stroke:rgba(255,255,255,.22);stroke-width:1;stroke-linejoin:round}
-.iso-box__right{fill:#151A2E;stroke:rgba(255,255,255,.22);stroke-width:1;stroke-linejoin:round}
-.iso-box--mine .iso-box__top{fill:#3F5BD6;stroke:#8FA6FF;stroke-width:1.2}
-.iso-box--mine .iso-box__left{fill:#2A3FA6;stroke:#6C84EE}
-.iso-box--mine .iso-box__right{fill:#1E2F84;stroke:#6C84EE}
-.pf-cover--alt .iso-box--mine .iso-box__top{fill:#6E62D8;stroke:#B7AEFF}
-.pf-cover--alt .iso-box--mine .iso-box__left{fill:#4E43AE;stroke:#9C92F5}
-.pf-cover--alt .iso-box--mine .iso-box__right{fill:#3A3188;stroke:#9C92F5}
-.iso-box--muted .iso-box__top{fill:#20243A;stroke:rgba(255,255,255,.22)}
-.iso-box--muted .iso-box__left{fill:#171A2C;stroke:rgba(255,255,255,.14)}
-.iso-box--muted .iso-box__right{fill:#121525;stroke:rgba(255,255,255,.14)}
+/* 상자 — 면 조명 + 하이라이트 엣지 + 블러 그림자 */
+.iso-box{transition:opacity .28s ease;animation:isoIn .6s cubic-bezier(.22,1,.36,1) both;animation-delay:var(--d,0ms)}
+.iso-box__shadow{fill:rgba(0,0,0,.55);filter:url(#dg-blur)}
+.iso-box__glow{fill:var(--accent);opacity:.22;filter:url(#dg-blur-lg)}
+.pf-cover--alt .iso-box__glow{fill:var(--pur)}
+.iso-box__top{fill:url(#dg-g-top-muted);stroke:rgba(255,255,255,.34);stroke-width:1;stroke-linejoin:round}
+.iso-box__left{fill:url(#dg-g-left-muted);stroke:rgba(255,255,255,.18);stroke-width:1;stroke-linejoin:round}
+.iso-box__right{fill:url(#dg-g-right-muted);stroke:rgba(255,255,255,.18);stroke-width:1;stroke-linejoin:round}
+.iso-box__hl{fill:none;stroke:rgba(255,255,255,.55);stroke-width:1.2;stroke-linejoin:round}
+.iso-box--mine .iso-box__top{fill:url(#dg-g-top-mine);stroke:#9FB2FF;stroke-width:1.2}
+.iso-box--mine .iso-box__left{fill:url(#dg-g-left-mine);stroke:#6C84EE}
+.iso-box--mine .iso-box__right{fill:url(#dg-g-right-mine);stroke:#5C74E0}
+.iso-box--mine .iso-box__hl{stroke:rgba(255,255,255,.8)}
+.pf-cover--alt .iso-box--mine .iso-box__top{fill:url(#dg-g-top-pur);stroke:#C4BCFF}
+.pf-cover--alt .iso-box--mine .iso-box__left{fill:url(#dg-g-left-pur);stroke:#9C92F5}
+.pf-cover--alt .iso-box--mine .iso-box__right{fill:url(#dg-g-right-pur);stroke:#8C82E8}
 .iso-box--muted .iso-box__title{fill:var(--d-ink2)}
+.iso-box--muted .iso-box__hl{stroke:rgba(255,255,255,.35)}
+.iso-box__badge{fill:rgba(12,15,29,.42);stroke:rgba(255,255,255,.22);stroke-width:.8}
+.iso-box--muted .iso-box__badge{fill:rgba(12,15,29,.5)}
+.iso-box__step circle{fill:var(--d-bg);stroke:var(--accent);stroke-width:1.2}
+.iso-box__step text{fill:var(--d-ink);font-family:var(--font-disp);font-size:10px;font-weight:500}
+.pf-cover--alt .iso-box__step circle{stroke:var(--pur)}
 .iso-box__title{font-size:13.5px}
 .iso-box__sub{font-size:10.5px}
 /* 글자에 배경색 테두리 — 선·상자 위에 겹쳐도 읽히게 */
-.pf-deep .dg-label,.iso-box__title,.iso-box__sub,.iso-plate__label{paint-order:stroke;stroke:var(--d-bg);stroke-width:3px;stroke-linejoin:round}
-.iso-flow{fill:#F2F4FA;opacity:.9}
+.pf-deep .dg-label,.iso-box__title,.iso-box__sub,.iso-plate__label,.iso-caption text{paint-order:stroke;stroke:var(--d-bg);stroke-width:3px;stroke-linejoin:round}
+/* 흐르는 패킷 */
+.iso-flow{fill:#F2F4FA;opacity:.95}
+.iso-flow--tail{opacity:.5}
 .iso-flow--acc{fill:var(--accent)}
 .pf-cover--alt .iso-flow--acc{fill:var(--pur)}
-@media(prefers-reduced-motion:reduce){.iso-flow{display:none}}
+.iso-path{transition:opacity .28s ease;animation:isoFade .5s ease both;animation-delay:.35s}
+/* 호버 포커스 — 연결된 것만 남기고 흐리게 */
+.iso-scene .iso-box{cursor:default}
+.iso-scene.has-hover .iso-box.is-dim{opacity:.22}
+.iso-scene.has-hover .iso-path.is-dim{opacity:.12}
+.iso-scene.has-hover .iso-path.is-hot .dg-edge{stroke:var(--d-ink);stroke-width:1.6}
+.iso-scene.has-hover .iso-path.is-hot .dg-edge--acc{stroke:var(--accent)}
+.pf-cover--alt .iso-scene.has-hover .iso-path.is-hot .dg-edge--acc{stroke:var(--pur)}
+.iso-box.is-hot .iso-box__glow{opacity:.5}
+.iso-caption text{fill:var(--d-ink3);font-size:12px;letter-spacing:.02em;transition:fill .25s ease}
+.iso-caption.is-on text{fill:var(--d-ink)}
+/* 등장 */
+@keyframes isoIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes isoFade{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.iso-flow{display:none}.iso-box,.iso-path,.dg-seqrow{animation:none}}
+/* 범례 큐브 */
+.iso-legend{display:inline-block;vertical-align:-3px;margin-right:4px}
+.iso-legend .iso-box{animation:none}
+/* 시퀀스 보강 */
+.dg-seqcol{fill:rgba(70,100,230,.06)}
+.pf-cover--alt .dg-seqcol{fill:rgba(143,131,255,.07)}
+.dg-lifeline--mine{stroke:rgba(70,100,230,.55)}
+.pf-cover--alt .dg-lifeline--mine{stroke:rgba(143,131,255,.55)}
+.dg-seqrow{animation:isoFade .45s ease both}
+.dg-seqrow__band{fill:transparent;transition:fill .2s ease}
+.dg-seqrow:hover .dg-seqrow__band{fill:rgba(255,255,255,.045)}
+.dg-seqrow__no{fill:var(--d-ink3);font-family:var(--font-disp);font-size:10px;letter-spacing:.1em}
+.dg-act{fill:rgba(255,255,255,.16);stroke:rgba(255,255,255,.35);stroke-width:.8}
+.dg-act--mine{fill:rgba(70,100,230,.5);stroke:#8FA6FF}
+.pf-cover--alt .dg-act--mine{fill:rgba(143,131,255,.5);stroke:#C4BCFF}
 
 /* 문제 → 해결 → 결과 */
 .psr__item{padding:14px 0 18px;border-bottom:1px solid var(--d-line)}

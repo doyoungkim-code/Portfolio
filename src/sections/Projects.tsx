@@ -10,6 +10,7 @@ import { TechStrip } from '../components/TechIcon'
 import { DemoStage } from '../components/DemoStage'
 import { SsabreeArch, SsabreeFlow, SsabreeSeq } from '../components/diagrams/SsabreeDiagrams'
 import { BunminArch, BunminFlow, BunminSeq } from '../components/diagrams/BunminDiagrams'
+import { IsoLegendCube } from '../components/diagrams/iso'
 import { project1, project2 } from '../data/projects'
 import type { Trouble } from '../data/projects'
 
@@ -58,7 +59,7 @@ function DiagramTab({ children, note }: { children: ReactNode; note: string }) {
     <div className="dg-wrap">
       {children}
       <p className="dg-note">
-        <b>■</b> 본인 담당 &nbsp;·&nbsp; 흐린 상자 = 팀원 담당 &nbsp;·&nbsp; {note}
+        <IsoLegendCube mine /> 본인 담당 &nbsp;·&nbsp; <IsoLegendCube muted /> 팀원 · 외부 &nbsp;·&nbsp; {note}
       </p>
     </div>
   )
