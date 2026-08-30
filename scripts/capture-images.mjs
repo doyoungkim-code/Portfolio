@@ -3,7 +3,7 @@
  * 실제 사진이 준비되면 같은 파일명으로 덮어쓰면 된다 (public/images/README.md).
  *
  *   npm run dev        (다른 터미널에서 dev 서버가 떠 있어야 함)
- *   npm run capture    → public/images/{ssabree-1.jpg, translate-1.png, og.png}
+ *   npm run capture    → public/images/{ssabree-1.jpg, translate-1.png, og.jpg}
  *
  * 브라우저는 로컬 Edge(channel: msedge)를 쓰므로 별도 브라우저 다운로드가 필요 없다.
  */
@@ -45,9 +45,9 @@ const browser = await chromium.launch({ channel: 'msedge', headless: true })
   const page = await browser.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 })
   await page.goto(BASE, { waitUntil: 'networkidle' })
   await page.waitForTimeout(3000) /* 타이틀 스태거·카운트업이 끝난 뒤 */
-  await page.screenshot({ path: path.join(OUT, 'og.png') })
+  await page.screenshot({ path: path.join(OUT, 'og.jpg'), type: 'jpeg', quality: 86 })
   await page.close()
-  console.log('✓ og.png')
+  console.log('✓ og.jpg')
 }
 
 await browser.close()

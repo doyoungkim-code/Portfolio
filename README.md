@@ -30,7 +30,7 @@ npm install
 npm run dev      # 개발 서버
 npm run build    # 타입체크 + 프로덕션 빌드 (dist/)
 npm run preview  # 빌드 결과 미리보기 (/Portfolio/ base)
-npm run capture  # (dev 서버 실행 중) 데모 화면 캡처 → public/images/{ssabree-1.jpg, translate-1.png, og.png}
+npm run capture  # (dev 서버 실행 중) 데모 화면 캡처 → public/images/{ssabree-1.jpg, translate-1.png, og.jpg}
 ```
 
 `npm run capture`는 로컬 Edge(Playwright `channel: msedge`)로 데모의 특정 장면을 찍어 커버 배경과 링크 미리보기(OG) 이미지를 만듭니다. 실제 사진이 준비되면 같은 파일명으로 덮어쓰면 됩니다 — `public/images/README.md`.

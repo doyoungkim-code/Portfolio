@@ -7,7 +7,7 @@ import { asset } from '../lib/asset'
 
 export function About() {
   return (
-    <Cover id="cv-about" nav="about" page="01" num="01" next="cv-journey">
+    <Cover id="cv-about" nav="about" page="01" num="01" bg={{ src: 'images/hero-bg.jpg' }} next="cv-journey">
       <Reveal className="pf-overline">BACKEND DEVELOPER &middot; PORTFOLIO 2026</Reveal>
       <DisplayTitle as="h1" text={profile.nameEn} />
       <Reveal className="pf-cover__sub" delay={0.1}>
