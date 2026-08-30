@@ -7,12 +7,13 @@ import { Reveal } from '../components/Reveal'
 import { Diagram } from '../components/diagrams/primitives'
 import { IsoBox } from '../components/diagrams/iso'
 import { journeyMeta, journeyRows } from '../data/journey'
+import { asset } from '../lib/asset'
 
-/* 여정 3단계를 아이소메트릭 계단으로 — 갈수록 높아지는 큐브 */
-const STEPS: { icon: IconType; h: number }[] = [
-  { icon: FaGraduationCap, h: 12 },
-  { icon: FaCode, h: 20 },
-  { icon: FaRocket, h: 28 },
+/* 여정 3단계를 아이소메트릭 계단으로 — 갈수록 높아지는 큐브. logo는 각 기관 공식 로고(public/images/logos) */
+const STEPS: { icon: IconType; h: number; logo: string; logoH: number; alt: string }[] = [
+  { icon: FaGraduationCap, h: 12, logo: 'images/logos/yu.svg', logoH: 21, alt: '영남대학교' },
+  { icon: FaCode, h: 20, logo: 'images/logos/42gyeongsan.png', logoH: 27, alt: '42 GYEONGSAN' },
+  { icon: FaRocket, h: 28, logo: 'images/logos/ssafy.png', logoH: 40, alt: 'SSAFY' },
 ]
 
 function StepCube({ icon, h, order }: { icon: IconType; h: number; order: number }) {
@@ -54,7 +55,10 @@ export function Journey() {
                     <StepCube icon={STEPS[i].icon} h={STEPS[i].h} order={i} />
                   </div>
                   <div className="pf-tl__body">
-                    <span className="pf-tl__no">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="pf-tl__head">
+                      <span className="pf-tl__no">{String(i + 1).padStart(2, '0')}</span>
+                      <img className="pf-tl__logo" src={asset(STEPS[i].logo)} alt={STEPS[i].alt} style={{ height: STEPS[i].logoH }} loading="lazy" />
+                    </span>
                     <span className="pf-tl__date">{row.date}</span>
                     <span className="pf-tl__name">{row.name}</span>
                     <span className="pf-tl__desc">{row.desc}</span>

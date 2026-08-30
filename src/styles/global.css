@@ -650,6 +650,8 @@ html.fixed-canvas .pf-3d{left:0;right:0}
 .pf-tl__body::before{
   content:'';position:absolute;left:-1px;top:12px;bottom:12px;width:2px;background:var(--pur);opacity:.85;
 }
+.pf-tl__head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:2px}
+.pf-tl__logo{display:block;width:auto;max-width:130px;object-fit:contain;opacity:.92}
 .pf-tl__no{font-family:var(--font-disp);font-size:10.5px;letter-spacing:.3em;color:var(--d-ink3)}
 .pf-tl__date{font-family:var(--font-disp);font-weight:400;font-size:12.5px;letter-spacing:.08em;color:var(--pur)}
 .pf-tl__name{font-weight:500;font-size:16.5px;color:var(--d-ink)}

@@ -19,4 +19,6 @@ npm run capture   # → ssabree-1.jpg, translate-1.png, og.jpg 재생성
 | `hero-bg.jpg` | ABOUT 커버 반투명 배경 (`src/sections/About.tsx`) | 가로 1600px+ | 있음 (cafe 일러스트, 1672×941 JPG) |
 | `journey-bg.jpg` | JOURNEY 커버 배경 — 전시발표회 수상 단체사진 (`src/sections/Journey.tsx`) | 가로 16:9 | 있음 (1800×1013 JPG) |
 
+`logos/` — JOURNEY 타임라인의 기관 로고. 각 기관 공식 사이트에서 가져온 원본(영남대 `yu.svg` 흰색 워드마크, `42gyeongsan.png` 흰색 워드마크, `ssafy.png` 블루 로고). 소속 표기 용도로만 사용하며 상표권은 각 기관에 있음.
+
 이력서 PDF는 `public/resume.pdf`로 넣고 `src/data/profile.ts`의 `resumeUrl: 'resume.pdf'`로 설정하면 1페이지에 링크가 생긴다.
