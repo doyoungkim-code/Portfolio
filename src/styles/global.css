@@ -629,6 +629,34 @@ html.fixed-canvas .pf-3d{left:0;right:0}
   #cv-about .pf-coverlinks{justify-content:flex-start}
 }
 
+/* ── JOURNEY: 가운데는 수상 사진, 양옆 사이드에 내용 ── */
+.pf-jr{display:grid;grid-template-columns:1fr;gap:28px;text-align:left}
+.pf-panel--side{margin:0;max-width:none;padding:4px 22px}
+.pf-panel--side .pf-jrow{grid-template-columns:1fr;gap:3px;padding:15px 0}
+.pf-panel--side .pf-jrow__date{font-size:12.5px}
+.pf-panel--side .pf-jrow__name{font-size:16.5px}
+.pf-panel--side .pf-jrow__desc{font-size:13.5px;line-height:1.7}
+@media(min-width:861px){
+  #cv-journey{padding-left:230px;padding-right:60px}
+  #cv-journey .pf-cover__in{max-width:none}
+  #cv-journey .pf-cover__num{display:none}
+  /* 사진을 왼쪽 기준으로 잘라 단체가 오른쪽으로 살짝 밀리게 → 본인(왼쪽에서 두 번째)이 밝은 가운데 구역에 들어온다 */
+  #cv-journey .pf-cover__bg img{opacity:.92;filter:saturate(.9);object-position:0 50%}
+  #cv-journey .pf-cover__bg::after{
+    background:
+      linear-gradient(180deg, rgba(12,15,29,.5) 0%, rgba(12,15,29,0) 24%, rgba(12,15,29,0) 74%, rgba(12,15,29,.6) 100%),
+      linear-gradient(90deg, rgba(12,15,29,.97) 0%, rgba(12,15,29,.95) 36%, rgba(12,15,29,.35) 42%, rgba(12,15,29,.08) 47%, rgba(12,15,29,.08) 62%, rgba(12,15,29,.55) 68%, rgba(12,15,29,.94) 75%, rgba(12,15,29,.97) 100%);
+  }
+  #cv-journey::before{opacity:.4}
+  .pf-jr{grid-template-columns:320px 1fr 400px;gap:40px;align-items:center}
+  .pf-jr__left .pf-display{font-size:56px;white-space:nowrap}
+  html.fixed-canvas .pf-jr__left .pf-display{font-size:56px}
+  .pf-jr__left .pf-cover__sub{margin-top:22px}
+  .pf-jr__left .pf-cover__sub p{font-size:17px;line-height:1.75}
+  .pf-jr__left .pf-covermeta{margin-top:26px}
+  .pf-jr__left .pf-covermeta p{font-size:12.5px;line-height:1.9}
+}
+
 /* ── 글씨 확대 후 900px 캔버스에 맞추기 위한 간격 조정 ── */
 #cv-skills{padding-top:100px;padding-bottom:80px}
 #cv-skills .pf-overline{margin-bottom:22px}
