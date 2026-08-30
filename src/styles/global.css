@@ -664,7 +664,7 @@ html.fixed-canvas .pf-3d{left:0;right:0}
   #cv-journey .pf-cover__bg::after{
     background:
       linear-gradient(180deg, rgba(12,15,29,.5) 0%, rgba(12,15,29,0) 24%, rgba(12,15,29,0) 74%, rgba(12,15,29,.6) 100%),
-      linear-gradient(90deg, rgba(12,15,29,.97) 0%, rgba(12,15,29,.95) 33%, rgba(12,15,29,.35) 39%, rgba(12,15,29,.08) 44%, rgba(12,15,29,.08) 59%, rgba(12,15,29,.55) 65%, rgba(12,15,29,.94) 72%, rgba(12,15,29,.97) 100%);
+      linear-gradient(90deg, rgba(12,15,29,.97) 0%, rgba(12,15,29,.95) 29%, rgba(12,15,29,.35) 35%, rgba(12,15,29,.08) 40%, rgba(12,15,29,.08) 59%, rgba(12,15,29,.55) 65%, rgba(12,15,29,.94) 72%, rgba(12,15,29,.97) 100%);
   }
   #cv-journey::before{opacity:.4}
   .pf-jr{grid-template-columns:320px 1fr 420px;gap:40px;align-items:center}
