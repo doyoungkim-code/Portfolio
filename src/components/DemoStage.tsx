@@ -37,24 +37,29 @@ export function DemoStage({ path, hash, size, title, bare = false, focus, onPhas
   const inView = useInView(stageRef, { amount: 0.2 })
   const [mounted, setMounted] = useState(false)
   const [ready, setReady] = useState(false)
-  const [box, setBox] = useState({ cw: 0, ch: 0 })
+  const [box, setBox] = useState({ cw: 0, ch: 0, pw: 0 })
 
   useEffect(() => {
     if (inView) setMounted(true)
   }, [inView])
 
-  /* 스테이지 크기 추적 — 레이아웃 px(clientWidth) 기준이라 CSS zoom과 무관 */
+  /* 스테이지 크기 추적 — 레이아웃 px(clientWidth) 기준이라 CSS zoom과 무관.
+     bare(휴대폰)일 때는 부모(디바이스 열) 너비도 재서, 확대 화면이 스테이지 박스 밖으로 넘칠 수 있는 폭으로 쓴다 */
   useEffect(() => {
     const el = stageRef.current
     if (!el) return
+    const parent = el.parentElement
     const fit = () => {
-      if (el.clientWidth && el.clientHeight) setBox({ cw: el.clientWidth, ch: el.clientHeight })
+      if (el.clientWidth && el.clientHeight) {
+        setBox({ cw: el.clientWidth, ch: el.clientHeight, pw: bare && parent ? parent.clientWidth : el.clientWidth })
+      }
     }
     fit()
     const ro = new ResizeObserver(fit)
     ro.observe(el)
+    if (bare && parent) ro.observe(parent)
     return () => ro.disconnect()
-  }, [])
+  }, [bare])
 
   /* 데모 → 단계 자막 수신 (이 iframe에서 온 메시지만) */
   useEffect(() => {
@@ -66,17 +71,18 @@ export function DemoStage({ path, hash, size, title, bare = false, focus, onPhas
     return () => window.removeEventListener('message', onMsg)
   }, [onPhase])
 
-  const { cw, ch } = box
+  const { cw, ch, pw } = box
   const logicalW = size.w
   const logicalH = cw ? Math.round(logicalW * (ch / cw)) : size.h
   const s0 = cw ? cw / logicalW : 0.5
 
-  /* 포커스 영역 → 스테이지 안에서 확대·이동 (카메라) */
+  /* 포커스 영역 → 확대·이동 (카메라). 가로는 허용 폭(휴대폰: 디바이스 열 전체)에, 세로는 스테이지 높이에 맞춘다 */
   let camera = 'translate(0px, 0px) scale(1)'
   if (focus && cw && ch) {
+    const aw = Math.max(cw, pw)
     const fw = focus.w * s0
     const fh = focus.h * s0
-    const k = Math.min(cw / fw, ch / fh)
+    const k = Math.min(aw / fw, ch / fh)
     const tx = (cw - fw * k) / 2 - focus.x * s0 * k
     const ty = (ch - fh * k) / 2 - focus.y * s0 * k
     camera = `translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px) scale(${k.toFixed(4)})`

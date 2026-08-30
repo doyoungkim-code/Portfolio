@@ -755,7 +755,10 @@ html.fixed-canvas .pf-3d{left:0;right:0}
   /* 넓은 창에서는 디바이스 열도 비례해서 커지고, 패널(다이어그램)도 넓어진다 */
   .pf-deep{grid-template-columns:minmax(600px,42%) 1fr}
   /* 디바이스 종류별 열 너비: 휴대폰은 높이 제한이라 좁게, 남는 폭은 패널(다이어그램)에 */
-  .pf-deep--phone{grid-template-columns:460px 1fr}
+  .pf-deep--phone{grid-template-columns:520px 1fr}
+  /* 확대된 휴대폰 화면은 스테이지 박스(1:2)를 넘어 디바이스 열 전체 폭까지 보이게 — 열 밖은 잘라냄 */
+  .pf-device--phone{overflow:hidden}
+  .pf-device--phone .pf-demo__stage{overflow:visible}
   .pf-deep--monitor{grid-template-columns:minmax(620px,46%) 1fr}
   /* 패널 안에서 스크롤바가 생기지 않도록: 다이어그램은 남은 높이에 맞춰 축소(가로·세로 중 작은 쪽 기준) */
   .pf-deep .dt-panel{display:flex;flex-direction:column;overflow:hidden;padding-right:0}
