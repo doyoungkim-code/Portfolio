@@ -656,7 +656,13 @@ html.fixed-canvas .pf-3d{left:0;right:0}
 /* 자격증 줄 — 금색 인장 + 자격명 + 종류 태그 + 취득일 */
 .pf-jn__seal{flex-shrink:0;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#FFB020;border:1px solid rgba(255,176,32,.55);background:radial-gradient(circle at 50% 40%,rgba(255,176,32,.22),rgba(255,176,32,.04) 70%);box-shadow:0 0 8px rgba(255,176,32,.25)}
 .pf-jn__seal svg{width:9px;height:9px;filter:none}
-.pf-jn__cert em{font-style:normal;font-family:var(--font-disp);font-size:9px;letter-spacing:.16em;color:#FFC862;border:1px solid rgba(255,176,32,.4);background:rgba(255,176,32,.08);border-radius:2px;padding:2px 6px;line-height:1.2}
+.pf-jn__kind,.pf-jn__pin-chip em,.pf-jn__certlist em{font-style:normal;font-family:var(--font-disp);font-size:9px;letter-spacing:.16em;color:#FFC862;border:1px solid rgba(255,176,32,.4);background:rgba(255,176,32,.08);border-radius:2px;padding:2px 6px;line-height:1.2;white-space:nowrap}
+/* 자격증 핀 — 레일 위 취득 시점 위치 (데스크톱) */
+.pf-jn__pin{display:none}
+.pf-jn__certlist{display:grid;gap:6px;margin-top:8px}
+.pf-jn__certlist li:not(.pf-jn__awards-by){display:flex;align-items:center;gap:9px;font-size:14px;line-height:1.5}
+.pf-jn__certlist b{font-weight:500;color:var(--d-ink)}
+.pf-jn__certlist span{font-family:var(--font-disp);font-size:12px;color:var(--d-ink3);font-variant-numeric:tabular-nums}
 /* 큐브를 잇는 레일 + 흐르는 점 (데스크톱에서만) */
 .pf-jn__rail{display:none}
 @media(min-width:861px){
@@ -682,13 +688,26 @@ html.fixed-canvas .pf-3d{left:0;right:0}
   .pf-jn__meta{position:absolute;left:230px;bottom:40px;z-index:5}
   .pf-jn__rail{
     /* 첫 큐브 중심(50px) → 마지막 큐브 중심: 3열 그리드(gap 28)에서 마지막 열 중심까지의 거리 */
-    display:block;position:absolute;left:50px;right:calc(33.333% - 68.7px);top:56px;height:1px;z-index:1; /* 스테어 88px − 큐브 밑면 32px */
+    display:block;position:absolute;left:50px;right:0;top:56px;height:1px;z-index:1; /* 스테어 88px − 큐브 밑면 32px. 끝 = 현재(2026.06) */
     background:linear-gradient(90deg,rgba(143,131,255,.1),rgba(143,131,255,.6) 12%,rgba(143,131,255,.6) 88%,rgba(143,131,255,.1));
   }
   .pf-jn__rail b{position:absolute;top:-4px;width:9px;height:9px;border-radius:50%;background:var(--d-bg);border:1.5px solid var(--pur)}
-  .pf-jn__rail b:nth-child(1){left:-4px}.pf-jn__rail b:nth-child(2){left:calc(50% - 4px)}.pf-jn__rail b:nth-child(3){right:-4px}
+  .pf-jn__rail b{display:none}
   .pf-jn__rail i{position:absolute;top:-3px;width:7px;height:7px;border-radius:50%;background:var(--pur);box-shadow:0 0 10px 2px rgba(143,131,255,.5);animation:jnDot 4.5s linear infinite}
   @keyframes jnDot{0%{left:0;opacity:0}6%{opacity:1}94%{opacity:1}100%{left:calc(100% - 7px);opacity:0}}
+  .pf-jn__certlist{display:none}
+  .pf-jn__pin{display:block;position:absolute;top:56px;z-index:6;width:0;height:0;animation:isoFade .5s ease both}
+  .pf-jn__pin-tick{position:absolute;left:-0.5px;bottom:0;width:1px;height:12px;background:linear-gradient(180deg,rgba(255,176,32,.9),rgba(255,176,32,.25))}
+  .pf-jn__pin-tick::after{content:'';position:absolute;left:-3px;bottom:-3px;width:5px;height:5px;border-radius:50%;background:#FFB020;box-shadow:0 0 8px rgba(255,176,32,.7)}
+  .pf-jn__pin-chip{
+    position:absolute;left:-9px;bottom:12px;display:flex;align-items:center;gap:8px;white-space:nowrap;
+    padding:6px 10px 6px 7px;border:1px solid rgba(255,176,32,.35);border-radius:3px;
+    background:rgba(10,13,26,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    font-size:13px;line-height:1.3;
+  }
+  .pf-jn__pin-chip b{font-weight:500;color:var(--d-ink)}
+  .pf-jn__pin-chip span{font-family:var(--font-disp);font-size:11.5px;letter-spacing:.04em;color:var(--d-ink3);font-variant-numeric:tabular-nums}
+  .pf-jn__pin--flip .pf-jn__pin-chip{left:auto;right:-9px}
 }
 @media(prefers-reduced-motion:reduce){.pf-jn__rail i{display:none}}
 @media(max-width:860px){
