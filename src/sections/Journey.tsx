@@ -1,4 +1,4 @@
-import { FaCode, FaGraduationCap, FaRocket } from 'react-icons/fa'
+import { FaCode, FaGraduationCap, FaRocket, FaTrophy } from 'react-icons/fa'
 import type { IconType } from 'react-icons'
 import { Cover } from '../components/Cover'
 import { DisplayTitle } from '../components/DisplayTitle'
@@ -55,6 +55,18 @@ export function Journey() {
               <span className="pf-jn__date">{row.date}</span>
               <span className="pf-jn__name">{row.name}</span>
               <span className="pf-jn__desc">{row.desc}</span>
+              {row.awards && (
+                <ul className="pf-jn__awards" aria-label="수상">
+                  {row.awardsBy && <li className="pf-jn__awards-by">AWARDS · {row.awardsBy}</li>}
+                  {row.awards.map((a) => (
+                    <li key={a.title}>
+                      <FaTrophy aria-hidden />
+                      <b>{a.title}</b>
+                      <span>{a.date}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </Reveal>
           ))}
         </div>

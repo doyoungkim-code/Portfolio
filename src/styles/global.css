@@ -646,6 +646,13 @@ html.fixed-canvas .pf-3d{left:0;right:0}
 .pf-jn__name{display:block;font-weight:500;font-size:16.5px;color:var(--d-ink);margin:6px 0 3px}
 .pf-jn__desc{display:block;font-weight:300;font-size:13.5px;line-height:1.7;color:var(--d-ink2)}
 .pf-jn__meta p{font-weight:300;font-size:12px;letter-spacing:.05em;color:var(--d-ink3);line-height:1.9}
+/* 수상 — 과정 아래에 상장처럼: 금색 트로피 + 공식 명칭 + 날짜 */
+.pf-jn__awards{margin-top:12px;padding-top:10px;border-top:1px solid var(--d-line);display:grid;gap:5px}
+.pf-jn__awards-by{font-family:var(--font-disp);font-size:10px;letter-spacing:.28em;color:var(--d-ink3);margin-bottom:1px}
+.pf-jn__awards li:not(.pf-jn__awards-by){display:flex;align-items:center;gap:9px;font-size:14px;line-height:1.5;white-space:nowrap}
+.pf-jn__awards svg{flex-shrink:0;width:13px;height:13px;color:#FFB020;filter:drop-shadow(0 0 6px rgba(255,176,32,.45))}
+.pf-jn__awards b{font-weight:500;color:var(--d-ink)}
+.pf-jn__awards span{font-family:var(--font-disp);font-size:12.5px;letter-spacing:.04em;color:var(--d-ink3);font-variant-numeric:tabular-nums}
 /* 큐브를 잇는 레일 + 흐르는 점 (데스크톱에서만) */
 .pf-jn__rail{display:none}
 @media(min-width:861px){
@@ -663,7 +670,8 @@ html.fixed-canvas .pf-3d{left:0;right:0}
   .pf-jn__head{position:absolute;left:230px;top:112px;z-index:5}
   .pf-jn__head .pf-display{font-size:56px;white-space:nowrap}
   html.fixed-canvas .pf-jn__head .pf-display{font-size:56px}
-  .pf-jn__band{position:absolute;left:230px;right:60px;bottom:78px;z-index:5;grid-template-columns:1fr 1fr 1fr;gap:28px;align-items:end}
+  /* 열은 위를 맞춘다(큐브 밑면 = 레일). 수상이 붙은 SSAFY 열만 아래로 더 내려온다 */
+  .pf-jn__band{position:absolute;left:230px;right:60px;bottom:64px;z-index:5;grid-template-columns:1fr 1fr 1fr;gap:28px;align-items:start}
   .pf-jn__desc{white-space:nowrap}
   .pf-jn__meta{position:absolute;left:230px;bottom:40px;z-index:5}
   .pf-jn__rail{
