@@ -1,3 +1,4 @@
+import { FaCertificate } from 'react-icons/fa'
 import { Cover } from '../components/Cover'
 import { DisplayTitle } from '../components/DisplayTitle'
 import { Reveal } from '../components/Reveal'
@@ -32,9 +33,13 @@ export function Skills() {
         <div className="pf-certs">
           <span className="pf-certs__label">CERTIFICATIONS</span>
           {certs.map((c) => (
-            <div className="pf-certs__item" key={c.name}>
-              <b>{c.name}</b>
-              <span>{c.issuer} · {c.date}</span>
+            <div className="pf-cert" key={c.name}>
+              <span className="pf-cert__seal" aria-hidden><FaCertificate /></span>
+              <span className="pf-cert__body">
+                <span className="pf-cert__name">{c.name} <em>{c.en}</em></span>
+                <span className="pf-cert__meta">{c.issuer} · 취득 {c.date}</span>
+              </span>
+              <span className="pf-cert__kind">{c.kind}</span>
             </div>
           ))}
         </div>

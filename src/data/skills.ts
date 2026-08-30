@@ -37,14 +37,17 @@ export const alsoKeys: TechKey[] = [
 
 export interface Cert {
   name: string
+  en: string
   issuer: string
   date: string
+  /** 자격 종류 — 국가기술자격 / 국가공인 민간자격 */
+  kind: string
 }
 
 /** 자격증 — 최신순 */
 export const certs: Cert[] = [
-  { name: '정보처리기사', issuer: '한국산업인력공단', date: '2026.06' },
-  { name: 'SQL 개발자 (SQLD)', issuer: '한국데이터산업진흥원', date: '2024.04' },
+  { name: '정보처리기사', en: 'Engineer Information Processing', issuer: '한국산업인력공단', date: '2026.06.12', kind: '국가기술자격' },
+  { name: 'SQL 개발자', en: 'SQLD', issuer: '한국데이터산업진흥원', date: '2024.04.05', kind: '국가공인' },
 ]
 
 export const highlightLine =
