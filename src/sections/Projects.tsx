@@ -222,7 +222,18 @@ export function Project2Cover() {
     <Cover id={p.coverId} nav={p.id} page={p.coverPage} num={p.coverPage} variant="alt" bg={p.bg} next={`dm-${p.id}`}>
       <Reveal className="pf-overline">{p.overline}</Reveal>
       <DisplayTitle text={p.title} kr />
-      <Reveal className="pf-cover__sub" delay={0.1}>
+      <Reveal className="pf-award" delay={0.08}>
+        <p>
+          <span className="pf-award__medal" aria-hidden>🏆</span>
+          <span className="pf-award__main">
+            <b>자율프로젝트 우수상 1위</b><i>본선 11팀</i>
+            <em>·</em>
+            <b>전시발표회 우수상 3위</b><i>전국 117팀</i>
+          </span>
+          <span className="pf-award__by">삼성청년SW·AI아카데미 · 2026</span>
+        </p>
+      </Reveal>
+      <Reveal className="pf-cover__sub" delay={0.12}>
         <p>{p.sub}</p>
       </Reveal>
       <Reveal className="pf-cover__desc" delay={0.14}>

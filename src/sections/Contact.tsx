@@ -1,8 +1,14 @@
+import { FaEnvelope, FaGithub, FaPenNib } from 'react-icons/fa6'
 import { Cover } from '../components/Cover'
 import { DisplayTitle } from '../components/DisplayTitle'
 import { Reveal } from '../components/Reveal'
 import { profile } from '../data/profile'
-import { etcProjects } from '../data/etc'
+
+const LINKS = [
+  { label: 'EMAIL', value: profile.email, href: `mailto:${profile.email}`, Icon: FaEnvelope, external: false },
+  { label: 'GITHUB', value: profile.github, href: profile.githubUrl, Icon: FaGithub, external: true },
+  { label: 'BLOG', value: profile.blog, href: profile.blogUrl, Icon: FaPenNib, external: true },
+]
 
 export function Contact() {
   return (
@@ -12,32 +18,20 @@ export function Contact() {
       <Reveal className="pf-cover__sub" delay={0.1}>
         <p>함께 만들 준비가 되어 있습니다.</p>
       </Reveal>
-      <Reveal delay={0.14}>
-        <div className="pf-etc">
-          <span className="pf-etc__label">MORE PROJECTS</span>
-          {etcProjects.map((e) => (
-            <a key={e.name} className="pf-etc__row" href={e.url} target="_blank" rel="noopener noreferrer">
-              <b>{e.name}</b>
-              <span>{e.desc}</span>
-              <i>{e.stack}</i>
+      <Reveal delay={0.18}>
+        <div className="pf-links">
+          {LINKS.map(({ label, value, href, Icon, external }) => (
+            <a
+              key={label}
+              className="pf-links__item"
+              href={href}
+              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
+              <span className="pf-links__icon" aria-hidden><Icon /></span>
+              <b>{label}</b>
+              <span className="pf-links__val">{value}</span>
             </a>
           ))}
-        </div>
-      </Reveal>
-      <Reveal delay={0.18}>
-        <div className="pf-contacts">
-          <a href={`mailto:${profile.email}`}>
-            <b>EMAIL</b>
-            <span>{profile.email}</span>
-          </a>
-          <a href={profile.githubUrl} target="_blank" rel="noopener noreferrer">
-            <b>GITHUB</b>
-            <span>{profile.github}</span>
-          </a>
-          <a href={profile.blogUrl} target="_blank" rel="noopener noreferrer">
-            <b>BLOG</b>
-            <span>{profile.blog}</span>
-          </a>
         </div>
       </Reveal>
       <Reveal className="pf-covermeta" delay={0.26}>

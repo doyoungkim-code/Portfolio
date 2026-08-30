@@ -33,20 +33,17 @@ function months(d: string) {
 }
 
 /**
- * 자격증 핀의 x 좌표 — 레일은 시간축이 균등하지 않다(과정마다 한 칸).
- * 큐브 i는 과정 i의 시작 시점, 레일 끝은 journeyEnd. 취득일이 속한 구간 안에서 비례 보간.
+ * 자격증 핀의 x 좌표 — 취득일이 속한 구간(큐브 i ~ 큐브 i+1, 마지막은 큐브 ~ 현재)의 정중앙.
+ * 큐브·라벨과 겹치지 않으면서 "그 기간 중에 땄다"가 읽힌다.
  */
 function pinX(date: string, anchors: number[], xs: number[], endX: number) {
   const t = months(date)
   const pts = [...xs, endX]
   const ts = [...anchors, months(journeyEnd)]
   for (let i = 0; i < ts.length - 1; i++) {
-    if (t >= ts[i] && t <= ts[i + 1]) {
-      const f = (t - ts[i]) / Math.max(1, ts[i + 1] - ts[i])
-      return pts[i] + f * (pts[i + 1] - pts[i])
-    }
+    if (t >= ts[i] && t <= ts[i + 1]) return (pts[i] + pts[i + 1]) / 2
   }
-  return t < ts[0] ? pts[0] : endX
+  return t < ts[0] ? pts[0] : (pts[pts.length - 2] + endX) / 2
 }
 
 /**
@@ -81,14 +78,7 @@ export function Journey() {
   }, [])
 
   const anchors = journeyRows.map((r) => months(r.start))
-  const pins = geo
-    ? journeyCerts.map((c) => {
-        const x = pinX(c.date, anchors, geo.xs, geo.w)
-        /* 라벨은 항상 줄기 왼쪽으로 — 사진 속 상장(가운데)을 가리지 않고, 사람들의 어두운 정장 위에 놓인다 */
-        const flip = true
-        return { c, x, flip }
-      })
-    : []
+  const pins = geo ? journeyCerts.map((c) => ({ c, x: pinX(c.date, anchors, geo.xs, geo.w) })) : []
 
   return (
     <Cover id="cv-journey" nav="journey" page="02" num="02" variant="alt" bg={{ src: 'images/journey-bg.jpg' }} next="cv-skills">
@@ -97,23 +87,17 @@ export function Journey() {
           <Reveal className="pf-overline">THE ROAD SO FAR</Reveal>
           <DisplayTitle text="JOURNEY" />
           <Reveal className="pf-cover__sub" delay={0.1}>
-            <p>한 번에 완성된 개발자는 없다고 생각합니다.<br className="pf-br" />세 개의 과정을 순서대로 통과했습니다.</p>
+            <p>한 번에 완성된 개발자는 없다고 생각합니다.<br className="pf-br" />세 개의 과정을 순서대로 거쳐 학습해왔습니다.</p>
           </Reveal>
         </div>
 
         <div className="pf-jn__band" ref={bandRef}>
           <span className="pf-jn__rail" aria-hidden><b /><b /><b /><i /></span>
           {/* 자격증 핀 — 레일 위, 취득 시점 위치 */}
-          {pins.map(({ c, x, flip }, i) => (
-            <div
-              key={c.name}
-              className={`pf-jn__pin${flip ? ' pf-jn__pin--flip' : ''}`}
-              style={{ left: x, animationDelay: `${0.6 + i * 0.15}s` }}
-              title={`${c.issuer} · 취득 ${c.date}`}
-            >
+          {pins.map(({ c, x }, i) => (
+            <div key={c.name} className="pf-jn__pin" style={{ left: x, animationDelay: `${0.6 + i * 0.15}s` }} title={`${c.issuer} · 취득 ${c.date}`}>
               <span className="pf-jn__pin-node" aria-hidden />
               <span className="pf-jn__pin-stem" aria-hidden />
-              <span className="pf-jn__pin-arm" aria-hidden />
               <span className="pf-jn__pin-label">
                 <b><i className="pf-jn__seal" aria-hidden><FaCertificate /></i>{c.name}{c.en ? ` (${c.en})` : ''}</b>
                 <span>{c.kind} · {c.date}</span>
@@ -122,7 +106,6 @@ export function Journey() {
           ))}
           {journeyRows.map((row, i) => (
             <Reveal key={row.name} className="pf-jn__col" delay={0.14 + i * 0.14}>
-              <span className="pf-jn__no">{String(i + 1).padStart(2, '0')}</span>
               <div className="pf-jn__stair">
                 <StepCube icon={STEPS[i].icon} h={STEPS[i].h} order={i} />
               </div>

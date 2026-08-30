@@ -147,7 +147,7 @@ AI 도구를 활용하는 개발 습관으로 **AI 활용 능력까지 갖춘** 
 
 ---
 
-## 5-1. Etc 프로젝트 (GitHub README 원문 기준, Contact 페이지에 한 줄씩)
+## 5-1. Etc 프로젝트 (GitHub README 원문 기준 — 2026-08-31 사용자 요청으로 포트폴리오에서는 제외, 복구용 기록)
 
 - Cube Scheduler — 3D 방 컨셉의 데스크탑 스케줄러 (Electron · React · Three.js) — github.com/doyoungkim-code/cube_scheduler
 - Participatory Audiobook — 웹캠 동작 인식 기반 아동용 참여형 오디오북 (MediaPipe · OpenCV)

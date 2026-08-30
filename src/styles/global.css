@@ -195,6 +195,22 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 .pf-cover__desc p{font-size:16px;line-height:1.9;color:var(--d-ink2)}
 .pf-cover__desc b{color:var(--d-ink);font-weight:500}
 .pf-br{display:block;content:''}
+/* 수상 배너 — PROJECT 02 커버 */
+.pf-award{display:flex;justify-content:center;margin-top:22px}
+.pf-award p{
+  display:inline-flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;
+  padding:11px 22px;border:1px solid rgba(255,176,32,.45);border-radius:3px;
+  background:linear-gradient(180deg,rgba(255,176,32,.16),rgba(255,176,32,.05));
+  box-shadow:0 0 28px rgba(255,176,32,.16),inset 0 1px 0 rgba(255,255,255,.08);
+}
+.pf-award__medal{font-size:22px;line-height:1;filter:drop-shadow(0 0 8px rgba(255,176,32,.5))}
+.pf-award__main{display:inline-flex;align-items:baseline;gap:8px;flex-wrap:wrap;justify-content:center}
+.pf-award__main b{font-weight:700;font-size:17px;color:#FFD98A;letter-spacing:.01em}
+.pf-award__main i{font-style:normal;font-family:var(--font-disp);font-size:11.5px;letter-spacing:.1em;color:rgba(255,217,138,.72)}
+.pf-award__main em{font-style:normal;color:rgba(255,217,138,.45);padding:0 2px}
+.pf-award__by{font-family:var(--font-disp);font-size:11px;letter-spacing:.22em;color:rgba(255,217,138,.66);border-left:1px solid rgba(255,176,32,.3);padding-left:14px}
+@media(max-width:860px){.pf-award p{gap:8px;padding:12px 16px}.pf-award__main b{font-size:15px}.pf-award__by{border-left:0;padding-left:0}}
+
 /* 프로젝트 커버 한 줄 요약 — "내가 한 일" */
 .pf-cover__lead{font-weight:300;font-size:15.5px;line-height:1.8;color:var(--d-ink2);margin:0 auto 6px;max-width:820px;text-wrap:balance}
 .pf-cover__lead b{font-weight:500;color:var(--d-ink)}
@@ -257,19 +273,25 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
   letter-spacing:.34em;color:var(--accent);
 }
 
-/* 연락처 */
-.pf-contacts{display:flex;justify-content:center;margin-top:48px}
-.pf-contacts a{padding:8px 44px;border-left:1px solid var(--d-line);display:block}
-.pf-contacts a:first-child{border-left:0}
-.pf-contacts b{
-  display:block;font-family:var(--font-disp);font-weight:400;font-size:13px;
-  letter-spacing:.32em;color:var(--d-ink);margin-bottom:8px;
+/* 연락처 — EMAIL · GITHUB · BLOG */
+.pf-links{display:flex;justify-content:center;gap:18px;margin-top:52px;flex-wrap:wrap}
+.pf-links__item{
+  display:flex;flex-direction:column;align-items:center;gap:8px;min-width:230px;
+  padding:26px 30px 22px;border:1px solid var(--d-line);border-radius:4px;
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+  transition:transform .3s ease,border-color .3s ease,background .3s ease;
 }
-.pf-contacts span{
-  font-weight:300;font-size:16px;color:var(--d-ink2);
-  border-bottom:1px solid transparent;padding-bottom:2px;transition:color var(--tr),border-color var(--tr);
+.pf-links__item:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.34);background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03))}
+.pf-links__icon{
+  display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;
+  color:var(--d-ink);border:1px solid var(--d-line);background:rgba(255,255,255,.04);
+  transition:color .3s ease,border-color .3s ease;
 }
-.pf-contacts a:hover span{color:var(--d-ink);border-color:var(--d-ink3)}
+.pf-links__icon svg{width:18px;height:18px}
+.pf-links__item:hover .pf-links__icon{color:#fff;border-color:rgba(255,255,255,.4)}
+.pf-links__item b{font-family:var(--font-disp);font-weight:400;font-size:12.5px;letter-spacing:.32em;color:var(--d-ink)}
+.pf-links__val{font-weight:300;font-size:15px;color:var(--d-ink2);transition:color var(--tr)}
+.pf-links__item:hover .pf-links__val{color:var(--d-ink)}
 
 /* 하단 원형 chevron */
 .pf-down{
@@ -426,8 +448,8 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
   .pf-panel{padding:2px 20px}
   .pf-jrow{grid-template-columns:1fr;gap:4px;padding:16px 0}
   .pf-srow{grid-template-columns:1fr;gap:6px;padding:15px 0}
-  .pf-contacts{flex-direction:column;gap:18px;margin-top:36px}
-  .pf-contacts a{border-left:0;padding:0}
+  .pf-links{flex-direction:column;gap:12px;margin-top:36px}
+  .pf-links__item{width:100%;min-width:0;flex-direction:row;justify-content:flex-start;gap:14px;padding:16px 18px}
   .pf-detail{height:auto;min-height:100svh;padding:0 20px}
   .pf-detail__in{padding-top:88px;padding-bottom:56px}
   .dt-top{flex-direction:column;align-items:flex-start;gap:0}
@@ -483,25 +505,9 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 .pf-coverlinks a:hover{color:var(--d-ink);border-color:var(--d-ink)}
 
 /* ── Contact: More projects ── */
-.pf-etc{max-width:760px;margin:34px auto 0;text-align:left;border-top:1px solid var(--d-line)}
-.pf-etc__label{
-  display:block;font-family:var(--font-disp);font-weight:400;font-size:11.5px;letter-spacing:.34em;
-  color:var(--d-ink3);padding:12px 0 6px;
-}
-.pf-etc__row{
-  display:grid;grid-template-columns:200px 1fr auto;gap:18px;align-items:baseline;
-  padding:9px 0;border-bottom:1px solid var(--d-line);transition:transform .3s ease;
-}
-.pf-etc__row:hover{transform:translateX(3px)}
-.pf-etc__row b{font-weight:500;font-size:16px;color:var(--d-ink)}
-.pf-etc__row span{font-weight:300;font-size:14.5px;color:var(--d-ink2)}
-.pf-etc__row i{font-style:normal;font-family:var(--font-disp);font-size:11.5px;letter-spacing:.08em;color:var(--d-ink3);white-space:nowrap}
 
 
-@media(max-width:860px){
-  .pf-etc__row{grid-template-columns:1fr;gap:2px}
-  .pf-etc__row i{white-space:normal}
-}
+
 
 /* ── 데모 전용 풀스크린 페이지 ── */
 .pf-cover__in--wide{max-width:1360px}
@@ -615,7 +621,7 @@ html.fixed-canvas .pf-3d{left:0;right:0}
   #cv-about .pf-display{white-space:nowrap}
   #cv-about .pf-vitals span{white-space:nowrap;font-size:12.5px}
   #cv-about .pf-cover__num{display:none}
-  #cv-about .pf-cover__bg img{opacity:.92;filter:saturate(.9)}
+  #cv-about .pf-cover__bg img{opacity:1;filter:none}
   #cv-about .pf-cover__bg::after{
     background:
       linear-gradient(180deg, rgba(12,15,29,.45) 0%, rgba(12,15,29,0) 22%, rgba(12,15,29,0) 72%, rgba(12,15,29,.55) 100%),
@@ -638,7 +644,6 @@ html.fixed-canvas .pf-3d{left:0;right:0}
 .pf-jn__head .pf-cover__sub p{font-size:16px;line-height:1.75}
 .pf-jn__band{position:relative;display:grid;grid-template-columns:1fr;gap:26px}
 .pf-jn__col{position:relative;padding-left:8px;display:flex;flex-direction:column}
-.pf-jn__no{position:absolute;left:8px;top:-20px;font-family:var(--font-disp);font-size:10.5px;letter-spacing:.3em;color:var(--d-ink3)}
 .pf-jn__stair{position:relative;z-index:2;height:96px;display:flex;align-items:flex-end}
 .pf-jn__stair .dg{width:84px;height:86px;max-width:none}
 .pf-jn__logobox{display:flex;align-items:flex-end;height:44px;margin:6px 0 12px} /* 로고 높이가 달라도 열 높이는 같게 — 레일이 큐브 밑면을 정확히 지나도록 */
@@ -671,7 +676,7 @@ html.fixed-canvas .pf-3d{left:0;right:0}
   #cv-journey .pf-cover__in{position:static;max-width:none}
   #cv-journey .pf-cover__num{display:none}
   #cv-journey::before{opacity:.45}
-  #cv-journey .pf-cover__bg img{opacity:.92;filter:saturate(.9);object-position:0 50%}
+  #cv-journey .pf-cover__bg img{opacity:1;filter:none;object-position:0 50%}
   #cv-journey .pf-cover__bg::after{
     background:
       linear-gradient(180deg, rgba(12,15,29,.45) 0%, rgba(12,15,29,0) 18%, rgba(12,15,29,0) 46%, rgba(12,15,29,.86) 66%, rgba(12,15,29,.98) 100%),
@@ -697,18 +702,12 @@ html.fixed-canvas .pf-3d{left:0;right:0}
   .pf-jn__rail i{position:absolute;top:-3px;width:7px;height:7px;border-radius:50%;background:var(--pur);box-shadow:0 0 10px 2px rgba(143,131,255,.5);animation:jnDot 4.5s linear infinite}
   @keyframes jnDot{0%{left:0;opacity:0}6%{opacity:1}94%{opacity:1}100%{left:calc(100% - 7px);opacity:0}}
   .pf-jn__certlist{display:none}
-  /* 자격증 핀 — 레일 노드에서 가지가 뻗어 나온 콜아웃: 노드 → 줄기(위) → 팔(옆) → 인장 + 텍스트 */
+  /* 자격증 핀 — 취득 시점이 속한 구간의 정중앙, 레일 바로 위에 인장 + 자격명 */
   .pf-jn__pin{display:block;position:absolute;top:56px;z-index:6;width:0;height:0;animation:isoFade .5s ease both}
-  .pf-jn__pin-node{position:absolute;left:-4.5px;top:-4.5px;width:9px;height:9px;border-radius:50%;background:var(--d-bg);border:1.5px solid var(--pur);box-shadow:0 0 8px rgba(143,131,255,.5)}
-  .pf-jn__pin-stem{position:absolute;left:-0.5px;bottom:4px;width:1px;height:74px;background:linear-gradient(180deg,rgba(143,131,255,.9),rgba(143,131,255,.35))}
-  .pf-jn__pin-arm{position:absolute;top:-78px;height:1px;width:16px;background:rgba(143,131,255,.9)}
-  .pf-jn__pin--flip .pf-jn__pin-arm{right:0}
-  .pf-jn__pin:not(.pf-jn__pin--flip) .pf-jn__pin-arm{left:0}
-  .pf-jn__pin-label{position:absolute;bottom:61px;display:flex;flex-direction:column;gap:2px;white-space:nowrap;line-height:1.3;text-shadow:0 1px 10px rgba(0,0,0,.9),0 0 2px rgba(0,0,0,.8)}
-  .pf-jn__pin--flip .pf-jn__pin-label{right:24px;align-items:flex-end}
-  .pf-jn__pin:not(.pf-jn__pin--flip) .pf-jn__pin-label{left:24px;align-items:flex-start}
+  .pf-jn__pin-node{position:absolute;left:-4px;top:-4px;width:8px;height:8px;border-radius:50%;background:var(--d-bg);border:1.5px solid #FFB020;box-shadow:0 0 8px rgba(255,176,32,.55)}
+  .pf-jn__pin-stem{position:absolute;left:-0.5px;bottom:4px;width:1px;height:30px;background:linear-gradient(180deg,rgba(255,176,32,.75),rgba(255,176,32,.15))}
+  .pf-jn__pin-label{position:absolute;bottom:34px;left:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px;white-space:nowrap;line-height:1.3;text-shadow:0 1px 10px rgba(0,0,0,.95),0 0 3px rgba(0,0,0,.85)}
   .pf-jn__pin-label b{display:flex;align-items:center;gap:7px;font-weight:500;font-size:13.5px;color:var(--d-ink)}
-  .pf-jn__pin--flip .pf-jn__pin-label b{flex-direction:row-reverse}
   .pf-jn__pin-label > span{font-family:var(--font-disp);font-size:11px;letter-spacing:.08em;color:#FFC862;font-variant-numeric:tabular-nums}
   .pf-jn__pin-label .pf-jn__seal{width:15px;height:15px;box-shadow:0 0 6px rgba(255,176,32,.35)}
   .pf-jn__pin-label .pf-jn__seal svg{width:8px;height:8px}
@@ -716,7 +715,6 @@ html.fixed-canvas .pf-3d{left:0;right:0}
 @media(prefers-reduced-motion:reduce){.pf-jn__rail i{display:none}}
 @media(max-width:860px){
   .pf-jn__band{gap:36px;margin-top:34px}
-  .pf-jn__no{position:static;margin-bottom:2px}
   .pf-jn__stair{height:80px}
   .pf-jn__meta{margin-top:30px}
 }
@@ -729,10 +727,12 @@ html.fixed-canvas .pf-3d{left:0;right:0}
 @media(min-width:861px){#cv-skills .pf-srow{grid-template-columns:290px 1fr;padding:9px 0}}
 #cv-skills .pf-techstrip{margin-top:16px}
 #cv-skills .pf-covermeta--tight{margin-top:10px}
+/* 수상 배너가 들어간 PROJECT 02 커버 — 900px에 맞춰 간격 축소 */
+#cv-p2 .pf-award{margin-top:14px}
+#cv-p2 .pf-cover__sub{margin-top:18px}
 #cv-journey .pf-panel{margin-top:22px}
 #cv-journey .pf-jrow{padding:15px 0}
-#cv-contact .pf-etc{margin-top:26px}
-#cv-contact .pf-contacts{margin-top:34px}
+#cv-contact .pf-links{margin-top:44px}
 
 /* ═══════════════════════════════════════════════════════
    딥다이브 페이지 — 왼쪽 디바이스(영상처럼 재생) + 오른쪽 기술 탭
