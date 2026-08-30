@@ -9,7 +9,7 @@ export function BunminArch() {
     <Diagram w={960} h={626}>
       <IsoScene
         origin={[500, 160]}
-        plates={[{ x: 0, y: 0, w: 400, d: 400, label: '강의자 PC — 온디바이스 (서버 없음) · 관리자 권한 없는 강의실 PC' }]}
+        plates={[{ x: 0, y: 0, w: 400, d: 400, label: '강의자 PC 한 대 — 온디바이스 (서버 없음) · 2초 이내 실시간 번역' }]}
         paths={[
           /* 배포 파이프라인 (본인) → 강의실 PC에 설치 */
           { pts: [[-172, 40], [-172, 120]], from: 'pyinstaller', to: 'builder', acc: true, flow: true },
@@ -22,23 +22,23 @@ export function BunminArch() {
           { pts: [[260, 200], [300, 200]], from: 'fastapi', to: 'nllb' },
           { pts: [[230, 234], [230, 322], [300, 322]], from: 'fastapi', to: 'tts' },
           /* 수강자 브라우저 (LAN) */
-          { pts: [[215, 170], [215, -60], [188, -60], [188, -110]], from: 'fastapi', to: 'browser', label: 'LAN · WebSocket', seg: 0, labelDx: 58, labelDy: 10, acc: true, flow: true },
+          { pts: [[215, 170], [215, -60], [188, -60], [188, -110]], from: 'fastapi', to: 'browser', label: '자막 · 음성 스트림', seg: 0, labelDx: 62, labelDy: 10, acc: true, flow: true },
         ]}
         boxes={[
           /* 배포 파이프라인 (본인) — 바닥판 왼쪽 위 대각선 */
-          { id: 'pyinstaller', detail: '본인 — Python 백엔드 전체를 단일 backend.exe로 (숨은 import · 모델 경로 처리)', x: -200, y: 0, ...S, title: 'PyInstaller', sub: 'Python → backend.exe', icon: 'python', mine: true, label: 'above' },
-          { id: 'builder', detail: '본인 — Electron UI와 backend.exe를 하나의 앱으로 번들', x: -200, y: 120, ...S, title: 'electron-builder', sub: 'UI + 백엔드 번들', icon: 'electron', mine: true, label: 'above' },
-          { id: 'inno', detail: '본인 — 17GB 모델을 포함한 단일 setup.exe. 설치 전 디스크 여유 공간 체크, 관리자 권한 없는 per-user 설치', x: -200, y: 240, ...S, title: 'Inno Setup', sub: '17GB setup.exe · 디스크 체크', icon: FaBoxOpen, iconColor: '#F2C94C', mine: true, label: 'above' },
+          { id: 'pyinstaller', detail: '본인 — FastAPI 백엔드를 Python 미설치 PC에서도 도는 단일 실행 파일(exe)로 동결 — 인터프리터와 의존성을 함께 묶음', x: -200, y: 0, ...S, title: 'PyInstaller', sub: 'Python → 단일 exe', icon: 'python', mine: true, label: 'above' },
+          { id: 'builder', detail: '본인 — Electron 셸 앱 빌드. 프론트엔드 UI와 백엔드 exe를 리소스로 포함', x: -200, y: 120, ...S, title: 'electron-builder', sub: 'UI + 백엔드 번들', icon: 'electron', mine: true, label: 'above' },
+          { id: 'inno', detail: '본인 — 17GB 모델 포함 단일 setup.exe. PrivilegesRequired=lowest + %LOCALAPPDATA% 경로로 관리자 권한 없이 설치, 설치 전 디스크 여유 공간 체크', x: -200, y: 240, ...S, title: 'Inno Setup', sub: '17GB setup.exe · 디스크 체크', icon: FaBoxOpen, iconColor: '#F2C94C', mine: true, label: 'above' },
           /* 강의자 PC 위 */
-          { id: 'electron', detail: '팀원 담당 — React UI, 강의자 화면. 시작 시 backend.exe를 자식 프로세스로 스폰', x: 40, y: 40, ...S, title: 'Electron 앱', sub: 'React UI · 강의자 화면 (팀원)', icon: 'electron', muted: true, label: 'above' },
-          { id: 'download', detail: '본인 — 설치 후 첫 실행 시 모델 존재 · 무결성 검증 → 로드. 비개발자도 통과할 수 있는 플로우', x: 40, y: 170, ...S, title: '모델 다운로드 · 검증', sub: '첫 실행 시 모델 검증 → 로드', icon: FaDownload, iconColor: '#F2F4FA', mine: true, label: 'above' },
-          { id: 'fastapi', detail: '본인(일부) — 로컬 FastAPI 서버. Electron과 localhost로 통신, AI 모델 호출', x: 170, y: 170, w: 90, d: 64, h: 36, title: 'FastAPI (로컬)', sub: 'PyInstaller exe · 자식 프로세스', icon: 'fastapi', mine: true, label: 'below' },
-          { id: 'qwen', detail: '팀원 담당 — 강의 슬라이드 OCR · 번역 (VLM)', x: 40, y: 300, ...S, title: 'Qwen3-VL', sub: '슬라이드 OCR · 번역 (팀원)', icon: FaImage, iconColor: '#C9CFE0', muted: true, label: 'left' },
-          { id: 'whisper', detail: '팀원 담당 — 한국어 ASR (CTranslate2 int8)', x: 300, y: 40, ...S, title: 'Whisper', sub: 'ASR · CT2 int8', icon: FaMicrophone, iconColor: '#C9CFE0', muted: true, label: 'right' },
-          { id: 'nllb', detail: '팀원 담당 — 한 → 영 번역', x: 300, y: 170, ...S, title: 'NLLB-200', sub: '한 → 영 번역', icon: FaLanguage, iconColor: '#C9CFE0', muted: true, label: 'right' },
-          { id: 'tts', detail: '팀원 담당 — 영어 음성 합성', x: 300, y: 300, ...S, title: 'TTS', sub: '영어 음성 합성', icon: FaVolumeUp, iconColor: '#C9CFE0', muted: true, label: 'right' },
+          { id: 'electron', detail: '팀원 담당 — React UI, 강의자 화면. 메인 프로세스가 앱 시작 시 백엔드 exe를 자식 프로세스로 실행', x: 40, y: 40, ...S, title: 'Electron 앱', sub: 'React UI · 강의자 화면 (팀원)', icon: 'electron', muted: true, label: 'above' },
+          { id: 'download', detail: '본인 — 대용량 AI 모델 다운로드 · 설치 과정을 비개발자도 통과할 수 있는 사용자 플로우로 설계 · 구현', x: 40, y: 170, ...S, title: '모델 다운로드 · 검증', sub: '모델 다운로드 · 설치 플로우', icon: FaDownload, iconColor: '#F2F4FA', mine: true, label: 'above' },
+          { id: 'fastapi', detail: '본인(일부) — 로컬 FastAPI 서버. UI는 localhost로 요청, 서버가 Whisper · NLLB · TTS를 호출', x: 170, y: 170, w: 90, d: 64, h: 36, title: 'FastAPI (로컬)', sub: 'PyInstaller exe · 자식 프로세스', icon: 'fastapi', mine: true, label: 'below' },
+          { id: 'qwen', detail: '팀원 담당 — Surya OCR → Qwen3-VL 번역으로 레이아웃을 보존한 번역 슬라이드 생성', x: 40, y: 300, ...S, title: 'Qwen3-VL', sub: 'Surya OCR → VLM 번역 (팀원)', icon: FaImage, iconColor: '#C9CFE0', muted: true, label: 'left' },
+          { id: 'whisper', detail: '팀원 담당 — VAD로 발화 구간을 끊어 Whisper 한국어 음성 인식', x: 300, y: 40, ...S, title: 'Whisper', sub: '한국어 ASR', icon: FaMicrophone, iconColor: '#C9CFE0', muted: true, label: 'right' },
+          { id: 'nllb', detail: '팀원 담당 — NLLB-200 한 → 영 기계 번역', x: 300, y: 170, ...S, title: 'NLLB-200', sub: '한 → 영 번역', icon: FaLanguage, iconColor: '#C9CFE0', muted: true, label: 'right' },
+          { id: 'tts', detail: '팀원 담당 — 번역문을 영어 음성으로 합성', x: 300, y: 300, ...S, title: 'TTS', sub: '영어 음성 합성', icon: FaVolumeUp, iconColor: '#C9CFE0', muted: true, label: 'right' },
           /* 수강자 브라우저 — 바닥판 오른쪽 위 */
-          { id: 'browser', detail: '팀원 담당 — LAN으로 자막 · TTS · 번역 슬라이드 · 판서 4채널 수신', x: 160, y: -150, ...S, title: '수강자 브라우저', sub: '자막 · TTS · 번역 슬라이드', icon: FaGlobe, iconColor: '#C9CFE0', muted: true, label: 'above' },
+          { id: 'browser', detail: '팀원 담당 — 자막 · TTS · 번역 슬라이드 · 판서 · 커서 스팟라이트 수신, 회선 품질에 따른 P90 적응형 딜레이', x: 160, y: -150, ...S, title: '수강자 브라우저', sub: '자막 · TTS · 번역 슬라이드', icon: FaGlobe, iconColor: '#C9CFE0', muted: true, label: 'above' },
         ]}
         captionAt={[-480, 450]}
       />
@@ -61,24 +61,24 @@ export function BunminFlow() {
           { pts: [[48, 60], [48, 150]], from: 'mic', to: 'asr', label: 'VAD 발화 구간', labelDx: 58, labelDy: 2 },
           { pts: [[48, 190], [48, 280]], from: 'asr', to: 'nmt', label: '한국어 텍스트', labelDx: 56, labelDy: 2 },
           { pts: [[48, 320], [48, 410]], from: 'nmt', to: 'tts', label: '영어 텍스트', labelDx: 52, labelDy: 2 },
-          { pts: [[48, 450], [48, 540]], from: 'tts', to: 'browser', label: '음성 · 자막 · 판서 4채널', labelDx: 84, labelDy: 2, acc: true, flow: true },
+          { pts: [[48, 450], [48, 540]], from: 'tts', to: 'browser', label: '자막 · 음성 · 판서 · 커서 동기화', labelDx: 96, labelDy: 2, acc: true, flow: true },
           /* 2행: 설치 데이터 (본인) */
           { pts: [[328, 60], [328, 150]], from: 'setup', to: 'peruser', label: '17GB 단일 파일', labelDx: 60, labelDy: 2, acc: true, flow: true },
           { pts: [[328, 190], [328, 280]], from: 'peruser', to: 'disk', label: '관리자 권한 불필요', labelDx: 68, labelDy: 2, acc: true, flow: true },
           { pts: [[328, 320], [328, 410]], from: 'disk', to: 'first', label: '용량 사전 검사', labelDx: 58, labelDy: 2, acc: true, flow: true },
-          { pts: [[328, 450], [328, 540]], from: 'first', to: 'ready', label: '모델 검증 → 로드', labelDx: 62, labelDy: 2, acc: true, flow: true },
+          { pts: [[328, 450], [328, 540]], from: 'first', to: 'ready', label: '모델 확인 → 로드', labelDx: 62, labelDy: 2, acc: true, flow: true },
         ]}
         boxes={[
-          { id: 'mic', detail: '강사 발화 — 마이크 입력, VAD로 발화 구간 검출', step: 1, ...row(20, 0), title: '강사 발화', sub: '마이크 입력', icon: FaMicrophone, iconColor: '#C9CFE0', muted: true, label: 'left' },
-          { id: 'asr', detail: '팀원 — Whisper 한국어 ASR', step: 2, ...row(20, 1), title: 'Whisper', sub: '한국어 ASR', icon: FaLanguage, iconColor: '#C9CFE0', muted: true, label: 'left' },
-          { id: 'nmt', detail: '팀원 — NLLB-200 한 → 영', step: 3, ...row(20, 2), title: 'NLLB-200', sub: '한 → 영 번역', icon: FaLanguage, iconColor: '#C9CFE0', muted: true, label: 'left' },
-          { id: 'tts', detail: '팀원 — 영어 TTS', step: 4, ...row(20, 3), title: 'TTS', sub: '영어 음성 합성', icon: FaVolumeUp, iconColor: '#C9CFE0', muted: true, label: 'left' },
-          { id: 'browser', detail: '팀원 — 원본 음성 · TTS · 자막 · 판서 4채널을 수강자 브라우저에 동기화 (목표 2초 이내)', step: 5, ...row(20, 4), title: '수강자 브라우저', sub: '자막 · 음성 · 슬라이드', icon: FaGlobe, iconColor: '#C9CFE0', muted: true, label: 'left' },
-          { id: 'setup', detail: '본인 — 모델까지 넣은 17GB 단일 setup.exe (Inno Setup)', step: 1, ...row(300, 0), title: 'setup.exe', sub: '모델 포함 17GB', icon: FaBoxOpen, iconColor: '#F2C94C', mine: true, label: 'left' },
-          { id: 'peruser', detail: '본인 — 관리자 권한 없는 강의실 PC에 per-user 설치', step: 2, ...row(300, 1), title: 'per-user 설치', sub: '강의실 PC', icon: FaDesktop, iconColor: '#F2F4FA', mine: true, label: 'left' },
+          { id: 'mic', detail: '강사 발화 — 마이크 입력을 VAD로 발화 단위로 끊어 처리', step: 1, ...row(20, 0), title: '강사 발화', sub: '마이크 입력', icon: FaMicrophone, iconColor: '#C9CFE0', muted: true, label: 'left' },
+          { id: 'asr', detail: '팀원 — Whisper 한국어 음성 인식 (partial → final)', step: 2, ...row(20, 1), title: 'Whisper', sub: '한국어 ASR', icon: FaLanguage, iconColor: '#C9CFE0', muted: true, label: 'left' },
+          { id: 'nmt', detail: '팀원 — NLLB-200 한 → 영 번역', step: 3, ...row(20, 2), title: 'NLLB-200', sub: '한 → 영 번역', icon: FaLanguage, iconColor: '#C9CFE0', muted: true, label: 'left' },
+          { id: 'tts', detail: '팀원 — 영어 음성 합성', step: 4, ...row(20, 3), title: 'TTS', sub: '영어 음성 합성', icon: FaVolumeUp, iconColor: '#C9CFE0', muted: true, label: 'left' },
+          { id: 'browser', detail: '팀원 — 자막 · TTS · 판서 · 커서를 수강자 브라우저에 동기화 (발화 → 자막 · 음성 목표 2초 이내)', step: 5, ...row(20, 4), title: '수강자 브라우저', sub: '자막 · 음성 · 슬라이드', icon: FaGlobe, iconColor: '#C9CFE0', muted: true, label: 'left' },
+          { id: 'setup', detail: '본인 — AI 모델까지 넣은 17GB 단일 setup.exe (Inno Setup)', step: 1, ...row(300, 0), title: 'setup.exe', sub: '모델 포함 17GB', icon: FaBoxOpen, iconColor: '#F2C94C', mine: true, label: 'left' },
+          { id: 'peruser', detail: '본인 — Program Files 대신 %LOCALAPPDATA%에 per-user 설치 → 관리자 권한(UAC) 불필요', step: 2, ...row(300, 1), title: 'per-user 설치', sub: '강의실 PC', icon: FaDesktop, iconColor: '#F2F4FA', mine: true, label: 'left' },
           { id: 'disk', detail: '본인 — 설치 전 디스크 여유 공간 사전 검사', step: 3, ...row(300, 2), title: '디스크 체크', sub: '설치 전 사전 검사', icon: FaHdd, iconColor: '#F2F4FA', mine: true, label: 'left' },
-          { id: 'first', detail: '본인 — 첫 실행 시 모델 존재 · 무결성 검증 → 로드', step: 4, ...row(300, 3), title: '첫 실행', sub: '모델 검증', icon: FaDownload, iconColor: '#F2F4FA', mine: true, label: 'left' },
-          { id: 'ready', detail: '본인 — backend health OK → 강의 시작 가능', step: 5, ...row(300, 4), title: '강의 시작 가능', sub: 'health OK', icon: FaCheck, iconColor: '#46BE8C', mine: true, label: 'left' },
+          { id: 'first', detail: '본인 — 첫 실행 시 모델 확인 · 다운로드 플로우 → 로드', step: 4, ...row(300, 3), title: '첫 실행', sub: '모델 확인 · 로드', icon: FaDownload, iconColor: '#F2F4FA', mine: true, label: 'left' },
+          { id: 'ready', detail: '본인 — 백엔드 준비 완료 → 강의 시작 가능', step: 5, ...row(300, 4), title: '강의 시작 가능', sub: '백엔드 준비 완료', icon: FaCheck, iconColor: '#46BE8C', mine: true, label: 'left' },
         ]}
         captionAt={[-620, 484]}
       />
@@ -98,19 +98,19 @@ export function BunminSeq() {
         { name: '강사', muted: true, icon: FaUser, iconColor: '#C9CFE0' },
         { name: 'setup.exe (Inno)', mine: true, icon: FaBoxOpen, iconColor: '#F2C94C' },
         { name: 'Electron 앱', muted: true, icon: 'electron' },
-        { name: 'backend.exe', mine: true, icon: 'python' },
+        { name: '백엔드 exe (FastAPI)', mine: true, icon: 'python' },
         { name: '모델 저장소', muted: true, icon: FaDatabase, iconColor: '#C9CFE0' },
       ]}
       messages={[
         { from: 0, to: 1, label: '설치 실행 (관리자 권한 없음)' },
-        { from: 1, to: 1, label: '디스크 여유 공간 사전 체크 (17GB)', self: true, acc: true },
-        { from: 1, to: 0, label: 'per-user 경로에 설치 완료', acc: true },
+        { from: 1, to: 1, label: '디스크 여유 공간 사전 체크 (17GB) · %LOCALAPPDATA% 경로 · PrivilegesRequired=lowest', self: true, acc: true },
+        { from: 1, to: 0, label: '설치 완료 — per-user · UAC 없음', acc: true },
         { from: 0, to: 2, label: '앱 시작' },
         { from: 2, to: 3, label: '자식 프로세스로 백엔드 스폰', acc: true },
         { from: 3, to: 4, label: '모델 확인 · 누락분 다운로드', dashed: true },
         { from: 4, to: 3, label: '모델 파일', dashed: true },
-        { from: 3, to: 3, label: '무결성 검증 · 로드', self: true, acc: true },
-        { from: 3, to: 2, label: 'health OK (localhost)', acc: true },
+        { from: 3, to: 3, label: '모델 확인 · 로드', self: true, acc: true },
+        { from: 3, to: 2, label: '준비 완료 응답 (localhost)', acc: true },
         { from: 2, to: 0, label: '강의 시작 가능' },
       ]}
     />
