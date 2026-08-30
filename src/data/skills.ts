@@ -35,5 +35,17 @@ export const alsoKeys: TechKey[] = [
   'git', 'mysql', 'html', 'js', 'react', 'vue',
 ]
 
+export interface Cert {
+  name: string
+  issuer: string
+  date: string
+}
+
+/** 자격증 — 최신순 */
+export const certs: Cert[] = [
+  { name: '정보처리기사', issuer: '한국산업인력공단', date: '2026.06' },
+  { name: 'SQL 개발자 (SQLD)', issuer: '한국데이터산업진흥원', date: '2024.04' },
+]
+
 export const highlightLine =
   '로컬 AI 모델 운용(Whisper · NLLB, PyTorch 계열) — 클라우드 운영(AWS EC2, 출시~2026.06) — 빌드 자동화(3단계 패키징 파이프라인)'

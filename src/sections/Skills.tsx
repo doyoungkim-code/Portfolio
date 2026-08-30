@@ -2,7 +2,7 @@ import { Cover } from '../components/Cover'
 import { DisplayTitle } from '../components/DisplayTitle'
 import { Reveal } from '../components/Reveal'
 import { TechIcon, TechStrip } from '../components/TechIcon'
-import { alsoKeys, highlightLine, skillRows } from '../data/skills'
+import { alsoKeys, certs, highlightLine, skillRows } from '../data/skills'
 
 export function Skills() {
   return (
@@ -28,7 +28,18 @@ export function Skills() {
       <Reveal delay={0.24}>
         <TechStrip keys={alsoKeys} />
       </Reveal>
-      <Reveal className="pf-covermeta pf-covermeta--tight" delay={0.3}>
+      <Reveal delay={0.28}>
+        <div className="pf-certs">
+          <span className="pf-certs__label">CERTIFICATIONS</span>
+          {certs.map((c) => (
+            <div className="pf-certs__item" key={c.name}>
+              <b>{c.name}</b>
+              <span>{c.issuer} · {c.date}</span>
+            </div>
+          ))}
+        </div>
+      </Reveal>
+      <Reveal className="pf-covermeta pf-covermeta--tight" delay={0.32}>
         <p>{highlightLine}</p>
       </Reveal>
     </Cover>
