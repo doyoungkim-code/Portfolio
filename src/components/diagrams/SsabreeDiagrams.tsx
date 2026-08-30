@@ -1,16 +1,16 @@
-import { FaMobileAlt, FaSearch, FaTrophy } from 'react-icons/fa'
-import { SiAndroid, SiApple, SiFirebase, SiGooglegemini, SiMattermost, SiReact } from 'react-icons/si'
+import { FaGlobe, FaMobileAlt, FaSearch, FaTrophy } from 'react-icons/fa'
+import { SiAndroid, SiApple, SiFirebase, SiMattermost } from 'react-icons/si'
 import { Diagram, Seq } from './primitives'
 import { IsoScene } from './iso'
 
-/** 시스템 아키텍처 (아이소메트릭) — EC2 한 장 위의 Docker 컨테이너 4개, 클라이언트 3종, 외부 연동 3개 */
+/** 시스템 아키텍처 (아이소메트릭) — EC2 한 장 위의 컨테이너 4개, 클라이언트 3종, 외부 연동 3개. 검증된 사실만 표기 */
 export function SsabreeArch() {
   const S = { w: 56, d: 40, h: 28 }
   const C = { w: 56, d: 40, h: 20 }
   return (
-    <Diagram w={920} h={526}>
+    <Diagram w={760} h={526}>
       <IsoScene
-        origin={[440, 140]}
+        origin={[380, 140]}
         plates={[{ x: 0, y: 0, w: 320, d: 320, label: 'AWS EC2 · DOCKER COMPOSE — 본인 구축 · 운영' }]}
         paths={[
           /* 클라이언트 3종 → 한 갈래로 모여 Nginx (HTTPS · WSS) */
@@ -25,13 +25,12 @@ export function SsabreeArch() {
           { pts: [[150, 130], [150, -40], [48, -40], [48, -110]], from: 'spring', to: 'mattermost', label: '로그인 검증', seg: 1, labelDx: -30, labelDy: 40, dashed: true },
           { pts: [[175, 130], [175, -60], [148, -60], [148, -110]], from: 'spring', to: 'fcm', label: 'FCM 푸시', seg: 0, labelDx: 44, labelDy: -6, acc: true, flow: true },
           { pts: [[200, 130], [200, -80], [248, -80], [248, -110]], from: 'spring', to: 'solvedac', dashed: true },
-          { pts: [[220, 150], [232, 150], [232, -100], [348, -100], [348, -110]], from: 'spring', to: 'gemini', label: '게시글 검열 (비동기)', seg: 1, labelDx: 62, labelDy: -2, dashed: true },
         ]}
         boxes={[
           /* 클라이언트 (팀원) — 바닥판 왼쪽 위 대각선 */
-          { id: 'android', detail: '팀원 담당 — Kotlin · Compose. Android · iOS · Web 세 클라이언트가 같은 REST · STOMP API를 사용', x: -150, y: 20, ...C, title: 'Android 앱', sub: 'Kotlin · Compose (팀원)', icon: SiAndroid, iconColor: '#3DDC84', muted: true, label: 'above' },
-          { id: 'ios', detail: '팀원 담당 — SwiftUI. 원스토어 · 앱스토어 출시 후 150명 이상 사용', x: -150, y: 120, ...C, title: 'iOS 앱', sub: 'SwiftUI (팀원)', icon: SiApple, iconColor: '#E8EAF0', muted: true, label: 'above' },
-          { id: 'web', detail: '팀원 담당 — React 웹 클라이언트', x: -150, y: 220, ...C, title: 'Web', sub: 'React (팀원)', icon: SiReact, iconColor: '#61DAFB', muted: true, label: 'above' },
+          { id: 'android', detail: '팀원 담당 — Android · iOS · Web 세 클라이언트가 같은 REST · STOMP API를 사용', x: -150, y: 20, ...C, title: 'Android 앱', sub: '팀원 담당', icon: SiAndroid, iconColor: '#3DDC84', muted: true, label: 'above' },
+          { id: 'ios', detail: '팀원 담당 — 원스토어 · 앱스토어 출시 후 150명 이상 사용', x: -150, y: 120, ...C, title: 'iOS 앱', sub: '팀원 담당', icon: SiApple, iconColor: '#E8EAF0', muted: true, label: 'above' },
+          { id: 'web', detail: '팀원 담당 — 웹 클라이언트', x: -150, y: 220, ...C, title: 'Web', sub: '팀원 담당', icon: FaGlobe, iconColor: '#C9CFE0', muted: true, label: 'above' },
           /* EC2 위 컨테이너 (본인) */
           { id: 'nginx', detail: '본인 — 리버스 프록시. WebSocket은 Nginx가 기본 통과시키지 않아 proxy_set_header Upgrade / Connection "upgrade" 로 열어 줌', x: 40, y: 40, ...S, title: 'Nginx', sub: '리버스 프록시 · WebSocket 프록시', icon: 'nginx', mine: true, label: 'above' },
           { id: 'spring', detail: '본인 — 인증(JWT Access 30분 + Refresh 1년 · Spring Security 필터 체인) · 게시판 · STOMP 채팅(SockJS 폴백) · 팀 매칭 · FCM — 20+ 도메인 모듈', x: 130, y: 130, w: 90, d: 64, h: 36, title: 'Spring Boot API', sub: 'Security(JWT) · JPA · STOMP · FCM', icon: 'spring', mine: true, label: 'below' },
@@ -40,10 +39,9 @@ export function SsabreeArch() {
           /* 외부 연동 (본인) — 바닥판 오른쪽 위 대각선 */
           { id: 'mattermost', detail: '본인 — 가입 시 Mattermost 계정으로 로그인 검증을 위임해 SSAFY 교육생만 가입 (폐쇄형 커뮤니티의 자격 보증)', x: 20, y: -150, ...C, title: 'Mattermost', sub: 'SSAFY 본인 인증', icon: SiMattermost, iconColor: '#4A8CFF', mine: true, label: 'above' },
           { id: 'fcm', detail: '본인 — Firebase Admin SDK. 댓글 · 수락 등 이벤트별 푸시를 @Async로 분리해 API 응답 지연 제거', x: 120, y: -150, ...C, title: 'Firebase FCM', sub: '푸시 알림', icon: SiFirebase, iconColor: '#FFCA28', mine: true, label: 'above' },
-          { id: 'solvedac', detail: '본인 — 포트폴리오 CRUD와 solved.ac 연동 (티어 · 푼 문제 수 표시)', x: 220, y: -150, ...C, title: 'solved.ac', sub: '포트폴리오 연동', icon: FaTrophy, iconColor: '#FFB020', mine: true, label: 'above' },
-          { id: 'gemini', detail: '외부 — 게시글 등록 후 서버가 Gemini로 비동기 검열해 부적절한 글을 블라인드 (싸피봇)', x: 320, y: -150, ...C, title: 'Gemini', sub: 'AI 게시글 검열', icon: SiGooglegemini, iconColor: '#8AB4F8', muted: true, label: 'above' },
+          { id: 'solvedac', detail: '본인 — 포트폴리오 CRUD · solved.ac 연동', x: 220, y: -150, ...C, title: 'solved.ac', sub: '포트폴리오 연동', icon: FaTrophy, iconColor: '#FFB020', mine: true, label: 'above' },
         ]}
-        captionAt={[-420, 372]}
+        captionAt={[-360, 372]}
       />
     </Diagram>
   )
@@ -100,20 +98,17 @@ export function SsabreeSeq() {
         { name: 'Nginx', mine: true, icon: 'nginx' },
         { name: 'Spring · STOMP', mine: true, icon: 'spring' },
         { name: '폰 B', muted: true, icon: FaMobileAlt, iconColor: '#C9CFE0' },
-        { name: 'FCM', muted: true, icon: SiFirebase, iconColor: '#FFCA28' },
       ]}
       messages={[
         { from: 0, to: 1, label: 'HTTP Upgrade: websocket' },
         { from: 1, to: 2, label: 'proxy_pass (Upgrade · Connection 헤더 전달)' },
-        { from: 0, to: 2, label: 'CONNECT { Authorization: Bearer JWT }' },
-        { from: 2, to: 2, label: 'ChannelInterceptor — JWT 검증 · 사용자 바인딩', self: true, acc: true },
+        { from: 0, to: 2, label: 'STOMP CONNECT (헤더에 JWT)' },
+        { from: 2, to: 2, label: 'ChannelInterceptor — JWT 검증', self: true, acc: true },
         { from: 0, to: 2, label: 'SUBSCRIBE /topic/room.7' },
         { from: 3, to: 2, label: 'SUBSCRIBE /topic/room.7', dashed: true },
-        { from: 0, to: 2, label: 'SEND /app/chat.7 { text }' },
+        { from: 0, to: 2, label: 'SEND — 메시지 전송' },
         { from: 2, to: 2, label: '메시지 저장 (PostgreSQL)', self: true },
         { from: 2, to: 3, label: 'MESSAGE /topic/room.7 → 즉시 동기화', acc: true },
-        { from: 2, to: 4, label: '@Async FCM 푸시 (본 요청과 분리)', dashed: true },
-        { from: 4, to: 3, label: '푸시 알림 (헤드업)', dashed: true },
       ]}
     />
   )
