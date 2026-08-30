@@ -151,9 +151,9 @@ function ProjectDeep({ p, num, variant, next, diagrams }: DeepProps) {
           <DetailTabs
             overline="DEEP DIVE"
             tabs={[
-              /* 훑어보는 사람이 "내가 한 일"을 먼저 보도록 역할 탭이 기본 */
-              { id: 'roles', label: '역할 · 구현', content: <DtRows items={p.roles} /> },
+              /* 아키텍처(전체 그림) → 역할·구현(내가 한 일) 순 */
               { id: 'arch', label: '아키텍처', content: <DiagramTab note={diagrams.notes[0]}>{diagrams.arch}</DiagramTab> },
+              { id: 'roles', label: '역할 · 구현', content: <DtRows items={p.roles} /> },
               { id: 'flow', label: '데이터 플로우', content: <DiagramTab note={diagrams.notes[1]}>{diagrams.flow}</DiagramTab> },
               { id: 'seq', label: '시퀀스', content: <DiagramTab note={diagrams.notes[2]}>{diagrams.seq}</DiagramTab> },
               { id: 'psr', label: '문제 → 해결 → 결과', content: <Psr items={p.troubles} /> },
