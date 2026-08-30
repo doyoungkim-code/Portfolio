@@ -24,7 +24,8 @@ export function useFixedCanvas() {
       }
       const zoom = Math.min(vw / CANVAS_W, vh / CANVAS_H)
       root.style.setProperty('--zoom', String(zoom))
-      root.style.setProperty('--cw', `${Math.round(vw / zoom)}px`)
+      /* 내림: 반올림하면 캔버스가 창보다 0.x px 넓어져 가로 스크롤바가 생길 수 있다 */
+      root.style.setProperty('--cw', `${Math.floor(vw / zoom)}px`)
       root.classList.add('fixed-canvas')
     }
     apply()
