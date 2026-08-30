@@ -630,53 +630,58 @@ html.fixed-canvas .pf-3d{left:0;right:0}
   #cv-about .pf-coverlinks{justify-content:flex-start}
 }
 
-/* ── JOURNEY: 가운데는 수상 사진, 양옆 사이드에 내용 ── */
-.pf-jr{display:grid;grid-template-columns:1fr;gap:28px;text-align:left}
-/* 계단형 3D 타임라인 */
-.pf-tl{position:relative;padding:6px 0 6px 4px}
-.pf-tl::before{
-  content:'';position:absolute;left:39px;top:36px;bottom:36px;width:1px;
-  background:linear-gradient(180deg, rgba(143,131,255,.05), rgba(143,131,255,.55) 20%, rgba(143,131,255,.55) 80%, rgba(143,131,255,.05));
-}
-.pf-tl__dot{
-  position:absolute;left:36px;top:36px;width:7px;height:7px;border-radius:50%;background:var(--pur);
-  box-shadow:0 0 10px 2px rgba(143,131,255,.5);animation:tlDot 4.2s cubic-bezier(.4,0,.2,1) infinite;
-}
-@keyframes tlDot{0%{top:36px;opacity:0}8%{opacity:1}92%{opacity:1}100%{top:calc(100% - 40px);opacity:0}}
-.pf-tl__item{display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:center;padding:10px 0}
-.pf-tl__cube{position:relative;z-index:1}
-.pf-tl__cube .dg{width:72px;height:78px;max-width:none}
-.pf-tl__body{display:grid;gap:3px;padding:12px 16px 12px 18px;border-left:1px solid var(--d-line);position:relative}
-.pf-tl__body::before{
-  content:'';position:absolute;left:-1px;top:12px;bottom:12px;width:2px;background:var(--pur);opacity:.85;
-}
-.pf-tl__head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:2px}
-.pf-tl__logo{display:block;width:auto;max-width:130px;object-fit:contain;opacity:.92}
-.pf-tl__no{font-family:var(--font-disp);font-size:10.5px;letter-spacing:.3em;color:var(--d-ink3)}
-.pf-tl__date{font-family:var(--font-disp);font-weight:400;font-size:12.5px;letter-spacing:.08em;color:var(--pur)}
-.pf-tl__name{font-weight:500;font-size:16.5px;color:var(--d-ink)}
-.pf-tl__desc{font-weight:300;font-size:13.5px;line-height:1.7;color:var(--d-ink2)}
-@media(prefers-reduced-motion:reduce){.pf-tl__dot{display:none}}
+/* ── JOURNEY: 위 60% 수상 사진, 아래 띠에 가로 계단 타임라인 ── */
+.pf-jn{position:relative;text-align:left}
+.pf-jn__head{max-width:520px}
+.pf-jn__head .pf-cover__sub{margin-top:14px}
+.pf-jn__head .pf-cover__sub p{font-size:16px;line-height:1.75}
+.pf-jn__band{position:relative;display:grid;grid-template-columns:1fr;gap:26px}
+.pf-jn__col{position:relative;padding-left:8px;display:flex;flex-direction:column}
+.pf-jn__no{position:absolute;left:8px;top:-20px;font-family:var(--font-disp);font-size:10.5px;letter-spacing:.3em;color:var(--d-ink3)}
+.pf-jn__stair{position:relative;z-index:2;height:96px;display:flex;align-items:flex-end}
+.pf-jn__stair .dg{width:84px;height:86px;max-width:none}
+.pf-jn__logobox{display:flex;align-items:flex-end;height:44px;margin:6px 0 12px} /* 로고 높이가 달라도 열 높이는 같게 — 레일이 큐브 밑면을 정확히 지나도록 */
+.pf-jn__logo{display:block;width:auto;max-width:150px;object-fit:contain;opacity:.92}
+.pf-jn__date{display:block;font-family:var(--font-disp);font-weight:300;font-size:22px;letter-spacing:.04em;line-height:1.2;color:var(--pur);font-variant-numeric:tabular-nums}
+.pf-jn__name{display:block;font-weight:500;font-size:16.5px;color:var(--d-ink);margin:6px 0 3px}
+.pf-jn__desc{display:block;font-weight:300;font-size:13.5px;line-height:1.7;color:var(--d-ink2)}
+.pf-jn__meta p{font-weight:300;font-size:12px;letter-spacing:.05em;color:var(--d-ink3);line-height:1.9}
+/* 큐브를 잇는 레일 + 흐르는 점 (데스크톱에서만) */
+.pf-jn__rail{display:none}
 @media(min-width:861px){
-  #cv-journey{padding-left:230px;padding-right:60px}
-  #cv-journey .pf-cover__in{max-width:none}
+  #cv-journey{padding:0}
+  #cv-journey .pf-cover__in{position:static;max-width:none}
   #cv-journey .pf-cover__num{display:none}
-  /* 사진을 왼쪽 기준으로 잘라 단체가 오른쪽으로 살짝 밀리게 → 본인(왼쪽에서 두 번째)이 밝은 가운데 구역에 들어온다 */
+  #cv-journey::before{opacity:.45}
   #cv-journey .pf-cover__bg img{opacity:.92;filter:saturate(.9);object-position:0 50%}
   #cv-journey .pf-cover__bg::after{
     background:
-      linear-gradient(180deg, rgba(12,15,29,.5) 0%, rgba(12,15,29,0) 24%, rgba(12,15,29,0) 74%, rgba(12,15,29,.6) 100%),
-      linear-gradient(90deg, rgba(12,15,29,.97) 0%, rgba(12,15,29,.95) 29%, rgba(12,15,29,.35) 35%, rgba(12,15,29,.08) 40%, rgba(12,15,29,.08) 59%, rgba(12,15,29,.55) 65%, rgba(12,15,29,.94) 72%, rgba(12,15,29,.97) 100%);
+      linear-gradient(180deg, rgba(12,15,29,.45) 0%, rgba(12,15,29,0) 18%, rgba(12,15,29,0) 46%, rgba(12,15,29,.86) 66%, rgba(12,15,29,.98) 100%),
+      linear-gradient(90deg, rgba(12,15,29,.92) 0%, rgba(12,15,29,.8) 22%, rgba(12,15,29,.15) 38%, rgba(12,15,29,.05) 58%, rgba(12,15,29,.35) 74%, rgba(12,15,29,.85) 100%);
   }
-  #cv-journey::before{opacity:.4}
-  .pf-jr{grid-template-columns:320px 1fr 420px;gap:40px;align-items:center}
-  .pf-jr__right{background:rgba(10,13,26,.55);border:1px solid rgba(255,255,255,.08);border-radius:6px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:10px 14px}
-  .pf-jr__left .pf-display{font-size:56px;white-space:nowrap}
-  html.fixed-canvas .pf-jr__left .pf-display{font-size:56px}
-  .pf-jr__left .pf-cover__sub{margin-top:22px}
-  .pf-jr__left .pf-cover__sub p{font-size:17px;line-height:1.75}
-  .pf-jr__left .pf-covermeta{margin-top:26px}
-  .pf-jr__left .pf-covermeta p{font-size:12.5px;line-height:1.9}
+  .pf-jn{position:static}
+  .pf-jn__head{position:absolute;left:230px;top:112px;z-index:5}
+  .pf-jn__head .pf-display{font-size:56px;white-space:nowrap}
+  html.fixed-canvas .pf-jn__head .pf-display{font-size:56px}
+  .pf-jn__band{position:absolute;left:230px;right:60px;bottom:78px;z-index:5;grid-template-columns:1fr 1fr 1fr;gap:28px;align-items:end}
+  .pf-jn__desc{white-space:nowrap}
+  .pf-jn__meta{position:absolute;left:230px;bottom:40px;z-index:5}
+  .pf-jn__rail{
+    /* 첫 큐브 중심(50px) → 마지막 큐브 중심: 3열 그리드(gap 28)에서 마지막 열 중심까지의 거리 */
+    display:block;position:absolute;left:50px;right:calc(33.333% - 68.7px);top:64px;height:1px;z-index:1;
+    background:linear-gradient(90deg,rgba(143,131,255,.1),rgba(143,131,255,.6) 12%,rgba(143,131,255,.6) 88%,rgba(143,131,255,.1));
+  }
+  .pf-jn__rail b{position:absolute;top:-4px;width:9px;height:9px;border-radius:50%;background:var(--d-bg);border:1.5px solid var(--pur)}
+  .pf-jn__rail b:nth-child(1){left:-4px}.pf-jn__rail b:nth-child(2){left:calc(50% - 4px)}.pf-jn__rail b:nth-child(3){right:-4px}
+  .pf-jn__rail i{position:absolute;top:-3px;width:7px;height:7px;border-radius:50%;background:var(--pur);box-shadow:0 0 10px 2px rgba(143,131,255,.5);animation:jnDot 4.5s linear infinite}
+  @keyframes jnDot{0%{left:0;opacity:0}6%{opacity:1}94%{opacity:1}100%{left:calc(100% - 7px);opacity:0}}
+}
+@media(prefers-reduced-motion:reduce){.pf-jn__rail i{display:none}}
+@media(max-width:860px){
+  .pf-jn__band{gap:36px;margin-top:34px}
+  .pf-jn__no{position:static;margin-bottom:2px}
+  .pf-jn__stair{height:80px}
+  .pf-jn__meta{margin-top:30px}
 }
 
 /* ── 글씨 확대 후 900px 캔버스에 맞추기 위한 간격 조정 ── */

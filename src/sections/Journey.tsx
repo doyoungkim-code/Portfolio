@@ -1,4 +1,3 @@
-import type { CSSProperties } from 'react'
 import { FaCode, FaGraduationCap, FaRocket } from 'react-icons/fa'
 import type { IconType } from 'react-icons'
 import { Cover } from '../components/Cover'
@@ -9,65 +8,60 @@ import { IsoBox } from '../components/diagrams/iso'
 import { journeyMeta, journeyRows } from '../data/journey'
 import { asset } from '../lib/asset'
 
-/* 여정 3단계를 아이소메트릭 계단으로 — 갈수록 높아지는 큐브. logo는 각 기관 공식 로고(public/images/logos) */
+/* 여정 3단계 — 왼쪽→오른쪽으로 높아지는 아이소메트릭 큐브 + 기관 공식 로고(public/images/logos) */
 const STEPS: { icon: IconType; h: number; logo: string; logoH: number; alt: string }[] = [
-  { icon: FaGraduationCap, h: 12, logo: 'images/logos/yu.svg', logoH: 21, alt: '영남대학교' },
-  { icon: FaCode, h: 20, logo: 'images/logos/42gyeongsan.png', logoH: 27, alt: '42 GYEONGSAN' },
-  { icon: FaRocket, h: 28, logo: 'images/logos/ssafy.png', logoH: 40, alt: 'SSAFY' },
+  { icon: FaGraduationCap, h: 12, logo: 'images/logos/yu.svg', logoH: 24, alt: '영남대학교' },
+  { icon: FaCode, h: 22, logo: 'images/logos/42gyeongsan.png', logoH: 26, alt: '42 GYEONGSAN' },
+  { icon: FaRocket, h: 32, logo: 'images/logos/ssafy.png', logoH: 38, alt: 'SSAFY' },
 ]
 
 function StepCube({ icon, h, order }: { icon: IconType; h: number; order: number }) {
   return (
-    <Diagram w={72} h={78}>
-      <g transform="translate(36 46)">
-        <IsoBox x={-15} y={-15} w={30} d={30} h={h} title="" icon={icon} iconColor="#F2F4FA" mine order={order} />
+    <Diagram w={84} h={86}>
+      <g transform="translate(42 54)">
+        <IsoBox x={-16} y={-16} w={32} d={32} h={h} title="" icon={icon} iconColor="#F2F4FA" mine order={order} />
       </g>
     </Diagram>
   )
 }
 
 /**
- * JOURNEY — 가운데는 전시발표회 수상 사진이 그대로 보이고,
- * 왼쪽에 제목·한 줄 소개, 오른쪽에 계단형 3D 타임라인
+ * JOURNEY — 위 60%는 전시발표회 수상 사진, 아래 띠에 가로 계단 타임라인
+ * (큐브가 왼쪽→오른쪽으로 높아지고, 레일 위로 점이 흐른다)
  */
 export function Journey() {
   return (
     <Cover id="cv-journey" nav="journey" page="02" num="02" variant="alt" bg={{ src: 'images/journey-bg.jpg' }} next="cv-skills">
-      <div className="pf-jr">
-        <div className="pf-jr__left">
+      <div className="pf-jn">
+        <div className="pf-jn__head">
           <Reveal className="pf-overline">THE ROAD SO FAR</Reveal>
           <DisplayTitle text="JOURNEY" />
           <Reveal className="pf-cover__sub" delay={0.1}>
-            <p>한 번에 완성된 개발자는 없다고 생각합니다. 세 개의 과정을 순서대로 통과했습니다.</p>
-          </Reveal>
-          <Reveal className="pf-covermeta" delay={0.2}>
-            <p>{journeyMeta}</p>
+            <p>한 번에 완성된 개발자는 없다고 생각합니다.<br className="pf-br" />세 개의 과정을 순서대로 통과했습니다.</p>
           </Reveal>
         </div>
-        <div className="pf-jr__center" aria-hidden />
-        <div className="pf-jr__right">
-          <ol className="pf-tl">
-            <i className="pf-tl__dot" aria-hidden />
-            {journeyRows.map((row, i) => (
-              <Reveal key={row.name} delay={0.12 + i * 0.12}>
-                <li className="pf-tl__item" style={{ '--i': i } as CSSProperties}>
-                  <div className="pf-tl__cube">
-                    <StepCube icon={STEPS[i].icon} h={STEPS[i].h} order={i} />
-                  </div>
-                  <div className="pf-tl__body">
-                    <span className="pf-tl__head">
-                      <span className="pf-tl__no">{String(i + 1).padStart(2, '0')}</span>
-                      <img className="pf-tl__logo" src={asset(STEPS[i].logo)} alt={STEPS[i].alt} style={{ height: STEPS[i].logoH }} loading="lazy" />
-                    </span>
-                    <span className="pf-tl__date">{row.date}</span>
-                    <span className="pf-tl__name">{row.name}</span>
-                    <span className="pf-tl__desc">{row.desc}</span>
-                  </div>
-                </li>
-              </Reveal>
-            ))}
-          </ol>
+
+        <div className="pf-jn__band">
+          <span className="pf-jn__rail" aria-hidden><b /><b /><b /><i /></span>
+          {journeyRows.map((row, i) => (
+            <Reveal key={row.name} className="pf-jn__col" delay={0.14 + i * 0.14}>
+              <span className="pf-jn__no">{String(i + 1).padStart(2, '0')}</span>
+              <div className="pf-jn__stair">
+                <StepCube icon={STEPS[i].icon} h={STEPS[i].h} order={i} />
+              </div>
+              <span className="pf-jn__logobox">
+                <img className="pf-jn__logo" src={asset(STEPS[i].logo)} alt={STEPS[i].alt} style={{ height: STEPS[i].logoH }} loading="lazy" />
+              </span>
+              <span className="pf-jn__date">{row.date}</span>
+              <span className="pf-jn__name">{row.name}</span>
+              <span className="pf-jn__desc">{row.desc}</span>
+            </Reveal>
+          ))}
         </div>
+
+        <Reveal className="pf-jn__meta" delay={0.5}>
+          <p>{journeyMeta}</p>
+        </Reveal>
       </div>
     </Cover>
   )
