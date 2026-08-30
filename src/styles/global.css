@@ -814,6 +814,13 @@ html.fixed-canvas .pf-3d{left:0;right:0}
 .pf-monitor__screen{border-width:8px}
 /* 패널 열이 내용(역할 행) 폭에 밀려 넓어지지 않도록, 행은 음수 마진 없이 */
 .pf-deep__panel{min-width:0}
+/* 내용 영역 뒤에 어두운 반투명 판 — 3D 배경 선이 다이어그램을 가로지르지 않게. 딥다이브에선 3D 배경도 죽임 */
+.pf-deep .dt-panel{
+  background:rgba(10,13,26,.74);border:1px solid rgba(255,255,255,.08);border-radius:6px;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  padding:14px 22px 12px;margin-top:10px;
+}
+.pf--ondemo .pf-3d{opacity:.22}
 .pf-deep .dt-row{margin:0}
 .pf-deep .dt-rows{padding-top:4px}
 .dg{max-width:1040px}
