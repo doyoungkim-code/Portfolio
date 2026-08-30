@@ -1,36 +1,47 @@
+import { FaTrophy } from 'react-icons/fa'
+import { SiAndroid, SiApple, SiFirebase, SiMattermost, SiReact } from 'react-icons/si'
 import { Diagram, Edge, Group, Node, Seq } from './primitives'
+import { IsoScene } from './iso'
 
-/** 시스템 아키텍처 — EC2 한 대에 Docker로 전부, 본인 담당은 강조 */
+/** 시스템 아키텍처 (아이소메트릭) — EC2 한 장 위의 Docker 컨테이너 4개, 클라이언트 3종, 외부 연동 3개 */
 export function SsabreeArch() {
+  const S = { w: 56, d: 40, h: 28 }
+  const C = { w: 56, d: 40, h: 20 }
   return (
-    <Diagram w={760} h={430}>
-      {/* 클라이언트 */}
-      <Node x={40} y={16} w={150} h={50} title="Android 앱" sub="Kotlin · Compose (팀원)" muted />
-      <Node x={210} y={16} w={150} h={50} title="iOS 앱" sub="SwiftUI (팀원)" muted />
-      <Node x={380} y={16} w={150} h={50} title="Web" sub="React (팀원)" muted />
-
-      {/* 서버 그룹 */}
-      <Group x={110} y={110} w={470} h={304} label="AWS EC2 · DOCKER COMPOSE" />
-      <Node x={250} y={134} w={190} h={52} title="Nginx" sub="리버스 프록시 · WebSocket Upgrade" mine />
-      <Node x={200} y={228} w={290} h={60} title="Spring Boot API" sub="Security(JWT) · JPA · STOMP · FCM" mine />
-      <Node x={140} y={340} w={170} h={52} title="PostgreSQL" sub="15+ 엔티티 · Soft Delete" mine />
-      <Node x={380} y={340} w={170} h={52} title="Redis" sub="HOT 캐시 · Sorted Set" mine />
-
-      {/* 외부 */}
-      <Node x={610} y={134} w={130} h={48} title="Mattermost" sub="본인 인증 연동" mine />
-      <Node x={610} y={234} w={130} h={48} title="Firebase FCM" sub="푸시 연동" mine />
-      <Node x={610} y={342} w={130} h={48} title="solved.ac" sub="포트폴리오 연동" mine />
-
-      {/* 흐름 */}
-      <Edge points={[[115, 66], [115, 100], [300, 100], [300, 134]]} label="HTTPS · WSS" labelDy={-6} />
-      <Edge points={[[285, 66], [285, 134]]} noArrow />
-      <Edge points={[[455, 66], [455, 100], [390, 100], [390, 134]]} noArrow />
-      <Edge points={[[345, 186], [345, 228]]} label="proxy_pass" labelDx={44} labelDy={4} />
-      <Edge points={[[270, 288], [225, 340]]} label="JPA" labelDx={-22} labelDy={0} />
-      <Edge points={[[420, 288], [465, 340]]} label="Lettuce" labelDx={30} labelDy={0} />
-      <Edge points={[[490, 244], [610, 244]]} label="REST" labelDy={-6} />
-      <Edge points={[[490, 258], [560, 258], [560, 158], [610, 158]]} label="로그인 검증" labelDx={-40} labelDy={-6} dashed />
-      <Edge points={[[490, 270], [580, 270], [580, 366], [610, 366]]} dashed />
+    <Diagram w={760} h={500}>
+      <IsoScene
+        origin={[380, 140]}
+        plates={[{ x: 0, y: 0, w: 320, d: 320, label: 'AWS EC2 · DOCKER COMPOSE — 본인 구축 · 운영' }]}
+        paths={[
+          /* 클라이언트 3종 → 한 갈래로 모여 Nginx (HTTPS · WSS) */
+          { pts: [[-94, 40], [-40, 40], [-40, 60], [40, 60]], flow: true },
+          { pts: [[-94, 140], [-40, 140], [-40, 60]], label: 'HTTPS · WSS', seg: 1, labelDx: -46, labelDy: 4, noArrow: true },
+          { pts: [[-94, 240], [-40, 240], [-40, 60]], noArrow: true },
+          /* 내부 */
+          { pts: [[68, 80], [68, 162], [130, 162]], label: 'proxy_pass', seg: 0, labelDx: -40, labelDy: 4 },
+          { pts: [[175, 194], [175, 260], [116, 260]], label: 'JPA', seg: 1, labelDy: 16 },
+          { pts: [[220, 162], [268, 162], [268, 100]], label: 'Lettuce', seg: 0, labelDx: 24, labelDy: 18 },
+          /* 외부 연동 — Spring 뒤쪽에서 나가 오른쪽 상단 카드로 */
+          { pts: [[150, 130], [150, -40], [48, -40], [48, -110]], label: '로그인 검증', seg: 1, labelDx: -30, labelDy: 40, dashed: true },
+          { pts: [[175, 130], [175, -60], [148, -60], [148, -110]], label: 'FCM 푸시', seg: 0, labelDx: 44, labelDy: -6, acc: true, flow: true },
+          { pts: [[200, 130], [200, -80], [248, -80], [248, -110]], dashed: true },
+        ]}
+        boxes={[
+          /* 클라이언트 (팀원) — 바닥판 왼쪽 위 대각선 */
+          { id: 'android', x: -150, y: 20, ...C, title: 'Android 앱', sub: 'Kotlin · Compose (팀원)', icon: SiAndroid, iconColor: '#3DDC84', muted: true, label: 'above' },
+          { id: 'ios', x: -150, y: 120, ...C, title: 'iOS 앱', sub: 'SwiftUI (팀원)', icon: SiApple, iconColor: '#E8EAF0', muted: true, label: 'above' },
+          { id: 'web', x: -150, y: 220, ...C, title: 'Web', sub: 'React (팀원)', icon: SiReact, iconColor: '#61DAFB', muted: true, label: 'above' },
+          /* EC2 위 컨테이너 (본인) */
+          { id: 'nginx', x: 40, y: 40, ...S, title: 'Nginx', sub: '리버스 프록시 · WebSocket Upgrade', icon: 'nginx', mine: true, label: 'above' },
+          { id: 'spring', x: 130, y: 130, w: 90, d: 64, h: 36, title: 'Spring Boot API', sub: 'Security(JWT) · JPA · STOMP · FCM', icon: 'spring', mine: true, label: 'below' },
+          { id: 'postgres', x: 60, y: 240, ...S, title: 'PostgreSQL', sub: '15+ 엔티티 · Soft Delete', icon: 'postgres', mine: true, label: 'left' },
+          { id: 'redis', x: 240, y: 60, ...S, title: 'Redis', sub: 'HOT 캐시 · Sorted Set', icon: 'redis', mine: true, label: 'right' },
+          /* 외부 연동 (본인) — 바닥판 오른쪽 위 대각선 */
+          { id: 'mattermost', x: 20, y: -150, ...C, title: 'Mattermost', sub: 'SSAFY 본인 인증', icon: SiMattermost, iconColor: '#4A8CFF', mine: true, label: 'above' },
+          { id: 'fcm', x: 120, y: -150, ...C, title: 'Firebase FCM', sub: '푸시 알림', icon: SiFirebase, iconColor: '#FFCA28', mine: true, label: 'above' },
+          { id: 'solvedac', x: 220, y: -150, ...C, title: 'solved.ac', sub: '포트폴리오 연동', icon: FaTrophy, iconColor: '#FFB020', mine: true, label: 'above' },
+        ]}
+      />
     </Diagram>
   )
 }

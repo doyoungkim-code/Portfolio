@@ -99,7 +99,6 @@ export function DemoStage({ path, hash, size, title, bare = false, focus, onPhas
             title={title}
             style={{ width: logicalW, height: logicalH, transform: `scale(${s0})`, background: bare ? 'transparent' : undefined }}
             allow="autoplay"
-            allowTransparency
             onLoad={() => {
               setReady(false)
               window.setTimeout(() => setReady(true), 450) /* 데모가 스스로 배치를 끝낸 뒤 표시 */

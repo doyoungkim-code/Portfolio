@@ -701,6 +701,32 @@ html.fixed-canvas .pf-3d{left:0;right:0}
 .dg-note b{color:var(--accent);font-weight:500}
 .pf-cover--alt .dg-note b{color:var(--pur)}
 
+/* 아이소메트릭(2.5D) 아키텍처 */
+.iso-plate__top{fill:rgba(255,255,255,.035);stroke:rgba(255,255,255,.28);stroke-width:1;stroke-dasharray:5 5}
+.iso-plate__left{fill:rgba(0,0,0,.35);stroke:rgba(255,255,255,.14);stroke-width:1}
+.iso-plate__right{fill:rgba(0,0,0,.22);stroke:rgba(255,255,255,.14);stroke-width:1}
+.iso-plate__label{fill:var(--d-ink3);font-size:11px;letter-spacing:.14em;font-family:var(--font-disp)}
+.iso-box__shadow{fill:rgba(0,0,0,.4)}
+.iso-box__top{fill:#2A3050;stroke:rgba(255,255,255,.4);stroke-width:1;stroke-linejoin:round}
+.iso-box__left{fill:#1B2038;stroke:rgba(255,255,255,.22);stroke-width:1;stroke-linejoin:round}
+.iso-box__right{fill:#151A2E;stroke:rgba(255,255,255,.22);stroke-width:1;stroke-linejoin:round}
+.iso-box--mine .iso-box__top{fill:#3F5BD6;stroke:#8FA6FF;stroke-width:1.2}
+.iso-box--mine .iso-box__left{fill:#2A3FA6;stroke:#6C84EE}
+.iso-box--mine .iso-box__right{fill:#1E2F84;stroke:#6C84EE}
+.pf-cover--alt .iso-box--mine .iso-box__top{fill:#6E62D8;stroke:#B7AEFF}
+.pf-cover--alt .iso-box--mine .iso-box__left{fill:#4E43AE;stroke:#9C92F5}
+.pf-cover--alt .iso-box--mine .iso-box__right{fill:#3A3188;stroke:#9C92F5}
+.iso-box--muted .iso-box__top{fill:#20243A;stroke:rgba(255,255,255,.22)}
+.iso-box--muted .iso-box__left{fill:#171A2C;stroke:rgba(255,255,255,.14)}
+.iso-box--muted .iso-box__right{fill:#121525;stroke:rgba(255,255,255,.14)}
+.iso-box--muted .iso-box__title{fill:var(--d-ink2)}
+.iso-box__title{font-size:13.5px}
+.iso-box__sub{font-size:10.5px}
+.iso-flow{fill:#F2F4FA;opacity:.9}
+.iso-flow--acc{fill:var(--accent)}
+.pf-cover--alt .iso-flow--acc{fill:var(--pur)}
+@media(prefers-reduced-motion:reduce){.iso-flow{display:none}}
+
 /* 문제 → 해결 → 결과 */
 .psr__item{padding:14px 0 18px;border-bottom:1px solid var(--d-line)}
 .psr__title{font-weight:700;font-size:16.5px;color:var(--d-ink);margin-bottom:10px}
