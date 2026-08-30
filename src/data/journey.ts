@@ -3,6 +3,15 @@ export interface JourneyAward {
   date: string
 }
 
+export interface Cert {
+  name: string
+  en: string
+  issuer: string
+  date: string
+  /** 자격 종류 — 국가기술자격 / 국가공인 민간자격 */
+  kind: string
+}
+
 export interface JourneyRow {
   date: string
   name: string
@@ -11,9 +20,11 @@ export interface JourneyRow {
   awards?: JourneyAward[]
   /** 수상 기관 (awards 위에 작게) */
   awardsBy?: string
+  /** 그 기간에 취득한 자격증 */
+  certs?: Cert[]
 }
 
-/* 간단하게 — 한 줄씩 */
+/* 간단하게 — 한 줄씩. 수상·자격은 취득 시점의 과정 열에 붙는다 */
 export const journeyRows: JourneyRow[] = [
   {
     date: '2018.03 — 2024.02',
@@ -24,6 +35,7 @@ export const journeyRows: JourneyRow[] = [
     date: '2024.02 — 2025.06',
     name: '42경산 · 1기 본과정',
     desc: 'C/C++ 시스템 프로그래밍 · 피어 리뷰',
+    certs: [{ name: 'SQL 개발자', en: 'SQLD', issuer: '한국데이터산업진흥원', date: '2024.04.05', kind: '국가공인' }],
   },
   {
     date: '2025.07 — 2026.06',
@@ -34,6 +46,7 @@ export const journeyRows: JourneyRow[] = [
       { title: '자율프로젝트 우수상 (1위)', date: '2026.05.21' },
       { title: '전시발표회 우수상 (3위)', date: '2026.06.02' },
     ],
+    certs: [{ name: '정보처리기사', en: '', issuer: '한국산업인력공단', date: '2026.06.12', kind: '국가기술자격' }],
   },
 ]
 

@@ -1,4 +1,4 @@
-import { FaCode, FaGraduationCap, FaRocket, FaTrophy } from 'react-icons/fa'
+import { FaCertificate, FaCode, FaGraduationCap, FaRocket, FaTrophy } from 'react-icons/fa'
 import type { IconType } from 'react-icons'
 import { Cover } from '../components/Cover'
 import { DisplayTitle } from '../components/DisplayTitle'
@@ -55,14 +55,25 @@ export function Journey() {
               <span className="pf-jn__date">{row.date}</span>
               <span className="pf-jn__name">{row.name}</span>
               <span className="pf-jn__desc">{row.desc}</span>
-              {row.awards && (
-                <ul className="pf-jn__awards" aria-label="수상">
-                  {row.awardsBy && <li className="pf-jn__awards-by">AWARDS · {row.awardsBy}</li>}
-                  {row.awards.map((a) => (
+              {(row.awards || row.certs) && (
+                <ul className="pf-jn__awards" aria-label="수상 · 자격">
+                  <li className="pf-jn__awards-by">
+                    {row.awards ? 'AWARDS' : ''}{row.awards && row.certs ? ' · ' : ''}{row.certs ? 'CERTIFICATION' : ''}
+                    {row.awardsBy ? ` · ${row.awardsBy}` : ''}
+                  </li>
+                  {row.awards?.map((a) => (
                     <li key={a.title}>
                       <FaTrophy aria-hidden />
                       <b>{a.title}</b>
                       <span>{a.date}</span>
+                    </li>
+                  ))}
+                  {row.certs?.map((c) => (
+                    <li key={c.name} className="pf-jn__cert" title={`${c.issuer} · ${c.en}`}>
+                      <i className="pf-jn__seal" aria-hidden><FaCertificate /></i>
+                      <b>{c.name}{c.en ? ` (${c.en})` : ''}</b>
+                      <em>{c.kind}</em>
+                      <span>{c.date}</span>
                     </li>
                   ))}
                 </ul>
