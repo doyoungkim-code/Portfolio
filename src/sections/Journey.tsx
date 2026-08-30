@@ -84,8 +84,8 @@ export function Journey() {
   const pins = geo
     ? journeyCerts.map((c) => {
         const x = pinX(c.date, anchors, geo.xs, geo.w)
-        /* 끝에 가까우면 라벨을 왼쪽으로 */
-        const flip = x > geo.w * 0.72
+        /* 라벨은 항상 줄기 왼쪽으로 — 사진 속 상장(가운데)을 가리지 않고, 사람들의 어두운 정장 위에 놓인다 */
+        const flip = true
         return { c, x, flip }
       })
     : []
@@ -111,12 +111,12 @@ export function Journey() {
               style={{ left: x, animationDelay: `${0.6 + i * 0.15}s` }}
               title={`${c.issuer} · 취득 ${c.date}`}
             >
-              <span className="pf-jn__pin-tick" aria-hidden />
-              <span className="pf-jn__pin-chip">
-                <i className="pf-jn__seal" aria-hidden><FaCertificate /></i>
-                <b>{c.name}{c.en ? ` (${c.en})` : ''}</b>
-                <em>{c.kind}</em>
-                <span>{c.date}</span>
+              <span className="pf-jn__pin-node" aria-hidden />
+              <span className="pf-jn__pin-stem" aria-hidden />
+              <span className="pf-jn__pin-arm" aria-hidden />
+              <span className="pf-jn__pin-label">
+                <b><i className="pf-jn__seal" aria-hidden><FaCertificate /></i>{c.name}{c.en ? ` (${c.en})` : ''}</b>
+                <span>{c.kind} · {c.date}</span>
               </span>
             </div>
           ))}
