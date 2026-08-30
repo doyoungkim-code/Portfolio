@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react'
+import { IsoBox } from './iso'
+import type { IsoBoxSpec } from './iso'
 
 /* ─────────────────────────────────────────────────────────
    수작업 SVG 다이어그램 프리미티브 — 포트폴리오 다크 톤에 맞춘 도식
@@ -106,28 +108,42 @@ export interface SeqMessage {
   self?: boolean
 }
 
+export interface SeqActor {
+  name: string
+  mine?: boolean
+  muted?: boolean
+  icon?: IsoBoxSpec['icon']
+  iconColor?: string
+}
+
 interface SeqProps {
   w: number
-  actors: { name: string; mine?: boolean; muted?: boolean }[]
+  actors: SeqActor[]
   messages: SeqMessage[]
   rowH?: number
 }
 
+/**
+ * 시퀀스 — 액터는 아이소메트릭 상자(3D)로 세우고, 메시지 화살표는 읽히도록 평면 수평선 유지.
+ * (아이소 평면 위에 시간축을 눕히면 행 간격이 17px로 겹쳐 라벨을 읽을 수 없다)
+ */
 export function Seq({ w, actors, messages, rowH = 42 }: SeqProps) {
   const n = actors.length
-  const pad = 64
+  const pad = 70
   const step = n > 1 ? (w - pad * 2) / (n - 1) : 0
   const xs = actors.map((_, i) => pad + i * step)
-  const top = 60
+  const top = 118
   const h = top + messages.length * rowH + 24
-  const actorW = Math.min(120, step - 12)
 
   return (
     <Diagram w={w} h={h}>
       {actors.map((a, i) => (
         <g key={a.name}>
-          <line x1={xs[i]} y1={40} x2={xs[i]} y2={h - 8} className="dg-lifeline" />
-          <Node x={xs[i] - actorW / 2} y={6} w={actorW} h={34} title={a.name} mine={a.mine} muted={a.muted} />
+          <line x1={xs[i]} y1={92} x2={xs[i]} y2={h - 8} className="dg-lifeline" />
+          {/* 상자 밑면 중심이 (xs, 46)에 오도록: iso(23, 17, 0) = (5.2, 20) */}
+          <g transform={`translate(${xs[i] - 5.2} 26)`}>
+            <IsoBox x={0} y={0} w={46} d={34} h={24} title={a.name} icon={a.icon} iconColor={a.iconColor} mine={a.mine} muted={a.muted} label="below" />
+          </g>
         </g>
       ))}
       {messages.map((m, i) => {

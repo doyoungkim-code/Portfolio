@@ -1,5 +1,5 @@
-import { FaBoxOpen, FaDownload, FaGlobe, FaImage, FaLanguage, FaMicrophone, FaVolumeUp } from 'react-icons/fa'
-import { Diagram, Edge, Group, Node, Seq } from './primitives'
+import { FaBoxOpen, FaCheck, FaDatabase, FaDesktop, FaDownload, FaGlobe, FaHdd, FaImage, FaLanguage, FaMicrophone, FaUser, FaVolumeUp } from 'react-icons/fa'
+import { Diagram, Seq } from './primitives'
 import { IsoScene } from './iso'
 
 /** 시스템 아키텍처 (아이소메트릭) — 강의자 PC 한 장 위에서 전부 처리(온디바이스), 왼쪽은 본인 담당 배포 파이프라인 */
@@ -45,33 +45,44 @@ export function BunminArch() {
   )
 }
 
-/** 데이터 플로우 — 발화 → 자막·음성 (팀 파이프라인), 2초 이내 */
+/** 데이터 플로우 (아이소메트릭) — 한 바닥판 위 두 줄: 실시간 번역 파이프라인(팀) / 설치 데이터(본인) */
 export function BunminFlow() {
+  const S = { w: 56, d: 40, h: 26 }
+  /* 두 줄이 y축(왼쪽 아래 방향)으로 흐른다 — 상자 라벨은 왼쪽(빈 공간), 경로 라벨은 오른쪽 */
+  const row = (x: number, i: number) => ({ x, y: 20 + i * 130, ...S })
   return (
-    <Diagram w={760} h={320}>
-      <Group x={20} y={14} w={720} h={180} label="실시간 번역 파이프라인 — 목표 2초 이내 (팀)" />
-      <Node x={40} y={60} w={110} h={48} title="마이크" sub="강사 발화" muted />
-      <Node x={180} y={60} w={110} h={48} title="VAD" sub="발화 구간 검출" muted />
-      <Node x={320} y={60} w={120} h={48} title="Whisper" sub="한국어 ASR" muted />
-      <Node x={470} y={60} w={120} h={48} title="NLLB-200" sub="한 → 영" muted />
-      <Node x={620} y={60} w={110} h={48} title="TTS" sub="영어 음성" muted />
-      <Edge points={[[150, 84], [180, 84]]} />
-      <Edge points={[[290, 84], [320, 84]]} />
-      <Edge points={[[440, 84], [470, 84]]} label="텍스트" />
-      <Edge points={[[590, 84], [620, 84]]} />
-      <Node x={230} y={130} w={300} h={44} title="4채널 동기화" sub="원본 음성 · TTS · 자막 · 판서" muted />
-      <Edge points={[[530, 108], [530, 130]]} noArrow />
-      <Edge points={[[675, 108], [675, 152], [530, 152]]} />
-      <Node x={580} y={128} w={150} h={48} title="수강자 브라우저" muted />
-
-      <Group x={20} y={212} w={720} h={94} label="설치 데이터 — 본인 담당" />
-      <Node x={40} y={242} w={160} h={48} title="setup.exe (17GB)" sub="모델 포함 단일 파일" mine />
-      <Node x={250} y={242} w={170} h={48} title="per-user 설치" sub="관리자 권한 불필요" mine />
-      <Node x={470} y={242} w={120} h={48} title="디스크 체크" sub="설치 전 사전 검사" mine />
-      <Node x={630} y={242} w={110} h={48} title="첫 실행" sub="모델 검증" mine />
-      <Edge points={[[200, 266], [250, 266]]} acc />
-      <Edge points={[[420, 266], [470, 266]]} acc />
-      <Edge points={[[590, 266], [630, 266]]} acc />
+    <Diagram w={1000} h={530}>
+      <IsoScene
+        origin={[640, 30]}
+        plates={[{ x: 0, y: 0, w: 360, d: 600, label: '' }]}
+        paths={[
+          /* 1행: 실시간 번역 (팀) */
+          { pts: [[48, 60], [48, 150]], label: 'VAD 발화 구간', labelDx: 58, labelDy: 2 },
+          { pts: [[48, 190], [48, 280]], label: '한국어 텍스트', labelDx: 56, labelDy: 2 },
+          { pts: [[48, 320], [48, 410]], label: '영어 텍스트', labelDx: 52, labelDy: 2 },
+          { pts: [[48, 450], [48, 540]], label: '음성 · 자막 · 판서 4채널', labelDx: 84, labelDy: 2, acc: true, flow: true },
+          /* 2행: 설치 데이터 (본인) */
+          { pts: [[328, 60], [328, 150]], label: '17GB 단일 파일', labelDx: 60, labelDy: 2, acc: true, flow: true },
+          { pts: [[328, 190], [328, 280]], label: '관리자 권한 불필요', labelDx: 68, labelDy: 2, acc: true, flow: true },
+          { pts: [[328, 320], [328, 410]], label: '용량 사전 검사', labelDx: 58, labelDy: 2, acc: true, flow: true },
+          { pts: [[328, 450], [328, 540]], label: '모델 검증 → 로드', labelDx: 62, labelDy: 2, acc: true, flow: true },
+        ]}
+        boxes={[
+          { id: 'mic', ...row(20, 0), title: '강사 발화', sub: '마이크 입력', icon: FaMicrophone, iconColor: '#C9CFE0', muted: true, label: 'left' },
+          { id: 'asr', ...row(20, 1), title: 'Whisper', sub: '한국어 ASR', icon: FaLanguage, iconColor: '#C9CFE0', muted: true, label: 'left' },
+          { id: 'nmt', ...row(20, 2), title: 'NLLB-200', sub: '한 → 영 번역', icon: FaLanguage, iconColor: '#C9CFE0', muted: true, label: 'left' },
+          { id: 'tts', ...row(20, 3), title: 'TTS', sub: '영어 음성 합성', icon: FaVolumeUp, iconColor: '#C9CFE0', muted: true, label: 'left' },
+          { id: 'browser', ...row(20, 4), title: '수강자 브라우저', sub: '자막 · 음성 · 슬라이드', icon: FaGlobe, iconColor: '#C9CFE0', muted: true, label: 'left' },
+          { id: 'setup', ...row(300, 0), title: 'setup.exe', sub: '모델 포함 17GB', icon: FaBoxOpen, iconColor: '#F2C94C', mine: true, label: 'left' },
+          { id: 'peruser', ...row(300, 1), title: 'per-user 설치', sub: '강의실 PC', icon: FaDesktop, iconColor: '#F2F4FA', mine: true, label: 'left' },
+          { id: 'disk', ...row(300, 2), title: '디스크 체크', sub: '설치 전 사전 검사', icon: FaHdd, iconColor: '#F2F4FA', mine: true, label: 'left' },
+          { id: 'first', ...row(300, 3), title: '첫 실행', sub: '모델 검증', icon: FaDownload, iconColor: '#F2F4FA', mine: true, label: 'left' },
+          { id: 'ready', ...row(300, 4), title: '강의 시작 가능', sub: 'health OK', icon: FaCheck, iconColor: '#46BE8C', mine: true, label: 'left' },
+        ]}
+      />
+      {/* 행 태그 — 각 줄의 앞쪽(왼쪽 아래) 끝 */}
+      <text className="iso-plate__label" x={640 + (48 - 600) * 0.866} y={30 + (48 + 600) * 0.5 + 4} textAnchor="middle">실시간 번역 · 2초 이내 (팀)</text>
+      <text className="iso-plate__label" x={640 + (328 - 600) * 0.866} y={30 + (328 + 600) * 0.5 + 4} textAnchor="middle">설치 → 첫 실행 (본인)</text>
     </Diagram>
   )
 }
@@ -82,11 +93,11 @@ export function BunminSeq() {
     <Seq
       w={760}
       actors={[
-        { name: '강사', muted: true },
-        { name: 'setup.exe (Inno)', mine: true },
-        { name: 'Electron 앱', muted: true },
-        { name: 'backend.exe', mine: true },
-        { name: '모델 저장소', muted: true },
+        { name: '강사', muted: true, icon: FaUser, iconColor: '#C9CFE0' },
+        { name: 'setup.exe (Inno)', mine: true, icon: FaBoxOpen, iconColor: '#F2C94C' },
+        { name: 'Electron 앱', muted: true, icon: 'electron' },
+        { name: 'backend.exe', mine: true, icon: 'python' },
+        { name: '모델 저장소', muted: true, icon: FaDatabase, iconColor: '#C9CFE0' },
       ]}
       messages={[
         { from: 0, to: 1, label: '설치 실행 (관리자 권한 없음)' },

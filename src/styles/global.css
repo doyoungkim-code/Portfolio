@@ -722,6 +722,8 @@ html.fixed-canvas .pf-3d{left:0;right:0}
 .iso-box--muted .iso-box__title{fill:var(--d-ink2)}
 .iso-box__title{font-size:13.5px}
 .iso-box__sub{font-size:10.5px}
+/* 글자에 배경색 테두리 — 선·상자 위에 겹쳐도 읽히게 */
+.pf-deep .dg-label,.iso-box__title,.iso-box__sub,.iso-plate__label{paint-order:stroke;stroke:var(--d-bg);stroke-width:3px;stroke-linejoin:round}
 .iso-flow{fill:#F2F4FA;opacity:.9}
 .iso-flow--acc{fill:var(--accent)}
 .pf-cover--alt .iso-flow--acc{fill:var(--pur)}
@@ -780,8 +782,8 @@ html.fixed-canvas .pf-3d{left:0;right:0}
   .pf-device--phone .pf-demo__stage{width:auto;height:100%;aspect-ratio:1/2}
   /* 넓은 창에서는 디바이스 열도 비례해서 커지고, 패널(다이어그램)도 넓어진다 */
   .pf-deep{grid-template-columns:minmax(600px,42%) 1fr}
-  /* 디바이스 종류별 열 너비: 휴대폰은 높이 제한이라 좁게, 남는 폭은 패널(다이어그램)에 */
-  .pf-deep--phone{grid-template-columns:520px 1fr}
+  /* 두 프로젝트의 우측 패널 폭을 같게 — 좌측 열은 모니터 기준 폭으로 통일 (휴대폰은 높이 제한이라 그 안에서 중앙) */
+  .pf-deep--phone{grid-template-columns:minmax(620px,46%) 1fr}
   /* 확대된 휴대폰 화면은 스테이지 박스(1:2)를 넘어 디바이스 열 전체 폭까지 보이게 — 열 밖은 잘라냄 */
   .pf-device--phone{overflow:hidden}
   .pf-device--phone .pf-demo__stage{overflow:visible}

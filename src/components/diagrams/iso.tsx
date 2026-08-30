@@ -19,7 +19,7 @@ export function iso(x: number, y: number, z = 0): [number, number] {
 const pt = (p: [number, number]) => `${p[0].toFixed(1)},${p[1].toFixed(1)}`
 
 export interface IsoBoxSpec {
-  id: string
+  id?: string
   x: number
   y: number
   w: number
@@ -83,7 +83,7 @@ export function IsoPlate({ x, y, w, d, t = 10, label }: IsoPlateSpec) {
       <polygon className="iso-plate__left" points={`${pt(D)} ${pt(C)} ${pt(C0)} ${pt(D0)}`} />
       <polygon className="iso-plate__right" points={`${pt(B)} ${pt(C)} ${pt(C0)} ${pt(B0)}`} />
       <polygon className="iso-plate__top" points={`${pt(A)} ${pt(B)} ${pt(C)} ${pt(D)}`} />
-      <text className="iso-plate__label" x={C[0]} y={C[1] + 24} textAnchor="middle">{label}</text>
+      {label && <text className="iso-plate__label" x={C[0]} y={C[1] + 24} textAnchor="middle">{label}</text>}
     </g>
   )
 }
@@ -114,7 +114,7 @@ export function IsoBox({ x, y, w, d, h, title, sub, icon, iconColor, mine, muted
   )
 }
 
-export function IsoPath({ pts, z = 0, label, seg, labelDx = 0, labelDy = -7, dashed, acc, flow, noArrow }: IsoPathSpec) {
+export function IsoPath({ pts, z = 0, label, seg, labelDx = 0, labelDy = -7, dashed, acc, flow, noArrow, part = 'all' }: IsoPathSpec & { part?: 'all' | 'line' | 'label' }) {
   const sp = pts.map(([x, y]) => iso(x, y, z))
   const dStr = sp.map((p, i) => `${i === 0 ? 'M' : 'L'}${pt(p)}`).join(' ')
   let bi = seg ?? 0
@@ -129,23 +129,25 @@ export function IsoPath({ pts, z = 0, label, seg, labelDx = 0, labelDy = -7, das
   const my = (sp[bi][1] + sp[bi - 1][1]) / 2 + labelDy
   return (
     <g className="iso-path">
-      <path
-        d={dStr}
-        className={`dg-edge${dashed ? ' dg-edge--dashed' : ''}${acc ? ' dg-edge--acc' : ''}`}
-        markerEnd={noArrow ? undefined : `url(#${acc ? 'dg-arrow-acc' : 'dg-arrow'})`}
-      />
-      {flow && (
+      {part !== 'label' && (
+        <path
+          d={dStr}
+          className={`dg-edge${dashed ? ' dg-edge--dashed' : ''}${acc ? ' dg-edge--acc' : ''}`}
+          markerEnd={noArrow ? undefined : `url(#${acc ? 'dg-arrow-acc' : 'dg-arrow'})`}
+        />
+      )}
+      {part !== 'label' && flow && (
         <circle r={3.2} className={`iso-flow${acc ? ' iso-flow--acc' : ''}`}>
           <animateMotion dur="2.6s" repeatCount="indefinite" path={dStr} />
         </circle>
       )}
-      {label && <text x={mx} y={my} textAnchor="middle" className="dg-label">{label}</text>}
+      {part !== 'line' && label && <text x={mx} y={my} textAnchor="middle" className="dg-label">{label}</text>}
     </g>
   )
 }
 
 /**
- * 장면: 바닥판 → 바닥 경로 → 상자(뒤에서 앞 순서로 자동 정렬).
+ * 장면: 바닥판 → 바닥 경로(선) → 상자(뒤에서 앞 순서로 자동 정렬) → 경로 라벨(맨 위, 상자에 가리지 않게).
  * origin: viewBox 안에서 월드 (0,0,0)이 놓일 화면 좌표
  */
 export function IsoScene({ origin, plates = [], paths = [], boxes }: {
@@ -159,8 +161,9 @@ export function IsoScene({ origin, plates = [], paths = [], boxes }: {
   return (
     <g transform={`translate(${origin[0]} ${origin[1]})`}>
       {plates.map((p) => <IsoPlate key={p.label} {...p} />)}
-      {paths.map((p, i) => <IsoPath key={i} z={z} {...p} />)}
-      {sorted.map((b) => <IsoBox key={b.id} {...b} />)}
+      {paths.map((p, i) => <IsoPath key={i} z={z} {...p} part="line" />)}
+      {sorted.map((b) => <IsoBox key={b.id ?? b.title} {...b} />)}
+      {paths.map((p, i) => <IsoPath key={`l${i}`} z={z} {...p} part="label" />)}
     </g>
   )
 }
