@@ -604,6 +604,29 @@ html.fixed-canvas .pf-demo__title{font-size:44px}
 /* 고정 크롬은 뷰포트 기준이므로 레터박스만큼 안쪽으로 */
 html.fixed-canvas .pf-3d{left:0;right:0}
 
+/* ── 첫 화면(ABOUT): 텍스트는 왼쪽 절반, 오른쪽 절반은 배경 그림이 거의 그대로 보이게 ── */
+@media(min-width:861px){
+  #cv-about{justify-content:flex-start;text-align:left;padding-left:230px;padding-right:40px}
+  #cv-about .pf-cover__in{max-width:700px;margin:0}
+  #cv-about .pf-display{white-space:nowrap}
+  #cv-about .pf-vitals span{white-space:nowrap;font-size:12.5px}
+  #cv-about .pf-cover__num{display:none}
+  #cv-about .pf-cover__bg img{opacity:.92;filter:saturate(.9)}
+  #cv-about .pf-cover__bg::after{
+    background:
+      linear-gradient(180deg, rgba(12,15,29,.45) 0%, rgba(12,15,29,0) 22%, rgba(12,15,29,0) 72%, rgba(12,15,29,.55) 100%),
+      linear-gradient(90deg, rgba(12,15,29,.97) 0%, rgba(12,15,29,.93) 36%, rgba(12,15,29,.6) 54%, rgba(12,15,29,.1) 70%, rgba(12,15,29,.06) 100%);
+  }
+  #cv-about::before{opacity:.5}
+  #cv-about .pf-display{font-size:84px}
+  html.fixed-canvas #cv-about .pf-display{font-size:84px}
+  #cv-about .pf-cover__desc .pf-br{display:block}
+  #cv-about .pf-vitals{justify-content:flex-start;margin-top:44px}
+  #cv-about .pf-vitals>div{padding:4px 18px}
+  #cv-about .pf-vitals>div:first-child{padding-left:0}
+  #cv-about .pf-coverlinks{justify-content:flex-start}
+}
+
 /* ── 글씨 확대 후 900px 캔버스에 맞추기 위한 간격 조정 ── */
 #cv-skills{padding-top:100px;padding-bottom:80px}
 #cv-skills .pf-overline{margin-bottom:22px}
