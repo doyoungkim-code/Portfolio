@@ -276,7 +276,8 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 /* 연락처 — EMAIL · GITHUB · BLOG */
 .pf-links{display:flex;justify-content:center;gap:18px;margin-top:52px;flex-wrap:wrap}
 .pf-links__item{
-  display:flex;flex-direction:column;align-items:center;gap:8px;min-width:230px;
+  display:flex;flex-direction:column;align-items:center;gap:7px;min-width:230px;
+  font:inherit;color:inherit;text-align:center;cursor:pointer;
   padding:26px 30px 22px;border:1px solid var(--d-line);border-radius:4px;
   background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
   transition:transform .3s ease,border-color .3s ease,background .3s ease;
@@ -292,6 +293,13 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 .pf-links__item b{font-family:var(--font-disp);font-weight:400;font-size:12.5px;letter-spacing:.32em;color:var(--d-ink)}
 .pf-links__val{font-weight:300;font-size:15px;color:var(--d-ink2);transition:color var(--tr)}
 .pf-links__item:hover .pf-links__val{color:var(--d-ink)}
+.pf-links__hint{font-family:var(--font-disp);font-size:10.5px;letter-spacing:.16em;color:var(--d-ink3);transition:color var(--tr)}
+.pf-links__item:hover .pf-links__hint{color:var(--d-ink2)}
+/* 복사 완료 */
+.pf-links__item.is-copied{border-color:rgba(70,190,140,.55);background:linear-gradient(180deg,rgba(70,190,140,.14),rgba(70,190,140,.04))}
+.pf-links__item.is-copied .pf-links__icon{color:#46BE8C;border-color:rgba(70,190,140,.55)}
+.pf-links__item.is-copied .pf-links__hint{color:#46BE8C}
+.pf-links__live{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 
 /* 하단 원형 chevron */
 .pf-down{
@@ -527,6 +535,14 @@ body::-webkit-scrollbar-thumb:hover{background:#4C556E}
 .pf-demo__scaler{position:relative;overflow:hidden;background:transparent}
 .pf-demo__frame{position:absolute;top:0;left:0;border:0;transform-origin:top left;background:#fff;display:block}
 .pf-demo__shield{position:absolute;inset:0;cursor:default}
+/* 데모가 켜지기 전 대기 화면 — 빈 화면이 오류처럼 보이지 않게 로고 */
+.pf-demo__boot{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center;background:#0A0D18;transition:opacity .5s ease}
+.pf-demo__boot.is-off{opacity:0}
+.pf-demo__boot-mark{font-family:var(--font-disp);font-weight:500;font-size:20px;letter-spacing:.28em;color:rgba(242,244,250,.42);animation:bootPulse 2.4s ease-in-out infinite}
+.pf-demo__boot-mark i{font-style:normal;color:var(--accent)}
+.pf-cover--alt .pf-demo__boot-mark i{color:var(--pur)}
+@keyframes bootPulse{0%,100%{opacity:.55}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.pf-demo__boot-mark{animation:none}}
 .pf-demo__steps--dim{opacity:.45}
 
 .pf-demo__side{display:flex;flex-direction:column;min-height:0}
@@ -687,7 +703,8 @@ html.fixed-canvas .pf-3d{left:0;right:0}
   .pf-jn__head .pf-display{font-size:56px;white-space:nowrap}
   html.fixed-canvas .pf-jn__head .pf-display{font-size:56px}
   /* 열은 위를 맞춘다(큐브 밑면 = 레일). 수상이 붙은 SSAFY 열만 아래로 더 내려온다 */
-  .pf-jn__band{position:absolute;left:230px;right:60px;bottom:52px;z-index:5;grid-template-columns:1fr 1fr 1fr;gap:28px;align-items:start}
+  /* 수상 블록이 빠져 열이 짧아졌으므로 띠를 위로 — 하단 메타와 겹치지 않게 */
+  .pf-jn__band{position:absolute;left:230px;right:60px;bottom:84px;z-index:5;grid-template-columns:1fr 1fr 1fr;gap:28px;align-items:start}
   .pf-jn__stair{height:88px}
   .pf-jn__logobox{height:40px;margin:4px 0 10px}
   .pf-jn__desc{white-space:nowrap}

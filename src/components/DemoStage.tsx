@@ -90,6 +90,12 @@ export function DemoStage({ path, hash, size, title, bare = false, focus, onPhas
 
   return (
     <div ref={stageRef} className={`pf-demo__stage${bare ? ' pf-demo__stage--bare' : ''}`}>
+      {/* 화면이 켜지기 전(로드·루프 재시작) — 빈 화면 대신 대기 로고 */}
+      {!bare && (
+        <div className={`pf-demo__boot${ready ? ' is-off' : ''}`} aria-hidden>
+          <span className="pf-demo__boot-mark">DOYOUNG<i>.</i></span>
+        </div>
+      )}
       {mounted && cw > 0 && (
         <div className={`pf-demo__scaler${ready ? ' is-ready' : ''}`} style={{ width: cw, height: ch, transform: camera }}>
           <iframe

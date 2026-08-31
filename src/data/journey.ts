@@ -1,21 +1,12 @@
-export interface JourneyAward {
-  title: string
-  date: string
-}
-
 export interface JourneyRow {
   /** 시작 연월 (타임라인 좌표용) */
   start: string
   date: string
   name: string
   desc: string
-  /** 그 과정에서 받은 상 — 공식 명칭 그대로 */
-  awards?: JourneyAward[]
-  /** 수상 기관 (awards 위에 작게) */
-  awardsBy?: string
 }
 
-/* 간단하게 — 한 줄씩. 수상은 해당 과정 열에 붙는다 */
+/* 간단하게 — 한 줄씩. 수상은 PROJECT 02 커버의 배너에서 강조하므로 여기엔 넣지 않는다 */
 export const journeyRows: JourneyRow[] = [
   {
     start: '2018.03',
@@ -34,11 +25,6 @@ export const journeyRows: JourneyRow[] = [
     date: '2025.07 — 2026.06',
     name: 'SSAFY 14기 · 전공 Java 과정',
     desc: 'Java/Spring Boot · 기획부터 출시 · 운영까지',
-    awardsBy: '삼성청년SW·AI아카데미',
-    awards: [
-      { title: '자율프로젝트 우수상 (1위)', date: '2026.05.21' },
-      { title: '전시발표회 우수상 (3위)', date: '2026.06.02' },
-    ],
   },
 ]
 
