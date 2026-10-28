@@ -9,7 +9,7 @@ export function BunminArch() {
     <Diagram w={960} h={626}>
       <IsoScene
         origin={[500, 160]}
-        plates={[{ x: 0, y: 0, w: 400, d: 400, label: '강의자 PC 한 대 — 온디바이스 (서버 없음) · 2초 이내 실시간 번역' }]}
+        plates={[{ x: 0, y: 0, w: 400, d: 400, label: '강의자 PC 한 대 — 온디바이스 (서버 없음) · 목표 2초 이내 실시간 번역' }]}
         paths={[
           /* 배포 파이프라인 (본인) → 강의실 PC에 설치 */
           { pts: [[-172, 40], [-172, 120]], from: 'pyinstaller', to: 'builder', acc: true, flow: true },
@@ -38,7 +38,7 @@ export function BunminArch() {
           { id: 'nllb', detail: '팀원 담당 — NLLB-200 한 → 영 기계 번역', x: 300, y: 170, ...S, title: 'NLLB-200', sub: '한 → 영 번역', icon: FaLanguage, iconColor: '#C9CFE0', muted: true, label: 'right' },
           { id: 'tts', detail: '팀원 담당 — 번역문을 영어 음성으로 합성', x: 300, y: 300, ...S, title: 'TTS', sub: '영어 음성 합성', icon: FaVolumeUp, iconColor: '#C9CFE0', muted: true, label: 'right' },
           /* 수강자 브라우저 — 바닥판 오른쪽 위 */
-          { id: 'browser', detail: '팀원 담당 — 자막 · TTS · 번역 슬라이드 · 판서 · 커서 스팟라이트 수신, 회선 품질에 따른 P90 적응형 딜레이', x: 160, y: -150, ...S, title: '수강자 브라우저', sub: '자막 · TTS · 번역 슬라이드', icon: FaGlobe, iconColor: '#C9CFE0', muted: true, label: 'above' },
+          { id: 'browser', detail: '팀원 담당 — 자막 · TTS · 번역 슬라이드 · 판서 · 커서 스팟라이트 수신, 회선 품질에 따른 P90 적응형 딜레이. 번역 처리 목표는 2초, 회선 품질이 나쁠 때는 수강자 화면 동기화를 최대 20초까지 늦춰 끊김을 막음', x: 160, y: -150, ...S, title: '수강자 브라우저', sub: '자막 · TTS · 번역 슬라이드', icon: FaGlobe, iconColor: '#C9CFE0', muted: true, label: 'above' },
         ]}
         captionAt={[-480, 450]}
       />
@@ -83,7 +83,7 @@ export function BunminFlow() {
         captionAt={[-620, 484]}
       />
       {/* 행 태그 — 각 줄의 앞쪽(왼쪽 아래) 끝 */}
-      <text className="iso-plate__label" x={640 + (48 - 600) * 0.866} y={30 + (48 + 600) * 0.5 + 4} textAnchor="middle">실시간 번역 · 2초 이내 (팀)</text>
+      <text className="iso-plate__label" x={640 + (48 - 600) * 0.866} y={30 + (48 + 600) * 0.5 + 4} textAnchor="middle">실시간 번역 · 목표 2초 이내 (팀)</text>
       <text className="iso-plate__label" x={640 + (328 - 600) * 0.866} y={30 + (328 + 600) * 0.5 + 4} textAnchor="middle">설치 → 첫 실행 (본인)</text>
     </Diagram>
   )

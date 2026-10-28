@@ -45,13 +45,13 @@ AI 도구를 활용하는 개발 습관으로 **AI 활용 능력까지 갖춘** 
 ## 3. 스킬 (경험 근거 서술형 — %게이지·레벨 라벨 금지)
 
 ### 메인 (면접 방어 가능 확인됨)
-- **Java + Spring Boot** — SSABREE TIME에서 인증·게시판·실시간 채팅·FCM 등 20+ 도메인 모듈을 실서비스 수준으로 구현·출시·운영.
-- **JPA + PostgreSQL** — ERD 3차 반복 설계(15+ 엔티티, 44 Repository), 댓글 Soft Delete(트리 보존), 커서 기반 페이지네이션.
+- **Java + Spring Boot** — SSABREE TIME에서 인증·게시판·실시간 채팅·FCM 등 20+ 도메인 모듈을 실서비스 수준으로 구현·출시.
+- **JPA + PostgreSQL** — ERD 3차 반복 공동 설계(15+ 엔티티, 44 Repository), 댓글 Soft Delete(트리 보존), 커서 기반 페이지네이션.
 - **Redis** — HOT 게시판 3분 TTL 캐시, 인기 검색어 Sorted Set 트렌딩 등 캐싱 전략 설계·운영.
 - **C / C++ (42경산)** — Unix 프로세스·메모리 관리 등 시스템 프로그래밍으로 다진 CS 저변.
 
 ### 보조
-- AWS EC2·Nginx (SSABREE 배포·운영), Python·FastAPI (번역의 민족 백엔드 일부),
+- AWS EC2·Nginx (SSABREE — 팀원이 구축·운영한 환경에서 개발), Python·FastAPI (번역의 민족 백엔드 일부),
   Electron·패키징(PyInstaller/electron-builder/Inno Setup), Docker, Git, MySQL, HTML5·JavaScript, Vue.js
 
 ### 모집요강 매핑 — 방송·미디어 기업 서버 개발 직군 기준 (2026-08-28 사실 확인 완료)
@@ -62,8 +62,8 @@ AI 도구를 활용하는 개발 습관으로 **AI 활용 능력까지 갖춘** 
 | RDBMS(MySQL 등) 설계 개발 | 필수 | ERD 3차 반복, 15+ 엔티티 스키마 설계, MySQL·PostgreSQL | ✅ 스킬 카드 "RDBMS 설계" 명시 |
 | HTML5, JavaScript & jQuery | 필수 | HTML5·JavaScript·Vue.js ○ / **jQuery는 미경험 → 언급 금지** | ✅ 태그에 HTML5·JS |
 | 포트폴리오 제출 | 필수 | 이 포트폴리오 (URL) | ✅ |
-| AI 모델 연동·활용 (PyTorch 등) | 우대 | Whisper·NLLB 등 PyTorch 계열 로컬 모델 패키징·운용 / OpenAI API·MCP는 **미경험** | ✅ 스킬 하단 리스트 |
-| 클라우드 서비스 개발·운영 (AWS 등) | 우대 | SSABREE를 AWS EC2에 배포, 출시~SSAFY 수료(2026.07)까지 운영 후 종료 | ✅ 스킬·프로젝트에 반영 |
+| AI 모델 연동·활용 (PyTorch 등) | 우대 | 팀원이 만든 AI 모델(Whisper·NLLB-200 등)을 17GB 설치 파일로 패키징 — 모델 개발·운용은 팀원 / OpenAI API·MCP는 **미경험** | ✅ 스킬 하단 리스트 |
+| 클라우드 서비스 개발·운영 (AWS 등) | 우대 | SSABREE는 팀원이 AWS EC2에 배포·운영 (본인은 그 환경에서 개발) → **본인 경험으로 쓰지 않음** | ✅ 프로젝트에 "팀" 주어로만 표기 |
 | MLOps/DevOps 자동화 | 우대 | Docker + 3단계 빌드 파이프라인(번역의 민족) / CI/CD 구축은 팀원 담당 → **본인 경험으로 쓰지 않음** | ✅ "빌드 자동화"로 표현 |
 | SW 개발 전공 | 우대 | 정보통신공학과 | ✅ Journey |
 | SQLD 등 자격증 | 우대 | 정보처리기사 (2026.06) · SQLD (2024.04) | ✅ JOURNEY 타임라인 (취득 시점의 과정 열) |
@@ -75,13 +75,13 @@ AI 도구를 활용하는 개발 습관으로 **AI 활용 능력까지 갖춘** 
 ```
 기간      : 2026.01.06 ~ 2026.02.09 (약 6주)
 팀 인원   : 6명 (BE 2, Android 3, iOS 1 겸임)
-역할      : Backend
+역할      : Backend (2명 중 1명)
 기술 스택 : Java, Spring Boot, PostgreSQL, Redis
 회고 링크 : https://dyomyo.tistory.com/118
 ```
 
 **한 줄**: SSAFY 교육생 전용 폐쇄형 커뮤니티 + 팀 매칭 서비스 (에브리타임 벤치마킹).
-앱스토어·원스토어에 실제 출시, **150명 이상 실사용** (자소서 기준, 2026-08-29 확인), **AWS EC2에 배포해 SSAFY 수료(2026.07)까지 운영 후 종료** (2026-08-29 확인 — "현재 운영 중"으로 쓰지 말 것).
+앱스토어·원스토어에 실제 출시, **150명 이상 실사용** (자소서 기준, 2026-08-29 확인), **팀이 AWS EC2에 배포해 SSAFY 수료(2026.06)까지 운영 후 종료** (2026-08-29 확인 — "현재 운영 중"으로 쓰지 말 것).
 
 ### 성과 수치 (전부 사실 확인)
 - 출시 1주 내 100+ 유저, 누적 150명 이상 실사용
@@ -90,22 +90,22 @@ AI 도구를 활용하는 개발 습관으로 **AI 활용 능력까지 갖춘** 
 - 20+ 도메인 모듈, 44 Repository
 
 ### 담당 영역 (전부 본인 구현 확인 — 단, 세부 기억 흐릿 → INTERVIEW_PREP.md 참조)
-1. **인증/인가** — JWT Access(30분)+Refresh(1년) 이중 토큰, SSAFY Mattermost 연동 본인 인증, Spring Security 필터 체인
+1. **인증/인가** — JWT Access(30분)+Refresh(1년) 이중 토큰, Mattermost 메신저로 인증 코드를 보내 입력받아 SSAFY 교육생만 가입, Spring Security 필터 체인
 2. **게시판 + 캐싱** — CRUD·좋아요·스크랩·투표, 커서 기반 페이지네이션, HOT 게시판(Redis 3분 TTL), 인기 검색어(Redis Sorted Set)
-3. **실시간 채팅** — WebSocket STOMP, 핸들러 레벨 JWT 검증, Nginx WebSocket 프록시
+3. **실시간 채팅** — WebSocket STOMP, 핸들러 레벨 JWT 검증 (Nginx WebSocket 프록시는 팀원 담당)
 4. **팀/스터디 매칭** — 생성→모집→운영→종료 생명주기 API, 지원/수락/거절, Task 관리
 5. **FCM 푸시** — Firebase Admin SDK, 이벤트별 푸시, @Async 비동기 전송
 6. **DB 설계(공동) & 기타** — ERD 1~3차, 댓글 Soft Delete, 포트폴리오 CRUD·solved.ac 연동
 
 ### 기술 선택 이유
-- PostgreSQL (vs MySQL): 복잡한 JOIN 최적화, CTE 재귀 쿼리(대댓글), JSON 타입 확장성
+- PostgreSQL: CTE 재귀 쿼리(대댓글)
 - Redis: 집계 부하가 큰 HOT 게시판 캐시, 인기 검색어 Sorted Set
-- WebSocket STOMP (vs Polling): 서버 부하 감소, 토픽 기반 구독/발행, SockJS 폴백
+- WebSocket STOMP: Polling 대신 토픽 기반 구독/발행, SockJS 폴백
 
 ### 트러블슈팅 (3건 모두 실제 경험 확인 — 세부는 INTERVIEW_PREP.md로 보강)
-1. **Jackson 3 + Redis 직렬화 연쇄 장애** — Spring Boot 4.0의 Jackson 3 강제로 Redis 직렬화 설정 전체 파손 → GenericJackson3JsonRedisSerializer로 @class 타입 정보 보존
-2. **회원탈퇴 Side Effect (4일 추적)** — Hard Delete의 FK 연쇄 오류 → Soft Delete(deletedAt) 전환, 리더 탈퇴 null 처리, 게시물 "탈퇴한 사용자" 표시
-3. **API 스펙 반복 수정** — 엔드포인트만 적힌 명세로 웹·Android·iOS 요청에 5차까지 수정 → Req/Res body 필드 단위 명세 + Swagger 이후 재요청 소멸
+1. **Jackson 3 + Redis 직렬화 연쇄 장애** — Spring Boot 4.0의 Jackson 3 강제로 Redis 직렬화 설정 전체 파손 → 팀원과 함께 GenericJacksonJsonRedisSerializer로 교체해 @class 타입 정보 보존 (본인은 에러 로그로 원인 추적)
+2. **회원탈퇴 Side Effect (4일 추적)** — soft delete였던 탈퇴를 개인정보 보호를 위해 완전 삭제로 바꾸자 FK 오류 4일(출시 전) → 계정은 완전 삭제, 게시글·댓글은 작성자를 비워 "탈퇴한 사용자"로 보존, 리더 탈퇴 팀은 리더 null → 출시 후 탈퇴 오류 없음
+3. **API 스펙 반복 수정** — 엔드포인트만 적힌 명세로 웹·Android·iOS 요청에 5차까지 수정 → Req/Res body 필드 단위 명세 + Swagger 이후 재요청 감소
 
 ---
 
@@ -114,7 +114,7 @@ AI 도구를 활용하는 개발 습관으로 **AI 활용 능력까지 갖춘** 
 ```
 기간      : 2026.04.06 ~ 2026.06.02 (약 8주)
 팀 인원   : 6명 (팀장)
-역할      : 팀장 / Electron 배포 인프라 / 설치·다운로드 플로우 / FastAPI 일부
+역할      : 팀장 / Electron 배포 / 설치·다운로드 플로우 / FastAPI 일부
 기술 스택 : Python, FastAPI, Electron, PyInstaller, electron-builder, Inno Setup
 ```
 
